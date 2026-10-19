@@ -1,0 +1,78 @@
+---
+// SocialProofMarquee.astro
+// Using the two main banner images for the marquee as found on the reference site
+---
+
+<section class="py-12 bg-brand-lighter overflow-hidden border-b border-black/5">
+  <div class="container mx-auto px-4 mb-12">
+    <div class="flex items-center justify-center gap-4 md:gap-8 overflow-hidden whitespace-nowrap">
+      <div class="h-px bg-black/10 grow max-w-[200px]"></div>
+      <h2 class="text-[10px] md:text-xs font-black text-gray-400 uppercase tracking-[0.3em] shrink-0">
+        QUEM JÁ UTILIZA A RATOEIRA
+      </h2>
+      <div class="h-px bg-black/10 grow max-w-[200px]"></div>
+    </div>
+  </div>
+
+  <div class="space-y-8 relative">
+    <!-- First Row: Colored, Right to Left -->
+    <div class="marquee-container marquee-right-to-left">
+      <div class="marquee-inner flex">
+        <img src="/assets/mentores-01.webp" alt="Mentores Ratoeira" class="h-[40px] md:h-14 lg:h-16 w-auto object-contain shrink-0 max-w-none" />
+        <img src="/assets/mentores-01.webp" alt="Mentores Ratoeira" class="h-[40px] md:h-14 lg:h-16 w-auto object-contain shrink-0 max-w-none" />
+        <img src="/assets/mentores-01.webp" alt="Mentores Ratoeira" class="h-[40px] md:h-14 lg:h-16 w-auto object-contain shrink-0 max-w-none" />
+        <img src="/assets/mentores-01.webp" alt="Mentores Ratoeira" class="h-[40px] md:h-14 lg:h-16 w-auto object-contain shrink-0 max-w-none" />
+      </div>
+    </div>
+
+    <!-- Second Row: Grayscale/BW, Left to Right -->
+    <div class="marquee-container marquee-left-to-right">
+      <div class="marquee-inner flex opacity-50 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-700 mt-4 md:mt-0">
+        <img src="/assets/mentores-02.webp" alt="Mentores Ratoeira BW" class="h-[30px] md:h-12 lg:h-14 w-auto object-contain shrink-0 max-w-none" />
+        <img src="/assets/mentores-02.webp" alt="Mentores Ratoeira BW" class="h-[30px] md:h-12 lg:h-14 w-auto object-contain shrink-0 max-w-none" />
+        <img src="/assets/mentores-02.webp" alt="Mentores Ratoeira BW" class="h-[30px] md:h-12 lg:h-14 w-auto object-contain shrink-0 max-w-none" />
+        <img src="/assets/mentores-02.webp" alt="Mentores Ratoeira BW" class="h-[30px] md:h-12 lg:h-14 w-auto object-contain shrink-0 max-w-none" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .marquee-container {
+    mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .marquee-inner {
+    width: fit-content;
+  }
+
+  @keyframes marqueeLeft {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-25%); } /* Based on 4 repeated images */
+  }
+
+  @keyframes marqueeRight {
+    0% { transform: translateX(-25%); }
+    100% { transform: translateX(0); }
+  }
+
+  .marquee-right-to-left .marquee-inner {
+    animation: marqueeLeft 40s linear infinite;
+  }
+
+  .marquee-left-to-right .marquee-inner {
+    animation: marqueeRight 50s linear infinite;
+  }
+
+  /* Faster on mobile */
+  @media (max-width: 768px) {
+    .marquee-right-to-left .marquee-inner {
+      animation-duration: 25s;
+    }
+    .marquee-left-to-right .marquee-inner {
+      animation-duration: 30s;
+    }
+  }
+</style>

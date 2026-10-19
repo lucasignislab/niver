@@ -1,0 +1,32 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-yellow: #FFB800;
+  --color-brand-yellow-hover: #E5A600;
+  --color-brand-dark: #171717;
+  --color-brand-darker: #0A0A0A;
+  --color-brand-light: #FFFFFF;
+  --color-brand-lighter: #F9FAFB;
+  --color-brand-card: #FFFFFF;
+  --color-brand-text: #171717;
+  --color-brand-muted: #6B7280;
+
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-bounce-slow: bounce-slow 4s ease-in-out infinite;
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+  }
+
+  @keyframes bounce-slow {
+    0%, 100% { transform: translateY(0) rotate(12deg); }
+    50% { transform: translateY(-8px) rotate(10deg); }
+  }
+}
+
+@layer base {
+  body {
+    @apply bg-brand-light text-brand-text font-sans antialiased overflow-x-hidden;
+  }
+}

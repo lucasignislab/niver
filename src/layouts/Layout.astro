@@ -1,0 +1,72 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="pt-BR" class="scroll-smooth">
+  <head>
+    <!-- Google Tag Manager -->
+    <script>
+      const win = window as any;
+      const d = document;
+      const l = "dataLayer";
+      const i = "GTM-W9MQ5VQT";
+      win[l] = win[l] || [];
+      win[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+      const f = d.getElementsByTagName("script")[0] as HTMLScriptElement | undefined;
+      const j = d.createElement("script");
+      const dl = l !== "dataLayer" ? "&l=" + l : "";
+      j.async = true;
+      j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+      f?.parentNode?.insertBefore(j, f);
+    </script>
+    <!-- End Google Tag Manager -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/png" href="/logoraads2.png" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content="2 Anos da Ratoeira Ads com a maior oferta da nossa história. Acesso exclusivo a ferramenta validada." />
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Vturb Performance Optimization -->
+    <script>
+      const w = window as any;
+      w._plt = w._plt || (performance && performance.timeOrigin ? performance.timeOrigin + performance.now() : Date.now());
+    </script>
+    <link rel="preload" href="https://scripts.converteai.net/aede18a7-d583-4407-85fb-04b064ef8dd8/players/69d95524d7a6aac50a9b9dd8/v4/player.js" as="script">
+    <link rel="preload" href="https://scripts.converteai.net/lib/js/smartplayer-wc/v4/smartplayer.js" as="script">
+    <link rel="preload" href="https://cdn.converteai.net/aede18a7-d583-4407-85fb-04b064ef8dd8/69d952b4d7a6aac50a9b96db/main.m3u8" as="fetch">
+    <link rel="dns-prefetch" href="https://cdn.converteai.net">
+    <link rel="dns-prefetch" href="https://scripts.converteai.net">
+    <link rel="dns-prefetch" href="https://images.converteai.net">
+    <link rel="dns-prefetch" href="https://api.vturb.com.br">
+  <body class="bg-brand-light text-brand-text font-['Montserrat'] antialiased selection:bg-brand-yellow/30 selection:text-brand-dark">
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W9MQ5VQT" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <slot />
+    <a
+      href="https://www.ratoeiraads.com/site"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Abrir WhatsApp"
+      class="fixed right-4 bottom-6 z-[140] block w-14 h-14 md:w-16 md:h-16 rounded-full shadow-lg shadow-black/25 hover:scale-105 transition-transform"
+    >
+      <img
+        src="/logowhats.png"
+        alt="WhatsApp"
+        class="w-full h-full object-contain"
+      />
+    </a>
+  </body>
+</html>

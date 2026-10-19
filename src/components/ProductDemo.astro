@@ -1,0 +1,110 @@
+---
+// ProductDemo.astro
+---
+
+<section id="demo" class="py-24 bg-brand-dark text-white relative overflow-hidden">
+  
+  <!-- Estética de fundo: Gradiente sutil e formas decorativas para profundidade -->
+  <div class="absolute inset-0 bg-linear-to-b from-brand-dark via-brand-darker to-brand-dark opacity-90 z-0"></div>
+  <div class="absolute w-[600px] h-[600px] bg-brand-yellow/5 rounded-full blur-[120px] top-[-10%] right-[-10%] z-0"></div>
+  <div class="absolute w-[400px] h-[400px] bg-brand-yellow/3 rounded-full blur-[100px] bottom-[-5%] left-[-5%] z-0"></div>
+
+  <div class="max-w-5xl mx-auto px-4 relative z-10 text-center">
+    
+    <div class="mb-12 space-y-4 reveal-on-scroll">
+      <h2 class="text-3xl md:text-5xl font-black text-white leading-tight tracking-tight">
+        VEJA A MENSAGEM DO <span class="bg-linear-to-r from-brand-yellow to-yellow-300 bg-clip-text text-transparent">NOSSO CEO</span>
+      </h2>
+    </div>
+
+    <!-- Video Container com Glow Premium -->
+    <div class="relative group/video max-w-[400px] mx-auto reveal-on-scroll" style="animation-delay: 200ms;">
+      <!-- Outer glow effect -->
+      <div class="absolute -inset-1.5 bg-linear-to-r from-brand-yellow/40 to-yellow-500/20 rounded-[2rem] blur-xl opacity-20 group-hover:opacity-40 transition-opacity duration-500"></div>
+      
+      <!-- Video Wrapper -->
+      <div class="relative max-w-4xl mx-auto reveal-on-scroll">
+        <div class="rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl p-1 md:p-4 shadow-2xl overflow-hidden group">
+          <!-- Vturb Smartplayer - Deixando a proporção fluida para evitar cortes -->
+          <vturb-smartplayer id="vid-69d95524d7a6aac50a9b9dd8" style="display: block; margin: 0 auto; width: 100%;"></vturb-smartplayer>
+          <script type="text/javascript">
+            var s=document.createElement("script");
+            s.src="https://scripts.converteai.net/aede18a7-d583-4407-85fb-04b064ef8dd8/players/69d95524d7a6aac50a9b9dd8/v4/player.js",
+            s.async=!0,
+            document.head.appendChild(s);
+          </script>
+        </div>
+      </div>
+      
+      <!-- Decorative tech element -->
+      <div class="absolute -bottom-6 -right-6 w-24 h-24 bg-brand-yellow/10 rounded-full blur-2xl z-0 pointer-events-none"></div>
+      <div class="absolute -top-6 -left-6 w-24 h-24 bg-brand-yellow/10 rounded-full blur-2xl z-0 pointer-events-none"></div>
+    </div>
+
+    <!-- Call to Action sutil opcional -->
+    <div class="mt-16 reveal-on-scroll" style="animation-delay: 400ms;">
+      <p class="text-sm font-bold text-gray-500 uppercase tracking-widest flex items-center justify-center gap-4">
+        <span class="w-8 h-px bg-white/10"></span>
+        Tecnologia validada por +3.000 profissionais
+        <span class="w-8 h-px bg-white/10"></span>
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<script is:inline>
+  (function() {
+    const initVideo = () => {
+      const wrapper = document.getElementById('video-wrapper');
+      const cover = document.getElementById('video-cover');
+      const video = document.getElementById('demo-video');
+
+      if (wrapper && cover && video) {
+        // Usa cloneNode para remover event listeners antigos se rodar no astro:after-swap
+        const newWrapper = wrapper.cloneNode(true);
+        wrapper.parentNode.replaceChild(newWrapper, wrapper);
+        
+        const newCover = newWrapper.querySelector('#video-cover');
+        const newVideo = newWrapper.querySelector('#demo-video');
+
+        newWrapper.addEventListener('click', () => {
+          if (!newCover.classList.contains('pointer-events-none')) {
+            newCover.classList.add('opacity-0', 'pointer-events-none');
+            newVideo.classList.remove('opacity-0');
+            newVideo.play().catch(e => console.error("Auto-play prevented", e));
+          }
+        });
+      }
+    };
+
+    initVideo();
+    document.addEventListener('astro:after-swap', initVideo);
+  })();
+</script>
+
+<style>
+  /* Reveal Animation */
+  .reveal-on-scroll {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Iframe behavior */
+  iframe {
+    filter: brightness(0.95) contrast(1.05);
+    transition: all 0.5s ease;
+  }
+  
+  .group\/video:hover iframe {
+    filter: brightness(1) contrast(1);
+  }
+</style>

@@ -1,0 +1,124 @@
+<header id="main-header" class="w-full fixed top-0 left-0 bg-transparent z-50 transition-all duration-300">
+  <div class="max-w-7xl mx-auto px-4 py-6 flex justify-between items-center transition-all duration-300">
+    <a href="/" class="flex items-center gap-2">
+      <img src="/logo_ads_pages.png" alt="Ratoeira Ads" class="h-16 md:h-20 w-auto object-contain rounded-xl drop-shadow-lg transition-all duration-300" />
+    </a>
+    <nav class="hidden md:flex items-center gap-8 text-brand-text/80 text-sm font-medium">
+      <a href="#integracoes" class="hover:text-brand-yellow transition-colors duration-300">Integrações</a>
+      <a href="#planos" class="hover:text-brand-yellow transition-colors duration-300">Planos</a>
+      <a href="#demo" class="hover:text-brand-yellow transition-colors duration-300">Como Funciona</a>
+      <a href="#faq" class="hover:text-brand-yellow transition-colors duration-300">Dúvidas</a>
+    </nav>
+    <div class="flex items-center gap-4">
+      <a href="#planos" class="hidden md:flex bg-brand-yellow hover:bg-brand-yellow-hover text-brand-dark font-black px-6 py-2.5 rounded-full transition-all duration-300 shadow-[0_0_15px_rgba(255,184,0,0.3)] hover:shadow-[0_0_25px_rgba(255,184,0,0.6)] transform hover:-translate-y-0.5 items-center gap-2 uppercase tracking-wide text-xs">
+        VER OFERTA
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7"></path></svg>
+      </a>
+
+      <!-- Menu Ícone (Mobile) -->
+      <button id="mobile-menu-toggle" aria-label="Abrir Menu" class="md:hidden text-brand-dark p-2 hover:bg-black/5 rounded-lg transition-colors">
+        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Menu Dropdown -->
+  <div id="mobile-menu" class="hidden absolute top-full left-0 w-full bg-white shadow-xl border-t border-black/5 flex-col py-6 px-6 gap-6 md:hidden max-h-[85vh] overflow-y-auto">
+    <nav class="flex flex-col gap-6 text-brand-dark font-bold text-lg uppercase tracking-tight">
+      <a href="#integracoes" class="mobile-link flex items-center justify-between border-b border-black/5 pb-4">
+        Integrações
+        <svg class="w-5 h-5 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+      </a>
+      <a href="#planos" class="mobile-link flex items-center justify-between border-b border-black/5 pb-4">
+        Planos
+        <svg class="w-5 h-5 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+      </a>
+      <a href="#demo" class="mobile-link flex items-center justify-between border-b border-black/5 pb-4">
+        Como Funciona
+        <svg class="w-5 h-5 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+      </a>
+      <a href="#faq" class="mobile-link flex items-center justify-between border-b border-black/5 pb-4">
+        Dúvidas
+        <svg class="w-5 h-5 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+      </a>
+    </nav>
+    <a href="#planos" class="mobile-link mt-4 w-full bg-brand-yellow hover:bg-brand-yellow-hover text-brand-dark font-black px-6 py-4 rounded-full text-center uppercase tracking-widest text-sm shadow-xl flex items-center justify-center gap-2">
+      VER OFERTA
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7"></path></svg>
+    </a>
+  </div>
+</header>
+
+<script is:inline>
+  (function() {
+    const initHeader = () => {
+      const header = document.getElementById('main-header');
+      const inner = header?.querySelector('div');
+      const logo = header?.querySelector('img');
+      const menuToggle = document.getElementById('mobile-menu-toggle');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const mobileLinks = document.querySelectorAll('.mobile-link');
+      
+      let isMenuOpen = false;
+
+      // Toggle menu mobile
+      if (menuToggle && mobileMenu) {
+        menuToggle.addEventListener('click', () => {
+          isMenuOpen = !isMenuOpen;
+          if (isMenuOpen) {
+            mobileMenu.classList.remove('hidden');
+            mobileMenu.classList.add('flex');
+            // Change icon to 'X'
+            menuToggle.innerHTML = '<svg class="w-7 h-7 text-brand-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path></svg>';
+            header?.classList.add('bg-white'); // ensure solid bg
+          } else {
+            mobileMenu.classList.add('hidden');
+            mobileMenu.classList.remove('flex');
+            // Back to hamburger icon
+            menuToggle.innerHTML = '<svg class="w-7 h-7 text-brand-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16M4 18h16"></path></svg>';
+            updateHeader(); // restore scroll state background
+          }
+        });
+      }
+
+      // Fechar menu ao clicar em algum link
+      mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          if (isMenuOpen) {
+            menuToggle.click();
+          }
+        });
+      });
+      
+      const updateHeader = () => {
+        if (isMenuOpen) return; // don't override if menu is open
+
+        if (window.scrollY > 20) {
+          header?.classList.add('bg-white/80', 'backdrop-blur-md', 'shadow-sm', 'border-b', 'border-black/5');
+          header?.classList.remove('bg-white');
+          inner?.classList.add('!py-3');
+          inner?.classList.remove('py-6');
+          
+          // Shrink logo on scroll
+          logo?.classList.add('h-10', 'md:h-12');
+          logo?.classList.remove('h-16', 'md:h-20');
+        } else {
+          header?.classList.remove('bg-white/80', 'backdrop-blur-md', 'shadow-sm', 'border-b', 'border-black/5', 'bg-white');
+          inner?.classList.add('py-6');
+          inner?.classList.remove('!py-3');
+          
+          // Original logo size
+          logo?.classList.remove('h-10', 'md:h-12');
+          logo?.classList.add('h-16', 'md:h-20');
+        }
+      };
+
+      window.addEventListener('scroll', updateHeader);
+      updateHeader();
+    }
+
+    initHeader();
+    document.addEventListener('astro:after-swap', initHeader);
+  })();
+</script>
+

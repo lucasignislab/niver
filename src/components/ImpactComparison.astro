@@ -1,0 +1,228 @@
+---
+// ImpactComparison.astro
+---
+
+<section id="quando-entra" class="py-20 md:py-28 bg-[#0a0a0a] overflow-hidden">
+  
+  <!-- Cabeçalho da seção -->
+  <div class="max-w-5xl mx-auto px-4 text-center mb-14">
+    <h2 class="text-3xl md:text-5xl font-black uppercase leading-tight tracking-tight italic">
+      <span class="text-white">O QUE MUDA QUANDO A</span><br>
+      <span class="text-[#ffb800]">RATOEIRA ENTRA EM CAMPO:</span>
+    </h2>
+  </div>
+
+  <!-- Swiper Container -->
+  <div class="swiper impact-swiper w-full px-4">
+    <div class="swiper-wrapper">
+      
+      <!-- Card 1: Economia -->
+      <div class="swiper-slide">
+        <div class="impact-card relative rounded-2xl overflow-hidden aspect-3/4 md:aspect-4/5 max-w-sm mx-auto">
+          <img 
+            src="https://freemium.ratoeiraadsoficial.com.br/assets/impact_card_bg_economy_1770916787535.png" 
+            alt="Economia - Bloqueio de IPs maliciosos" 
+            class="absolute inset-0 w-full h-full object-cover"
+          />
+          <!-- Gradient overlay -->
+          <div class="absolute inset-0 bg-linear-to-t from-black/90 via-black/30 to-transparent"></div>
+          <!-- Content -->
+          <div class="absolute bottom-0 left-0 right-0 p-6 md:p-8">
+            <h3 class="text-white font-black text-lg md:text-xl uppercase leading-tight mb-3">
+              SEUS CONCORRENTES PARAM DE CLICAR NO SEU ANÚNCIO DE GRAÇA
+            </h3>
+            <p class="text-white/70 text-sm md:text-base leading-relaxed">
+              Acabe com a festa de quem quer derrubar seu saldo. Bloqueio automático de IPs maliciosos para que seu anúncio só apareça para clientes reais.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2: Otimização -->
+      <div class="swiper-slide">
+        <div class="impact-card relative rounded-2xl overflow-hidden aspect-3/4 md:aspect-4/5 max-w-sm mx-auto">
+          <img 
+            src="https://freemium.ratoeiraadsoficial.com.br/assets/impact_card_bg_optimization_1770916802323.png" 
+            alt="Otimização - Corte de desperdício" 
+            class="absolute inset-0 w-full h-full object-cover"
+          />
+          <div class="absolute inset-0 bg-linear-to-t from-black/90 via-black/30 to-transparent"></div>
+          <div class="absolute bottom-0 left-0 right-0 p-6 md:p-8">
+            <h3 class="text-white font-black text-lg md:text-xl uppercase leading-tight mb-3">
+              VOCÊ PARA DE INVESTIR EM CAMPANHA QUE DRENA SEM CONVERTER
+            </h3>
+            <p class="text-white/70 text-sm md:text-base leading-relaxed">
+              Corte o desperdício imediatamente. Identifique onde seu dinheiro está sendo jogado fora e proteja sua margem de lucro.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3: Lucro -->
+      <div class="swiper-slide">
+        <div class="impact-card relative rounded-2xl overflow-hidden aspect-3/4 md:aspect-4/5 max-w-sm mx-auto">
+          <img 
+            src="https://freemium.ratoeiraadsoficial.com.br/assets/impact_card_bg_profit_1770916691471.png" 
+            alt="Lucro - Dashboard centralizado" 
+            class="absolute inset-0 w-full h-full object-cover"
+          />
+          <div class="absolute inset-0 bg-linear-to-t from-black/90 via-black/30 to-transparent"></div>
+          <div class="absolute bottom-0 left-0 right-0 p-6 md:p-8">
+            <h3 class="text-white font-black text-lg md:text-xl uppercase leading-tight mb-3">
+              VOCÊ ENXERGA LUCRO, MARGEM E ROI SEM ABRIR 4 PLATAFORMAS
+            </h3>
+            <p class="text-white/70 text-sm md:text-base leading-relaxed">
+              A clareza que você sempre quis. Todos os dados vitais da sua operação financeira centralizados em um único painel profissional.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 4: Segurança de Dados -->
+      <div class="swiper-slide">
+        <div class="impact-card relative rounded-2xl overflow-hidden aspect-3/4 md:aspect-4/5 max-w-sm mx-auto">
+          <img 
+            src="https://freemium.ratoeiraadsoficial.com.br/assets/impact_card_bg_data_sec_1770916727213.png" 
+            alt="Segurança - Rastreamento real de vendas" 
+            class="absolute inset-0 w-full h-full object-cover"
+          />
+          <div class="absolute inset-0 bg-linear-to-t from-black/90 via-black/30 to-transparent"></div>
+          <div class="absolute bottom-0 left-0 right-0 p-6 md:p-8">
+            <h3 class="text-white font-black text-lg md:text-xl uppercase leading-tight mb-3">
+              VOCÊ SABE, PELA PRIMEIRA VEZ, DE ONDE VEM CADA VENDA
+            </h3>
+            <p class="text-white/70 text-sm md:text-base leading-relaxed">
+              Sem estimativa. O dado real, do clique certo, na campanha certa. Para escalar o que funciona e cortar o que não funciona.
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Navegação por setas -->
+    <div class="swiper-button-prev impact-prev"></div>
+    <div class="swiper-button-next impact-next"></div>
+
+    <!-- Paginação (dots) -->
+    <div class="swiper-pagination impact-pagination"></div>
+  </div>
+
+</section>
+
+<!-- Swiper.js via CDN -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<script is:inline>
+  (function() {
+    function initImpactSwiper() {
+      const el = document.querySelector('.impact-swiper');
+      if (!el || el._swiperInstance) return;
+
+      const swiper = new Swiper('.impact-swiper', {
+        effect: 'coverflow',
+        grabCursor: true,
+        centeredSlides: true,
+        loop: true,
+        slidesPerView: 'auto',
+        coverflowEffect: {
+          rotate: 0,
+          stretch: 0,
+          depth: 200,
+          modifier: 2.5,
+          slideShadows: true,
+        },
+        pagination: {
+          el: '.impact-pagination',
+          clickable: true,
+        },
+        navigation: {
+          nextEl: '.impact-next',
+          prevEl: '.impact-prev',
+        },
+        breakpoints: {
+          640: {
+            coverflowEffect: {
+              depth: 250,
+              modifier: 2,
+            }
+          }
+        }
+      });
+
+      el._swiperInstance = swiper;
+    }
+
+    if (document.readyState === 'complete' || document.readyState === 'interactive') {
+      initImpactSwiper();
+    } else {
+      document.addEventListener('DOMContentLoaded', initImpactSwiper);
+    }
+
+    document.addEventListener('astro:after-swap', initImpactSwiper);
+  })();
+</script>
+
+<style>
+  /* Layout de slide: card com largura fixa */
+  .impact-swiper .swiper-slide {
+    width: 300px;
+    transition: transform 0.4s ease, opacity 0.4s ease, filter 0.4s ease;
+  }
+
+  @media (min-width: 768px) {
+    .impact-swiper .swiper-slide {
+      width: 380px;
+    }
+  }
+
+  /* Cards fora do foco ficam escurecidos e levemente borrados */
+  .impact-swiper .swiper-slide:not(.swiper-slide-active) .impact-card {
+    opacity: 0.5;
+    filter: blur(1px) brightness(0.6);
+  }
+
+  .impact-swiper .swiper-slide-active .impact-card {
+    opacity: 1;
+    filter: none;
+  }
+
+  /* Paginação amarela */
+  .impact-pagination .swiper-pagination-bullet {
+    background: rgba(255, 184, 0, 0.3);
+    opacity: 1;
+    width: 8px;
+    height: 8px;
+    transition: all 0.3s ease;
+  }
+
+  .impact-pagination .swiper-pagination-bullet-active {
+    background: #ffb800;
+    width: 24px;
+    border-radius: 4px;
+  }
+
+  /* Setas de navegação personalizadas */
+  .impact-prev,
+  .impact-next {
+    color: rgba(255, 184, 0, 0.5);
+    transition: color 0.3s ease;
+  }
+
+  .impact-prev:hover,
+  .impact-next:hover {
+    color: #ffb800;
+  }
+
+  .impact-prev::after,
+  .impact-next::after {
+    font-size: 20px;
+    font-weight: 900;
+  }
+
+  /* Espaço para paginação */
+  .swiper.impact-swiper {
+    padding-bottom: 60px !important;
+  }
+</style>

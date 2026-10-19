@@ -1,0 +1,184 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import SocialProofMarquee from '../components/SocialProofMarquee.astro';
+import SocialProof from '../components/SocialProof.astro';
+import Pricing from '../components/Pricing.astro';
+import HighConversionFeatures from '../components/HighConversionFeatures.astro';
+import ResultsOnStatement from '../components/ResultsOnStatement.astro';
+import ChainCarousel from '../components/ChainCarousel';
+import FAQ from '../components/FAQ.tsx';
+import Footer from '../components/Footer.astro';
+
+const platformLogos: Record<string, string> = {
+  AdCombo: '/assets/logos/AdCombo-logo.png',
+  MetaCPA: '/assets/logos/metacpa.jpg',
+  SmashLoud: '/assets/logos/smashloud.png',
+  Gasmobi: '/assets/logos/gasmobi.webp',
+  Webvork: '/assets/logos/webvork.png',
+  LeadReaktor: '/assets/logos/lead_reaktor.png',
+  GuruMedia: '/assets/logos/gurumedia.png',
+  LeadRock: '/assets/logos/leadrock.png',
+  SharkPlatform: '/assets/logos/SHARK-Platform-logo.png',
+  Digistore24: '/assets/logos/digistore.png',
+  Hotmart: '/assets/logos/hotmart.jpg',
+  SellHealth: '/assets/logos/sellhealth.png',
+  DrCash: '/assets/logos/drcash.png',
+  AffBay: '/assets/logos/affbay.png',
+  Ambalaya: '/assets/logos/ambalaya.jpeg',
+  Orbio: '/assets/logos/orbio.png',
+  Maxbounty: '/assets/logos/maxbounty.png',
+  BlitzAds: '/assets/logos/blitzads_limited_logo.jpeg',
+  MoreNiche: '/assets/logos/moreniche.png',
+  ClickDealer: '/assets/logos/clickdealerltd_logo.jpeg',
+  ClickHunts: '/assets/logos/clickhunts.png',
+  CPACombo: '/assets/logos/cpacombo.webp',
+  MediaScalers: '/assets/logos/mediascalers.png',
+  TerraLeads: '/assets/logos/terraleads.png',
+  LemonAd: '/assets/logos/lemonad.png',
+  EverFlow: '/assets/logos/everflow.png',
+  Aff1: '/assets/logos/aff1.png',
+  Netvork: '/assets/logos/NetvŌrk.png',
+  CashFactories: '/assets/logos/cahsfactories.webp',
+  ProfitNXT: '/assets/logos/profitnxt.png',
+  NutraBank: '/assets/logos/nutrabank.png',
+  BuyGoods: '/assets/logos/buygoods.png',
+  MaxWeb: '/assets/logos/maxweb.png',
+  HealthTrader: '/assets/logos/health_trader.png',
+  LeadBit: '/assets/logos/leadbeat.png',
+  GiantMobi: '/assets/logos/giant_mobi.png',
+  ClicksAdv: '/assets/logos/clicksadv.jpeg',
+  SmartAdv: '/assets/logos/smartadv_logo.png',
+  ProfitPay: '/assets/logos/profitpay.png',
+  Adexico: '/assets/logos/adexico_logo.jpg',
+  CPAGetti: '/assets/logos/cpagetti.png',
+  EverAD: '/assets/logos/EverAd.png',
+  CPAHouse: '/assets/logos/cpa_house.png',
+  NutriProfits: '/assets/logos/nutriprofits.png',
+  ShakesPRO: '/assets/logos/shakespro.png',
+  TrafficLight: '/assets/logos/traffic_light.png',
+  Yampi: '/assets/logos/yampi.png',
+  Offersify: '/assets/logos/offersify.png',
+  AppMax: '/assets/logos/appmax.avif',
+  KeedPay: '/assets/logos/keedpay.jpeg',
+  PagTrust: '/assets/logos/pagtrust.png',
+  ManyMoney: '/assets/logos/manymoney.png',
+  JVZoo: '/assets/logos/jvzoo.png',
+  CPAOMNI: '/assets/logos/CPAOMNI.jpg',
+  MonadLead: '/assets/logos/MonadLead.jpeg',
+  Kma: '/assets/logos/kma.png',
+  SkyLead: '/assets/logos/skylead_logo.png',
+  MyLead: '/assets/logos/mylead.png',
+  Kirvano: '/assets/logos/Kirvano.webp',
+  Hebreus: '/assets/logos/hebreus.png',
+  Eduzz: '/assets/logos/Eduzz.png',
+  Payt: '/assets/logos/payt.png',
+  Logzz: '/assets/logos/logzz.png',
+  Doppus: '/assets/logos/Doppus.jpeg',
+  ImperiumPay: '/assets/logos/ImperiumPay.png',
+  ClickBank: '/assets/logos/clickbank.svg',
+  Braip: '/assets/logos/braip.webp',
+  Monetizze: '/assets/logos/monetizze.png',
+  Ticto: '/assets/logos/ticto.png',
+  Kiwify: '/assets/logos/kiwify.png',
+  PerfectPay: '/assets/logos/perfectpay.png',
+  Coinzz: '/assets/logos/Coinzz.png',
+  DigitalManagerGuru: '/assets/logos/DigitalManagerGuru.webp',
+  CartPanda: '/assets/logos/cartpanda.png',
+};
+
+const platforms = [
+  'AdCombo',
+  'MetaCPA',
+  'SmashLoud',
+  'Gasmobi',
+  'Webvork',
+  'LeadReaktor',
+  'GuruMedia',
+  'LeadRock',
+  'SharkPlatform',
+  'Digistore24',
+  'Hotmart',
+  'SellHealth',
+  'DrCash',
+  'AffBay',
+  'Ambalaya',
+  'Orbio',
+  'Maxbounty',
+  'BlitzAds',
+  'MoreNiche',
+  'ClickDealer',
+  'ClickHunts',
+  'CPACombo',
+  'MediaScalers',
+  'TerraLeads',
+  'LemonAd',
+  'EverFlow',
+  'Aff1',
+  'Netvork',
+  'CashFactories',
+  'ProfitNXT',
+  'NutraBank',
+  'BuyGoods',
+  'MaxWeb',
+  'HealthTrader',
+  'LeadBit',
+  'GiantMobi',
+  'ClicksAdv',
+  'SmartAdv',
+  'ProfitPay',
+  'Adexico',
+  'CPAGetti',
+  'EverAD',
+  'CPAHouse',
+  'NutriProfits',
+  'ShakesPRO',
+  'TrafficLight',
+  'Yampi',
+  'Offersify',
+  'AppMax',
+  'KeedPay',
+  'PagTrust',
+  'ManyMoney',
+  'JVZoo',
+  'CPAOMNI',
+  'MonadLead',
+  'Kma',
+  'SkyLead',
+  'MyLead',
+  'Kirvano',
+  'Hebreus',
+  'Eduzz',
+  'Payt',
+  'Logzz',
+  'Doppus',
+  'ImperiumPay',
+  'ClickBank',
+  'Braip',
+  'Monetizze',
+  'Ticto',
+  'Kiwify',
+  'PerfectPay',
+  'Coinzz',
+  'DigitalManagerGuru',
+  'CartPanda',
+].map((name, index) => ({ id: index + 1, name, details: 'INTEGRADO', logo: platformLogos[name] }));
+
+// A promoção é de Aniversário e requer impacto visual!
+---
+
+<Layout title="Ratoeira Ads - 2 Anos (Edição Especial)">
+  <Header />
+  <main>
+    <Hero />
+    <SocialProof />
+    <Pricing />
+    <SocialProofMarquee />
+    <HighConversionFeatures />
+    <ChainCarousel client:load items={platforms} />
+    <ResultsOnStatement />
+    <FAQ client:visible />
+  </main>
+  <Footer />
+</Layout>
