@@ -7,7 +7,7 @@ import SocialProof from '../components/SocialProof.astro';
 import Pricing from '../components/Pricing.astro';
 import HighConversionFeatures from '../components/HighConversionFeatures.astro';
 import ResultsOnStatement from '../components/ResultsOnStatement.astro';
-import ChainCarousel from '../components/ChainCarousel';
+import FloatingIntegrations from '../components/FloatingIntegrations';
 import FAQ from '../components/FAQ.tsx';
 import Footer from '../components/Footer.astro';
 
@@ -165,10 +165,9 @@ const platforms = [
   'CartPanda',
 ].map((name, index) => ({ id: index + 1, name, details: 'INTEGRADO', logo: platformLogos[name] }));
 
-// A promoção é de Aniversário e requer impacto visual!
 ---
 
-<Layout title="Ratoeira Ads - 2 Anos (Edição Especial)">
+<Layout title="Black Friday 2026 | Ratoeira Ads, Pages e Hub">
   <Header />
   <main>
     <Hero />
@@ -176,7 +175,7 @@ const platforms = [
     <Pricing />
     <SocialProofMarquee />
     <HighConversionFeatures />
-    <ChainCarousel client:load items={platforms} />
+    <FloatingIntegrations client:load items={platforms} />
     <ResultsOnStatement />
     <FAQ client:visible />
   </main>

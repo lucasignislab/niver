@@ -1,252 +1,31 @@
----
-// Hero.astro
----
-
-<section
-  class="relative w-full min-h-screen flex items-center bg-brand-light overflow-hidden py-12 md:py-20"
->
-  <!-- Subtle light gradient & overlay to create depth -->
-  <div
-    class="absolute inset-0 bg-gradient-to-tr from-[#ffffff] via-[#f8f9fa] to-[#f1f3f5] opacity-90 z-0"
-  >
-  </div>
-  <div
-    class="absolute w-[500px] h-[500px] bg-brand-yellow/10 rounded-full blur-[100px] top-0 left-[-20%] z-0"
-  >
-  </div>
-  <div
-    class="absolute w-[400px] h-[400px] bg-brand-yellow/5 rounded-full blur-[100px] bottom-[-10%] right-[-10%] z-0"
-  >
-  </div>
-
-  <!-- Decorative floating balloons (CSS placeholders for festivity) -->
-  <div class="absolute top-[20%] left-[10%] opacity-40 animate-pulse z-0">
-    <div
-      class="w-12 h-16 bg-gradient-to-tr from-brand-yellow/40 to-yellow-200/40 rounded-full shadow-lg"
-    >
-    </div>
-    <div class="w-0.5 h-16 bg-black/10 mx-auto mt-2"></div>
-  </div>
-
-  <div
-    class="absolute top-[30%] right-[15%] opacity-30 animate-bounce -z-0"
-    style="animation-duration: 4s;"
-  >
-    <div
-      class="w-16 h-20 bg-gradient-to-tr from-brand-yellow/30 to-black/5 rounded-full shadow-lg"
-    >
-    </div>
-    <div class="w-0.5 h-20 bg-black/10 mx-auto mt-2"></div>
-  </div>
-
-  <div
-    class="relative z-10 max-w-7xl mx-auto px-4 w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center lg:items-start pt-28 lg:pt-44"
-  >
-    <!-- Hero Text Content -->
-    <div class="flex flex-col gap-6 text-center lg:text-left">
-      <div
-        class="inline-flex w-max mx-auto lg:mx-0 items-center gap-2 bg-brand-yellow/10 border border-brand-yellow/30 text-brand-yellow px-4 py-1.5 rounded-full text-sm font-semibold tracking-wide uppercase shadow-[0_0_10px_rgba(255,184,0,0.1)]"
-      >
-        <span class="w-2 h-2 rounded-full bg-brand-yellow animate-ping"></span>
-        Edição Especial de Aniversário
-      </div>
-
-      <h1
-        class="text-4xl md:text-6xl font-extrabold text-brand-dark leading-tight tracking-tight"
-      >
-        <span class="text-brand-yellow">2 Anos</span> da Ratoeira Ads com a maior
-        oferta da <span
-          class="bg-gradient-to-r from-brand-yellow-hover to-brand-yellow bg-clip-text text-transparent"
-          >nossa história.</span
-        >
+<section class="relative overflow-hidden bg-brand-light px-4 pb-20 pt-36 md:pb-28 md:pt-44">
+  <div class="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-2">
+    <div>
+      <h1 class="max-w-2xl text-5xl font-black leading-[0.98] tracking-tight text-brand-dark md:text-7xl">
+        Black Friday <span class="text-brand-yellow">Ratoeira</span> 2026.
       </h1>
-
-      <p
-        class="text-lg md:text-xl text-brand-text/80 max-w-2xl mx-auto lg:mx-0 leading-relaxed"
-      >
-        Não perca a chance de transformar o seu ROI. Acesso vitalício à
-        ferramenta que mais de <strong class="text-brand-dark"
-          >+3.000 afiliados</strong
-        > usam para bloquear bots e ver o lucro real das campanhas.
+      <p class="mt-7 max-w-xl text-lg leading-relaxed text-brand-dark/75 md:text-xl">
+        Escolha entre Ratoeira Ads, Pages ou Hub. Os descontos mudam por lote de 29 de outubro a 30 de novembro de 2026.
       </p>
-
-      <ul
-        class="text-left mt-4 mb-6 space-y-3 mx-auto lg:mx-0 inline-block w-max"
-      >
-        <li class="flex items-center gap-3 text-brand-text">
-          <svg
-            class="w-5 h-5 text-brand-yellow flex-shrink-0"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-            ><path
-              fill-rule="evenodd"
-              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-              clip-rule="evenodd"></path></svg
-          >
-          <span class="font-medium">100% de rastreamento das suas vendas.</span>
-        </li>
-        <li class="flex items-center gap-3 text-brand-text">
-          <svg
-            class="w-5 h-5 text-brand-yellow flex-shrink-0"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-            ><path
-              fill-rule="evenodd"
-              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-              clip-rule="evenodd"></path></svg
-          >
-          <span class="font-medium"
-            >Bloqueio inteligente contra cliques falsos.</span
-          >
-        </li>
-        <li class="flex items-center gap-3 text-brand-text">
-          <svg
-            class="w-5 h-5 text-brand-yellow flex-shrink-0"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-            ><path
-              fill-rule="evenodd"
-              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-              clip-rule="evenodd"></path></svg
-          >
-          <span class="font-medium text-brand-yellow"
-            >Desconto exclusivo e por tempo limitado.</span
-          >
-        </li>
-      </ul>
-
-      <div
-        class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
-      >
-        <a
-          href="#planos"
-          class="inline-flex items-center justify-center gap-3 bg-brand-yellow hover:bg-brand-yellow-hover text-brand-dark font-black text-lg py-5 px-10 rounded-full text-center transition-all duration-300 shadow-[0_15px_40px_rgba(255,184,0,0.3)] hover:shadow-[0_20px_50px_rgba(255,184,0,0.5)] transform hover:-translate-y-1 active:scale-95 uppercase tracking-tight"
-        >
-          REVELAR OFERTA AGORA
-          <svg
-            class="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            ><path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="3"
-              d="M9 5l7 7-7 7"></path></svg
-          >
+      <div class="mt-9 flex flex-wrap gap-3">
+        <a href="#planos" class="inline-flex min-h-14 items-center justify-center rounded-full bg-brand-yellow px-8 text-sm font-black uppercase text-brand-dark transition-colors hover:bg-brand-yellow-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-dark">
+          Ver planos e preços
+        </a>
+        <a href="https://ratoeirahub.com/" class="inline-flex min-h-14 items-center justify-center rounded-full border border-brand-dark/20 px-7 text-center text-sm font-bold text-brand-dark transition-colors hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-dark">
+          Upgrade de plano antigo
         </a>
       </div>
     </div>
-
-    <!-- Hero Visual Area (Anniversary Cake) -->
-    <div
-      class="relative w-full flex justify-center lg:justify-end items-center z-20 lg:mt-0"
-    >
-      <div class="relative group">
-        <!-- Decorative glow behind the cake -->
-        <div class="absolute inset-0 bg-brand-yellow/20 blur-[80px] rounded-full scale-125 opacity-50 group-hover:opacity-80 transition-opacity duration-700"></div>
-        
-        <!-- Floating Anniversary Cake -->
-        <div class="relative animate-float transition-transform duration-700 hover:scale-105">
-           <img 
-            src="/assets/anniversary_cake.png" 
-            alt="Bolo de Aniversário 2 Anos Ratoeira Ads" 
-            class="w-full max-w-[500px] h-auto drop-shadow-[0_40px_100px_rgba(255,184,0,0.1)] mix-blend-multiply brightness-[1.03] contrast-[1.03] mask-[radial-gradient(ellipse_at_center,black_50%,transparent_90%)]"
-          />
+    <div class="relative overflow-hidden rounded-3xl bg-brand-dark px-7 py-12 text-white shadow-[0_25px_60px_rgba(0,0,0,0.18)] sm:px-10 md:py-16" aria-label="Black Friday Ratoeira 2026">
+      <div class="absolute -right-16 -top-20 h-56 w-56 rounded-full border-[28px] border-brand-yellow/10"></div>
+      <div class="relative">
+        <p class="text-sm font-bold tracking-widest text-brand-yellow">29/10 — 30/11/2026</p>
+        <p class="mt-9 text-[clamp(4.5rem,12vw,8rem)] font-black leading-[0.82] tracking-[-0.04em]">BLACK<br /><span class="text-brand-yellow">FRIDAY</span></p>
+        <div class="mt-12 border-t border-white/20 pt-6">
+          <p class="text-lg font-bold">5 lotes. O primeiro tem 35% de desconto.</p>
+          <p class="mt-2 text-sm text-white/70">A condição de cada lote vale até a próxima virada.</p>
         </div>
-
-        <!-- Confetti container in front of the cake -->
-        <div id="cake-confetti" class="absolute inset-[-50px] z-30 pointer-events-none"></div>
       </div>
     </div>
   </div>
 </section>
-
-<style is:global>
-  .confetti-piece {
-    position: absolute;
-    width: 8px;
-    height: 8px;
-    background: #FFB800;
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  @keyframes confetti-pop {
-    0% {
-      transform: translate(0, 0) rotate(0deg) scale(0);
-      opacity: 0;
-    }
-    10% {
-      opacity: 1;
-      transform: translate(var(--x), var(--y)) rotate(var(--r)) scale(1);
-    }
-    90% {
-      opacity: 1;
-    }
-    100% {
-      transform: translate(var(--x2), var(--y2)) rotate(var(--r2)) scale(0.5);
-      opacity: 0;
-    }
-  }
-</style>
-
-<script>
-  function createConfetti() {
-    const container = document.getElementById('cake-confetti');
-    if (!container) return;
-
-    // Clear existing confetti
-    container.innerHTML = '';
-
-    const colors = ['#FFB800', '#FFD700', '#FF8C00', '#FFFFFF', '#E5A600'];
-    const shapes = ['rounded-sm', 'rounded-full'];
-    const pieceCount = 40;
-
-    for (let i = 0; i < pieceCount; i++) {
-      const piece = document.createElement('div');
-      const color = colors[Math.floor(Math.random() * colors.length)];
-      const shape = shapes[Math.floor(Math.random() * shapes.length)];
-      
-      piece.className = `confetti-piece ${shape}`;
-      piece.style.backgroundColor = color;
-      
-      // Starting position (center of the cake area)
-      piece.style.left = '50%';
-      piece.style.top = '50%';
-      
-      // Random movement vectors
-      const angle = Math.random() * Math.PI * 2;
-      const distance = 100 + Math.random() * 200;
-      const x = Math.cos(angle) * distance;
-      const y = Math.sin(angle) * distance;
-      
-      const x2 = x + (Math.random() - 0.5) * 50;
-      const y2 = y + 100 + Math.random() * 100; // Fall down
-      
-      const r = Math.random() * 360;
-      const r2 = r + Math.random() * 720;
-      
-      piece.style.setProperty('--x', `${x}px`);
-      piece.style.setProperty('--y', `${y}px`);
-      piece.style.setProperty('--x2', `${x2}px`);
-      piece.style.setProperty('--y2', `${y2}px`);
-      piece.style.setProperty('--r', `${r}deg`);
-      piece.style.setProperty('--r2', `${r2}deg`);
-      
-      const duration = 3 + Math.random() * 4;
-      const delay = Math.random() * 5;
-      
-      piece.style.animation = `confetti-pop ${duration}s ease-out ${delay}s infinite`;
-      
-      container.appendChild(piece);
-    }
-  }
-
-  // Initial creation
-  createConfetti();
-
-  // Re-run on page transitions if using Astro View Transitions
-  document.addEventListener('astro:after-swap', createConfetti);
-</script>
-

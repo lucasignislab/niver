@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, Minus, ShieldCheck } from 'lucide-react';
 
@@ -18,7 +18,7 @@ const faqs = [
   },
   {
     question: "4. Como funciona a assinatura Vitalícia?",
-    answer: "Na oferta de aniversário, você garante o acesso vitalício pagando apenas uma vez. Isso significa que você terá a Ratoeira ativa para sempre, sem nenhuma cobrança recorrente mensal ou anual."
+    answer: "No plano vitalício, você paga uma vez pelo acesso à Ratoeira, sem cobrança recorrente mensal ou anual. O preço muda conforme o lote da Black Friday."
   },
   {
     question: "5. A plataforma atualiza as ferramentas e proteções?",
@@ -139,7 +139,7 @@ export default function FAQ() {
                 Risco Zero: <span className="text-brand-yellow">7 Dias de Garantia</span>
               </h3>
               <p className="text-white/60 text-sm md:text-base">
-                Assine hoje com o super desconto de aniversário e teste sem medos.
+                Confira o lote atual da Black Friday e teste sem medo.
               </p>
             </div>
           </div>
