@@ -22,7 +22,7 @@ const platforms = [
         <div class="platform-group" aria-hidden={index > 0 ? 'true' : undefined}>
           {platforms.map((platform) => (
             <div class="platform-card">
-              <img src={platform.logo} alt={platform.name} class={platform.className} loading="lazy" />
+              <img src={platform.logo} alt={platform.name} class={platform.className} />
               <span>{platform.name}</span>
             </div>
           ))}
