@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import priceData from "../data/black-friday-prices.json";
 import { currentLot, discounted, type CampaignStatus } from "../lib/blackFriday";
+import PlanCalculator from "./PlanCalculator";
+import type { Product } from "../lib/planCalculator";
 
 type Price = { parcel: number; cash?: number };
-type Product = "ads" | "pages" | "hub";
 type Period = "anual" | "semestral" | "mensal" | "vitalicio";
 
 const products: { id: Product; name: string }[] = [
@@ -59,6 +60,7 @@ function PriceCard({
   link,
   coupon,
   status,
+  recommended,
 }: {
   title: string;
   price: Price;
@@ -68,6 +70,7 @@ function PriceCard({
   link?: string;
   coupon: string;
   status: CampaignStatus;
+  recommended?: boolean;
 }) {
   const isLifetime = period === "vitalicio";
   const count = isLifetime ? 0 : period === "semestral" ? 6 : period === "mensal" ? 1 : 12;
@@ -76,7 +79,8 @@ function PriceCard({
   const activeLink = status === "active" && link;
 
   return (
-    <article className="flex h-full flex-col rounded-3xl bg-white p-7 shadow-[0_15px_40px_rgba(0,0,0,0.07)] md:p-8">
+    <article className={`flex h-full flex-col rounded-3xl bg-white p-7 shadow-[0_15px_40px_rgba(0,0,0,0.07)] md:p-8 ${recommended ? "ring-2 ring-brand-yellow" : ""}`}>
+      {recommended && <span className="mb-3 w-fit rounded-full bg-brand-yellow px-3 py-1 text-xs font-black text-brand-dark">Indicado para você</span>}
       <h3 className="text-2xl font-black text-brand-dark">{title}</h3>
       <div className="mt-7 flex grow flex-col">
         {!isLifetime && (
@@ -127,6 +131,7 @@ export default function BlackFridayPricing() {
   const [product, setProduct] = useState<Product>("ads");
   const [network, setNetwork] = useState("1");
   const [period, setPeriod] = useState<Period>("anual");
+  const [recommendedPlan, setRecommendedPlan] = useState<string | null>(null);
 
   useEffect(() => {
     setNow(new Date());
@@ -140,7 +145,17 @@ export default function BlackFridayPricing() {
   const lifetimePrice = lifetime[product][selectedNetwork]?.[lot.index];
   const available = now !== null ? lot.status : "upcoming";
 
+  const selectRecommendedPlan = (nextProduct: Product, nextNetwork: "1" | "2" | "all", nextPeriod: "mensal" | "semestral" | "anual", plan: string) => {
+    setProduct(nextProduct);
+    setNetwork(nextNetwork);
+    setPeriod(nextPeriod);
+    setRecommendedPlan(plan);
+    document.getElementById("planos-valores")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
   return (
+    <>
+    <PlanCalculator lot={lot} onSelect={selectRecommendedPlan} />
     <section id="planos" className="bg-brand-light px-4 py-20 md:py-28">
       <div className="mx-auto max-w-7xl">
         <div className="text-center">
@@ -161,7 +176,7 @@ export default function BlackFridayPricing() {
         <div className="mt-12 space-y-6">
           <div className="flex flex-wrap justify-center gap-2" aria-label="Produto">
             {products.map((item) => (
-              <button key={item.id} type="button" aria-pressed={product === item.id} onClick={() => setProduct(item.id)} className={`rounded-full px-5 py-3 text-sm font-bold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-dark ${product === item.id ? "bg-brand-dark text-white" : "bg-white text-brand-dark hover:bg-brand-yellow/20"}`}>
+              <button key={item.id} type="button" aria-pressed={product === item.id} onClick={() => { setProduct(item.id); setRecommendedPlan(null); }} className={`rounded-full px-5 py-3 text-sm font-bold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-dark ${product === item.id ? "bg-brand-dark text-white" : "bg-white text-brand-dark hover:bg-brand-yellow/20"}`}>
                 {item.name}
               </button>
             ))}
@@ -169,7 +184,7 @@ export default function BlackFridayPricing() {
           {product !== "pages" && (
             <div className="flex flex-wrap justify-center gap-2" aria-label="Quantidade de redes">
               {[["1", "1 rede"], ["2", "2 redes"], ["all", "Todas as redes"]].map(([id, label]) => (
-                <button key={id} type="button" aria-pressed={network === id} onClick={() => setNetwork(id)} className={`rounded-full px-4 py-2 text-sm font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-dark ${network === id ? "bg-brand-yellow text-brand-dark" : "bg-white text-brand-dark/75 hover:bg-brand-yellow/20"}`}>
+                <button key={id} type="button" aria-pressed={network === id} onClick={() => { setNetwork(id); setRecommendedPlan(null); }} className={`rounded-full px-4 py-2 text-sm font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-dark ${network === id ? "bg-brand-yellow text-brand-dark" : "bg-white text-brand-dark/75 hover:bg-brand-yellow/20"}`}>
                   {label}
                 </button>
               ))}
@@ -188,13 +203,13 @@ export default function BlackFridayPricing() {
           Assinantes ativos dos planos Camundongo, Rato, Ratazana ou Ratazana Plus fazem o upgrade direto na <a href="https://ratoeirahub.com/" className="font-bold underline underline-offset-2">plataforma</a>, onde têm condições exclusivas e melhores que as desta página.
         </p>
 
-        <div className={`mt-8 grid gap-5 ${period === "vitalicio" ? "mx-auto max-w-sm" : "md:grid-cols-2 xl:grid-cols-4"}`}>
+        <div id="planos-valores" className={`mt-8 grid scroll-mt-24 gap-5 ${period === "vitalicio" ? "mx-auto max-w-sm" : "md:grid-cols-2 xl:grid-cols-4"}`}>
           {period === "vitalicio" ? lifetimePrice && (
             <PriceCard title={`${products.find((item) => item.id === product)?.name} Vitalício`} price={lifetimePrice} period={period} discount={lot.discount} link={checkoutLinks[`${product}/${selectedNetwork}/vitalicio`]} coupon={lot.coupon} status={available} />
           ) : plans.map((plan) => {
             const price = recurring?.[plan.toLowerCase()];
             return price && (
-              <PriceCard key={plan} title={plan} price={price} period={period} discount={lot.discount} saving={period === "anual" || period === "semestral" ? savings[product][period] : undefined} link={checkoutLinks[`${product}/${selectedNetwork}/${period}/${plan.toLowerCase()}`]} coupon={lot.coupon} status={available} />
+              <PriceCard key={plan} title={plan} price={price} period={period} discount={lot.discount} saving={period === "anual" || period === "semestral" ? savings[product][period] : undefined} link={checkoutLinks[`${product}/${selectedNetwork}/${period}/${plan.toLowerCase()}`]} coupon={lot.coupon} status={available} recommended={recommendedPlan === plan} />
             );
           })}
         </div>
@@ -204,5 +219,6 @@ export default function BlackFridayPricing() {
         </p>
       </div>
     </section>
+    </>
   );
 }
