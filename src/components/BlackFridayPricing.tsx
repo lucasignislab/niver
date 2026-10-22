@@ -211,7 +211,7 @@ export default function BlackFridayPricing() {
                 <span className="mb-2 block text-xs font-black uppercase tracking-wide text-brand-dark/65">Por quanto tempo</span>
                 <fieldset className="relative grid min-h-14 grid-cols-3 items-center rounded-2xl bg-white p-1">
                   <legend className="sr-only">Período de contratação</legend>
-                  <span className="absolute right-2 top-0 -translate-y-1/2 rounded-full bg-brand-yellow px-3 py-1 text-[10px] font-black uppercase text-brand-dark sm:text-xs">2 meses grátis</span>
+                  <span className="absolute -top-2 right-2 -translate-y-full rounded-full bg-emerald-500 px-3 py-1 text-[10px] font-black uppercase text-white sm:text-xs">2 meses grátis</span>
                   {periods.map((item) => (
                     <button key={item.id} type="button" aria-pressed={period === item.id} onClick={() => setPeriod(item.id)} className={`min-h-11 min-w-0 rounded-xl px-2 text-sm font-bold focus-visible:outline-2 focus-visible:outline-brand-dark sm:px-4 sm:text-base ${period === item.id ? "bg-brand-yellow text-brand-dark" : "text-brand-dark/65 hover:bg-brand-yellow/10"}`}>{item.label}</button>
                   ))}
