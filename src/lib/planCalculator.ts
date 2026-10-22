@@ -30,7 +30,7 @@ export function recommendPlan(
   accounts: Record<AccountNetwork, number>,
   googleEmails: number,
 ): number {
-  const volumePlan = [0, 0, 1, 2, 3, 3][volume] ?? 0;
+  const volumePlan = (product === "pages" ? [0, 1, 2, 3, 3] : [0, 0, 1, 2, 3, 3])[volume] ?? 0;
   if (product === "pages") return volumePlan;
 
   const accountPlan = networks.filter(supportsAdAccounts).reduce((highest, network) => {
