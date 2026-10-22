@@ -13,6 +13,8 @@ interface FloatingIntegrationsProps {
     items: IntegrationItem[];
 }
 
+const searchKey = (value: string) => value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLocaleLowerCase('pt-BR').replace(/[^a-z0-9]/g, '');
+
 const floatingPositions = [
     { name: 'Hotmart', position: 'top-[6%] left-[7%] max-md:top-[5%] max-md:left-[6%]' },
     { name: 'Maxbounty', position: 'top-[8%] right-[8%] max-md:top-[5%] max-md:right-[6%]' },
@@ -80,9 +82,10 @@ export default function FloatingIntegrations({ items }: FloatingIntegrationsProp
         const item = items.find((platform) => platform.name === name);
         return item ? [{ item, position, index }] : [];
     });
-    const matches = searchTerm.trim()
-        ? items.filter((item) => item.name.toLocaleLowerCase('pt-BR').includes(searchTerm.toLocaleLowerCase('pt-BR'))).slice(0, 8)
-        : [];
+    const query = searchKey(searchTerm);
+    const matches = items
+        .filter((item) => searchKey(item.name).includes(query))
+        .sort((first, second) => first.name.localeCompare(second.name, 'pt-BR'));
 
     return (
         <section id="integracoes" className="relative isolate flex min-h-[760px] scroll-mt-20 items-center justify-center overflow-hidden bg-white px-4 py-32 md:min-h-[720px]">
@@ -118,8 +121,8 @@ export default function FloatingIntegrations({ items }: FloatingIntegrationsProp
                         placeholder="BUSCAR PLATAFORMA..."
                         aria-label="Buscar plataforma integrada"
                         aria-autocomplete="list"
-                        aria-expanded={showDropdown && matches.length > 0}
-                        aria-controls={showDropdown && searchTerm.trim() ? 'platform-search-results' : undefined}
+                        aria-expanded={showDropdown}
+                        aria-controls={showDropdown ? 'platform-search-results' : undefined}
                         onChange={(event) => {
                             setSearchTerm(event.target.value);
                             setSelected(null);
@@ -129,7 +132,7 @@ export default function FloatingIntegrations({ items }: FloatingIntegrationsProp
                         onKeyDown={(event) => {
                             if (event.key === 'Escape') setShowDropdown(false);
                         }}
-                        className="w-full rounded-full border border-gray-200 bg-white py-4 pl-12 pr-12 text-sm font-bold uppercase tracking-wide text-brand-dark shadow-[0_8px_28px_rgba(0,0,0,0.1)] outline-none placeholder:text-gray-500 focus-visible:border-brand-yellow focus-visible:ring-2 focus-visible:ring-brand-yellow/30"
+                        className="w-full rounded-full border border-gray-200 bg-white py-4 pl-12 pr-12 text-sm font-bold uppercase tracking-wide text-brand-dark shadow-[0_8px_28px_rgba(0,0,0,0.1)] outline-none placeholder:text-gray-500 focus-visible:border-brand-yellow focus-visible:ring-2 focus-visible:ring-brand-yellow/30 [&::-webkit-search-cancel-button]:hidden"
                     />
                     {searchTerm && (
                         <button
@@ -145,7 +148,7 @@ export default function FloatingIntegrations({ items }: FloatingIntegrationsProp
                             <X className="size-4" aria-hidden="true" />
                         </button>
                     )}
-                    {showDropdown && searchTerm.trim() && (
+                    {showDropdown && (
                         <div id="platform-search-results" className="absolute left-0 right-0 top-full z-20 mt-2 max-h-60 overflow-y-auto rounded-2xl bg-white p-2 text-left shadow-[0_16px_40px_rgba(0,0,0,0.16)]">
                             {matches.length > 0 ? matches.map((item) => (
                                 <button
