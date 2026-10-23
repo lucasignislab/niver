@@ -5,16 +5,17 @@ import { currentLot, discounted } from "../src/lib/blackFriday.ts";
 
 const priceData = JSON.parse(readFileSync(new URL("../src/data/black-friday-prices.json", import.meta.url), "utf8"));
 
-test("troca os cinco lotes a cada 10 minutos a partir das 15:10 de São Paulo", () => {
+test("mantém os preços normais até 29/10 e troca os lotes nas datas da campanha", () => {
   const cases = [
-    ["2026-10-23T18:09:59Z", "upcoming", "BLACK35", 35, "2026-10-23T15:10:00-03:00"],
-    ["2026-10-23T18:10:00Z", "active", "BLACK35", 35, "2026-10-23T15:20:00-03:00"],
-    ["2026-10-23T18:20:00Z", "active", "BLACK30", 30, "2026-10-23T15:30:00-03:00"],
-    ["2026-10-23T18:30:00Z", "active", "BLACK27", 27, "2026-10-23T15:40:00-03:00"],
-    ["2026-10-23T18:40:00Z", "active", "BLACK25", 25, "2026-10-23T15:50:00-03:00"],
-    ["2026-10-23T18:50:00Z", "active", "BLACK22", 22, "2026-10-23T16:00:00-03:00"],
-    ["2026-10-23T18:59:59Z", "active", "BLACK22", 22, "2026-10-23T16:00:00-03:00"],
-    ["2026-10-23T19:00:00Z", "ended", "BLACK22", 22, null],
+    ["2026-10-23T15:10:00-03:00", "upcoming", "BLACK35", 35, "2026-10-29T00:00:00-03:00"],
+    ["2026-10-28T23:59:59-03:00", "upcoming", "BLACK35", 35, "2026-10-29T00:00:00-03:00"],
+    ["2026-10-29T00:00:00-03:00", "active", "BLACK35", 35, "2026-11-01T00:00:00-03:00"],
+    ["2026-11-01T00:00:00-03:00", "active", "BLACK30", 30, "2026-11-09T00:00:00-03:00"],
+    ["2026-11-09T00:00:00-03:00", "active", "BLACK27", 27, "2026-11-16T00:00:00-03:00"],
+    ["2026-11-16T00:00:00-03:00", "active", "BLACK25", 25, "2026-11-23T00:00:00-03:00"],
+    ["2026-11-23T00:00:00-03:00", "active", "BLACK22", 22, "2026-12-01T00:00:00-03:00"],
+    ["2026-11-30T23:59:59-03:00", "active", "BLACK22", 22, "2026-12-01T00:00:00-03:00"],
+    ["2026-12-01T00:00:00-03:00", "ended", "BLACK22", 22, null],
   ];
   for (const [time, status, coupon, discount, nextChange] of cases) {
     const lot = currentLot(new Date(time));
@@ -38,8 +39,9 @@ test("atualiza assinatura e vitalício junto com cada lote", () => {
   assert.equal(discounted(priceData.prices.hub["1"].anual.basic.parcel, before.appliedDiscount), 223);
   const expectedParcels = [144.95, 156.1, 162.79, 167.25, 173.94];
   const expectedLifetime = [6650, 7000, 7300, 7450, 7600];
-  for (let index = 0; index < 5; index += 1) {
-    const lot = currentLot(new Date(`2026-10-23T15:${String((index + 1) * 10).padStart(2, "0")}:00-03:00`));
+  const lotStarts = ["2026-10-29", "2026-11-01", "2026-11-09", "2026-11-16", "2026-11-23"];
+  for (let index = 0; index < lotStarts.length; index += 1) {
+    const lot = currentLot(new Date(`${lotStarts[index]}T00:00:00-03:00`));
     assert.equal(discounted(priceData.prices.hub["1"].anual.basic.parcel, lot.discount), expectedParcels[index]);
     assert.equal(priceData.vitalicio.hub["1"][lot.index].parcel, expectedLifetime[index]);
   }
