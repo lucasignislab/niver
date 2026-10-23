@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { Check, ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
 import priceData from "../data/black-friday-prices.json";
-import { currentLot, discounted, type CampaignStatus } from "../lib/blackFriday";
+import { currentLot, discounted, testSchedule, type CampaignStatus } from "../lib/blackFriday";
 import {
   accountLimits,
   googleEmailLimits,
@@ -56,6 +56,12 @@ function currency(value: number): string {
   }).format(value);
 }
 
+function clock(seconds: number): string {
+  const hours = Math.floor(seconds / 3600);
+  const minutes = Math.floor((seconds % 3600) / 60);
+  return [hours, minutes, seconds % 60].map((value) => String(value).padStart(2, "0")).join(":");
+}
+
 function checkoutUrl(link: string, coupon: string | null): string {
   const url = new URL(link);
   if (coupon) url.searchParams.set("coupon", coupon);
@@ -106,7 +112,7 @@ function PlanDetails({ product, index, networkCount, tier }: { product: Product;
 
 function OfferButton({ link, coupon, status, label }: { link?: string; coupon: string | null; status: CampaignStatus; label: string }) {
   const active = status === "active" && link;
-  if (!active) return <button type="button" disabled className="mt-6 min-h-12 w-full rounded-full bg-brand-dark/10 px-4 text-sm font-black text-brand-dark/50">{status === "upcoming" ? "Disponível em 29/10" : status === "ended" ? "Campanha encerrada" : "Checkout em preparação"}</button>;
+  if (!active) return <button type="button" disabled className="mt-6 min-h-12 w-full rounded-full bg-brand-dark/10 px-4 text-sm font-black text-brand-dark/50">{status === "upcoming" ? testSchedule ? "Disponível hoje às 15:00" : "Disponível em 29/10" : status === "ended" ? "Campanha encerrada" : "Checkout em preparação"}</button>;
   return (
     <a href={checkoutUrl(active, coupon)} onClick={(event) => {
       const latest = currentLot(new Date());
@@ -127,11 +133,12 @@ export default function BlackFridayPricing() {
 
   useEffect(() => {
     setNow(new Date());
-    const timer = window.setInterval(() => setNow(new Date()), 60_000);
+    const timer = window.setInterval(() => setNow(new Date()), 1_000);
     return () => window.clearInterval(timer);
   }, []);
 
-  const lot = currentLot(now ?? new Date("2026-10-29T00:00:00-03:00"));
+  const lot = currentLot(now ?? new Date(0));
+  const secondsLeft = lot.nextChange && now ? Math.max(0, Math.ceil((Date.parse(lot.nextChange) - now.getTime()) / 1_000)) : 0;
   const available = now !== null ? lot.status : "upcoming";
   const tier = networkCount === 1 ? "1" : networkCount === 2 ? "2" : "all";
   const selectedTier = product === "pages" ? "single" : tier;
@@ -181,8 +188,10 @@ export default function BlackFridayPricing() {
           </div>
 
           <div className="mx-auto mt-8 max-w-2xl rounded-2xl bg-brand-yellow/15 px-5 py-4 text-center text-brand-dark">
-            <p className="font-black">{lot.status === "upcoming" ? "Pré-Black começa em 29/10" : lot.status === "ended" ? "Campanha encerrada" : `${lot.discount}% de desconto até ${lot.end}`}</p>
-            <p className="mt-1 text-sm text-brand-dark/75">{lot.status === "upcoming" ? "Prévia dos preços do primeiro lote. A campanha vai até 30/11." : lot.status === "ended" ? "Os preços abaixo são do último lote da campanha." : `Lote atual: ${lot.coupon}. Os preços mudam na próxima virada de lote.`}</p>
+            {testSchedule && <p className="mb-2 text-xs font-black uppercase tracking-wide text-brand-dark/60">Teste dos lotes · 23/10 · viradas a cada 10 minutos</p>}
+            <p className="font-black" aria-live="polite">{lot.status === "upcoming" ? testSchedule ? "Primeiro lote começa hoje às 15:00" : "Pré-Black começa em 29/10" : lot.status === "ended" ? testSchedule ? "Teste encerrado às 15:50" : "Campanha encerrada" : `${lot.discount}% de desconto até ${lot.end}`}</p>
+            <p className="mt-1 text-sm text-brand-dark/75">{lot.status === "upcoming" ? testSchedule ? "Prévia dos preços do primeiro lote." : "Prévia dos preços do primeiro lote. A campanha vai até 30/11." : lot.status === "ended" ? "Os preços abaixo são do último lote da campanha." : `Lote atual: ${lot.coupon}. Os preços mudam na próxima virada de lote.`}</p>
+            {lot.nextChange && <p className="mt-3 text-sm font-semibold tabular-nums">{lot.status === "upcoming" ? "Começa em" : "Próxima virada em"} <time className="ml-1 font-black" dateTime={lot.nextChange}>{clock(secondsLeft)}</time></p>}
           </div>
 
           <div className="mb-10 mt-9 flex flex-col items-center gap-5">
