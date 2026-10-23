@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { Check, ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
 import priceData from "../data/black-friday-prices.json";
-import { cashSavingPercent, currentLot, discounted, type CampaignStatus } from "../lib/blackFriday";
+import { cashSavingPercent, currentLot, discounted, testSchedule, type CampaignStatus } from "../lib/blackFriday";
 import {
   accountLimits,
   googleEmailLimits,
@@ -112,7 +112,7 @@ function PlanDetails({ product, index, networkCount, tier }: { product: Product;
 
 function OfferButton({ link, coupon, status, label }: { link?: string; coupon: string | null; status: CampaignStatus; label: string }) {
   const active = status === "active" && link;
-  if (!active) return <button type="button" disabled className="mt-6 min-h-12 w-full rounded-full bg-brand-dark/10 px-4 text-sm font-black text-brand-dark/50">{status === "upcoming" ? "Disponível em 29/10" : status === "ended" ? "Campanha encerrada" : "Checkout em preparação"}</button>;
+  if (!active) return <button type="button" disabled className="mt-6 min-h-12 w-full rounded-full bg-brand-dark/10 px-4 text-sm font-black text-brand-dark/50">{status === "upcoming" ? testSchedule ? "Disponível hoje às 15:35" : "Disponível em 29/10" : status === "ended" ? "Campanha encerrada" : "Checkout em preparação"}</button>;
   return (
     <a href={checkoutUrl(active, coupon)} onClick={(event) => {
       const latest = currentLot(new Date());
@@ -189,7 +189,8 @@ export default function BlackFridayPricing() {
           </div>
 
           <div className="mx-auto mt-8 max-w-2xl rounded-2xl bg-brand-yellow/15 px-5 py-4 text-center text-brand-dark">
-            <p className="font-black" aria-live="polite">{lot.status === "upcoming" ? "Pré-Black começa em 29/10" : lot.status === "ended" ? "Campanha encerrada" : `${lot.discount}% de desconto até ${lot.end}`}</p>
+            {testSchedule && <p className="mb-2 text-xs font-black uppercase tracking-wide text-brand-dark/60">Teste dos lotes · 23/10 · viradas a cada 5 minutos</p>}
+            <p className="font-black" aria-live="polite">{lot.status === "upcoming" ? testSchedule ? "Primeiro lote começa hoje às 15:35" : "Pré-Black começa em 29/10" : lot.status === "ended" ? testSchedule ? "Teste encerrado às 16:00" : "Campanha encerrada" : `${lot.discount}% de desconto até ${lot.end}`}</p>
             <p className="mt-1 text-sm text-brand-dark/75">{lot.status === "upcoming" ? "Os descontos serão aplicados quando o primeiro lote começar." : lot.status === "ended" ? "Os descontos terminaram; os valores abaixo estão sem desconto." : `Lote atual: ${lot.coupon}. Os preços mudam na próxima virada de lote.`}</p>
             {lot.nextChange && <p className="mt-3 text-sm font-semibold tabular-nums">{lot.status === "upcoming" ? "Começa em" : "Próxima virada em"} <time className="ml-1 font-black" dateTime={lot.nextChange}>{clock(secondsLeft)}</time></p>}
           </div>
