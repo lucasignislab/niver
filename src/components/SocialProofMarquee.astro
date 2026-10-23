@@ -1,6 +1,32 @@
 ---
-// SocialProofMarquee.astro
-// Using the two main banner images for the marquee as found on the reference site
+const rows = [
+  {
+    direction: "marquee-right-to-left",
+    avatarSize: "clamp(40px, 7.292vw, 64px)",
+    cardWidth: "clamp(220px, 39.0625vw, 340px)",
+    profiles: [
+      { name: "Tarcísio Bianchi", instagram: "@tarcisiobianchii", image: "/assets/mentores-01.webp", imageOffset: 0 },
+      { name: "Michael Pogne", instagram: "@michael.pogne", image: "/assets/mentores-01.webp", imageOffset: -344 / 62 },
+      { name: "Tayna Gauche", instagram: "@taynagauche", image: "/assets/mentores-01.webp", imageOffset: -680 / 62 },
+      { name: "Yury Ferreira", instagram: "@yuryferreira.ads", image: "/assets/yury-ferreira.webp", imageOffset: null },
+      { name: "Robson Abreu", instagram: "@robsonabreu.ads", image: "/assets/robson-abreu.webp", imageOffset: null },
+      { name: "André Xavier", instagram: "@andrexavier.ads", image: "/assets/andre-xavier.webp", imageOffset: null },
+    ],
+  },
+  {
+    direction: "marquee-left-to-right",
+    avatarSize: "clamp(30px, 6.25vw, 56px)",
+    cardWidth: "clamp(170px, 33.854vw, 300px)",
+    profiles: [
+      { name: "Leo Rodrigues", instagram: "@leorodrigues.dollar", image: "/assets/mentores-02.webp", imageOffset: 0 },
+      { name: "Bruno Matos", instagram: "@bruno.omatos", image: "/assets/mentores-02.webp", imageOffset: -344 / 64 },
+      { name: "Ronaldo Ibrahim", instagram: "@ronaldoibrahim.ads", image: "/assets/mentores-02.webp", imageOffset: -680 / 64 },
+      { name: "Amanda Gomes", instagram: "@amandagomes.ads", image: "/assets/amanda-gomes.webp", imageOffset: null },
+      { name: "Maurício Brollo", instagram: "@dombrollo", image: "/assets/mauricio-brollo.webp", imageOffset: null },
+      { name: "Davy Marcelo", instagram: "@eudavymarcelo", image: "/assets/davy-marcelo.webp", imageOffset: null },
+    ],
+  },
+];
 ---
 
 <section class="py-12 bg-brand-lighter overflow-hidden border-b border-black/5">
@@ -15,25 +41,32 @@
   </div>
 
   <div class="space-y-8 relative">
-    <!-- First Row: Colored, Right to Left -->
-    <div class="marquee-container marquee-right-to-left">
-      <div class="marquee-inner flex">
-        <img src="/assets/mentores-01.webp" alt="Mentores Ratoeira" class="h-[40px] md:h-14 lg:h-16 w-auto object-contain shrink-0 max-w-none" />
-        <img src="/assets/mentores-01.webp" alt="Mentores Ratoeira" class="h-[40px] md:h-14 lg:h-16 w-auto object-contain shrink-0 max-w-none" />
-        <img src="/assets/mentores-01.webp" alt="Mentores Ratoeira" class="h-[40px] md:h-14 lg:h-16 w-auto object-contain shrink-0 max-w-none" />
-        <img src="/assets/mentores-01.webp" alt="Mentores Ratoeira" class="h-[40px] md:h-14 lg:h-16 w-auto object-contain shrink-0 max-w-none" />
+    {rows.map(({ direction, avatarSize, cardWidth, profiles }) => (
+      <div class={`marquee-container ${direction}`} style={`--avatar-size:${avatarSize};--card-width:${cardWidth};`}>
+        <div class="marquee-inner flex">
+          {[0, 1, 2, 3].map((repetition) => (
+            <div class="flex shrink-0" aria-hidden={repetition > 0}>
+              {profiles.map((profile) => (
+                <div class="mentor-card flex shrink-0 items-center gap-2" style="width:var(--card-width);height:var(--avatar-size);">
+                  <div class="mentor-avatar relative shrink-0 overflow-hidden rounded-full bg-brand-yellow" style="width:var(--avatar-size);height:var(--avatar-size);">
+                    <img
+                      src={profile.image}
+                      alt=""
+                      class={profile.imageOffset === null ? "h-full w-full object-cover object-top" : "absolute top-0 h-full w-auto max-w-none"}
+                      style={profile.imageOffset === null ? undefined : `left: calc(var(--avatar-size) * ${profile.imageOffset});`}
+                    />
+                  </div>
+                  <div class="min-w-0 whitespace-nowrap leading-none">
+                    <span class="block text-xs font-black uppercase text-brand-dark md:text-lg lg:text-xl">{profile.name}</span>
+                    <span class="mt-0.5 block text-[8px] font-bold uppercase text-gray-500 md:text-xs">{profile.instagram}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
-
-    <!-- Second Row: Grayscale/BW, Left to Right -->
-    <div class="marquee-container marquee-left-to-right">
-      <div class="marquee-inner flex opacity-50 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-700 mt-4 md:mt-0">
-        <img src="/assets/mentores-02.webp" alt="Mentores Ratoeira BW" class="h-[30px] md:h-12 lg:h-14 w-auto object-contain shrink-0 max-w-none" />
-        <img src="/assets/mentores-02.webp" alt="Mentores Ratoeira BW" class="h-[30px] md:h-12 lg:h-14 w-auto object-contain shrink-0 max-w-none" />
-        <img src="/assets/mentores-02.webp" alt="Mentores Ratoeira BW" class="h-[30px] md:h-12 lg:h-14 w-auto object-contain shrink-0 max-w-none" />
-        <img src="/assets/mentores-02.webp" alt="Mentores Ratoeira BW" class="h-[30px] md:h-12 lg:h-14 w-auto object-contain shrink-0 max-w-none" />
-      </div>
-    </div>
+    ))}
   </div>
 </section>
 
@@ -50,7 +83,7 @@
 
   @keyframes marqueeLeft {
     0% { transform: translateX(0); }
-    100% { transform: translateX(-25%); } /* Based on 4 repeated images */
+    100% { transform: translateX(-25%); }
   }
 
   @keyframes marqueeRight {
@@ -64,13 +97,20 @@
 
   .marquee-left-to-right .marquee-inner {
     animation: marqueeRight 50s linear infinite;
+    margin-top: 1rem;
   }
 
-  /* Faster on mobile */
-  @media (max-width: 768px) {
+  @media (min-width: 768px) {
+    .marquee-left-to-right .marquee-inner {
+      margin-top: 0;
+    }
+  }
+
+  @media (max-width: 767px) {
     .marquee-right-to-left .marquee-inner {
       animation-duration: 25s;
     }
+
     .marquee-left-to-right .marquee-inner {
       animation-duration: 30s;
     }
