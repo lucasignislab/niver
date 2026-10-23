@@ -143,6 +143,7 @@ export default function BlackFridayPricing() {
   const tier = networkCount === 1 ? "1" : networkCount === 2 ? "2" : "all";
   const selectedTier = product === "pages" ? "single" : tier;
   const productInfo = products.find((item) => item.id === product)!;
+  const lifetimePrice = lifetime[product][selectedTier][lot.index];
 
   const scrollToCard = (index: number) => {
     const container = carouselRef.current;
@@ -230,14 +231,14 @@ export default function BlackFridayPricing() {
           </div>
 
           <div className="mb-4 flex items-center justify-between md:hidden">
-            <span className="text-sm font-semibold text-brand-dark" aria-live="polite">Plano {activeCard + 1} de {plans.length}</span>
+            <span className="text-sm font-semibold text-brand-dark" aria-live="polite">Plano {activeCard + 1} de {plans.length + 1}</span>
             <div className="flex gap-2" aria-label="Navegação dos planos">
               <button type="button" aria-label="Ver plano anterior" disabled={activeCard === 0} onClick={() => scrollToCard(activeCard - 1)} className="grid size-11 place-items-center rounded-full bg-white text-brand-dark disabled:opacity-35 focus-visible:outline-2 focus-visible:outline-brand-dark"><ChevronLeft size={20} /></button>
-              <button type="button" aria-label="Ver próximo plano" disabled={activeCard === plans.length - 1} onClick={() => scrollToCard(activeCard + 1)} className="grid size-11 place-items-center rounded-full bg-white text-brand-dark disabled:opacity-35 focus-visible:outline-2 focus-visible:outline-brand-dark"><ChevronRight size={20} /></button>
+              <button type="button" aria-label="Ver próximo plano" disabled={activeCard === plans.length} onClick={() => scrollToCard(activeCard + 1)} className="grid size-11 place-items-center rounded-full bg-white text-brand-dark disabled:opacity-35 focus-visible:outline-2 focus-visible:outline-brand-dark"><ChevronRight size={20} /></button>
             </div>
           </div>
 
-          <div id="planos-valores" ref={carouselRef} onScroll={updateActiveCard} className="flex snap-x snap-mandatory items-start gap-4 overflow-x-auto pb-3 pt-4 scroll-mt-24 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:grid md:grid-cols-2 md:overflow-visible md:pb-0 md:pt-0 xl:grid-cols-4">
+          <div id="planos-valores" ref={carouselRef} onScroll={updateActiveCard} className="flex snap-x snap-mandatory items-start gap-4 overflow-x-auto pb-3 pt-4 scroll-mt-24 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:grid md:grid-cols-2 md:items-stretch md:overflow-visible md:pb-0 md:pt-0 xl:grid-cols-5">
             {plans.map((name, index) => {
               const original = prices[product][selectedTier][period][name.toLowerCase()];
               const parcel = discounted(original.parcel, lot.appliedDiscount);
@@ -256,11 +257,11 @@ export default function BlackFridayPricing() {
                   <div className="mt-5 min-h-32 tabular-nums">
                     {lot.appliedDiscount > 0 && <p className="mb-2 text-xs font-bold text-brand-dark/60">De <s>{currency(original.parcel)}</s> <span className="ml-2 rounded-full bg-emerald-100 px-2 py-0.5 font-black text-emerald-700">{lot.appliedDiscount}% OFF</span></p>}
                     {count > 1 && <span className="text-sm font-black text-brand-dark">{count}x</span>}
-                    <p className="flex flex-wrap items-baseline gap-x-1"><strong className="text-4xl font-black tracking-tight text-brand-dark">{currency(parcel)}</strong>{count === 1 && <span className="text-sm text-brand-dark/65">/mês</span>}</p>
+                    <p className="flex flex-wrap items-baseline gap-x-1"><strong className="text-3xl font-black tracking-tight text-brand-dark 2xl:text-4xl">{currency(parcel)}</strong>{count === 1 && <span className="text-sm text-brand-dark/65">/mês</span>}</p>
                     {cash !== undefined ? <p className="mt-2 text-sm text-brand-dark/75">ou <strong className="text-brand-dark">{currency(cash)}</strong> à vista</p> : <p className="mt-2 text-sm text-brand-dark/65">Cobrança mensal</p>}
                     {saving > 0 && <span className="mt-3 inline-block rounded-full bg-brand-yellow/15 px-3 py-1 text-xs font-bold text-brand-dark">Economize {saving}% pagando à vista</span>}
                   </div>
-                  <details className="group border-t border-brand-dark/10">
+                  <details className="group border-t border-brand-dark/10 md:mt-auto">
                     <summary className="flex cursor-pointer list-none items-center justify-between py-4 text-sm font-bold text-brand-dark/75 hover:text-brand-dark focus-visible:rounded-md focus-visible:outline-2 focus-visible:outline-brand-dark [&::-webkit-details-marker]:hidden">
                       <span><span className="group-open:hidden">Veja mais</span><span className="hidden group-open:inline">Veja menos</span></span>
                       <ChevronDown aria-hidden="true" className="size-5 transition-transform group-open:rotate-180" />
@@ -272,9 +273,30 @@ export default function BlackFridayPricing() {
                 </article>
               );
             })}
+            <article className="relative flex min-w-full snap-start flex-col rounded-2xl bg-white p-5 shadow-[0_12px_32px_rgba(0,0,0,0.07)] md:min-w-0">
+              <span className="absolute -top-3 left-4 rounded-full bg-brand-dark px-3 py-1 text-xs font-black uppercase text-white">Acesso definitivo</span>
+              <h3 className="mt-3 text-3xl font-black text-brand-dark">Vitalício</h3>
+              <p className="mt-2 min-h-12 text-sm leading-5 text-brand-dark/65">{productInfo.label} sem renovação de assinatura.</p>
+              <div className="mt-5 min-h-32 tabular-nums">
+                {lot.status === "active" ? <>
+                  <span className="text-sm font-black text-brand-dark">Valor do lote</span>
+                  <p><strong className="text-3xl font-black tracking-tight text-brand-dark 2xl:text-4xl">{currency(lifetimePrice.parcel)}</strong></p>
+                  <p className="mt-2 text-sm text-brand-dark/75">ou <strong className="text-brand-dark">{currency(lifetimePrice.cash ?? lifetimePrice.parcel)}</strong> à vista</p>
+                </> : <p className="text-sm text-brand-dark/75">{lot.status === "upcoming" ? "Valores liberados no início do primeiro lote." : "Oferta encerrada."}</p>}
+              </div>
+              <details className="group border-t border-brand-dark/10 md:mt-auto">
+                <summary className="flex cursor-pointer list-none items-center justify-between py-4 text-sm font-bold text-brand-dark/75 hover:text-brand-dark focus-visible:rounded-md focus-visible:outline-2 focus-visible:outline-brand-dark [&::-webkit-details-marker]:hidden">
+                  <span><span className="group-open:hidden">Veja mais</span><span className="hidden group-open:inline">Veja menos</span></span>
+                  <ChevronDown aria-hidden="true" className="size-5 transition-transform group-open:rotate-180" />
+                </summary>
+                <p className="pt-2 text-sm leading-5 text-brand-dark/75">{product !== "pages" ? "Ratoeira Ads e Hub incluem 3 redes de tráfego no acesso vitalício." : "Acesso vitalício à Ratoeira Pages."}</p>
+                <OfferButton link={checkoutLinks[`${product}/${selectedTier}/vitalicio`]} coupon={null} status={available} label="Assinar vitalício" />
+              </details>
+            </article>
           </div>
           <div className="mt-3 flex justify-center gap-2 md:hidden" aria-label="Selecionar plano">
             {plans.map((name, index) => <button key={name} type="button" aria-label={`Ver plano ${name}`} aria-current={activeCard === index ? "true" : undefined} onClick={() => scrollToCard(index)} className={`h-2.5 rounded-full focus-visible:outline-2 focus-visible:outline-brand-dark ${activeCard === index ? "w-8 bg-brand-yellow" : "w-2.5 bg-brand-dark/25"}`} />)}
+            <button type="button" aria-label="Ver plano vitalício" aria-current={activeCard === plans.length ? "true" : undefined} onClick={() => scrollToCard(plans.length)} className={`h-2.5 rounded-full focus-visible:outline-2 focus-visible:outline-brand-dark ${activeCard === plans.length ? "w-8 bg-brand-yellow" : "w-2.5 bg-brand-dark/25"}`} />
           </div>
 
           <p className="mx-auto mt-10 max-w-4xl text-center text-sm leading-relaxed text-brand-dark/75">Assinantes ativos dos planos Camundongo, Rato, Ratazana ou Ratazana Plus fazem o upgrade direto na <a href="https://ratoeirahub.com/" className="font-bold underline underline-offset-2">plataforma</a>, onde têm condições exclusivas e melhores que as desta página.</p>
@@ -282,20 +304,6 @@ export default function BlackFridayPricing() {
         </div>
       </section>
 
-      <section className="bg-white px-4 py-14 text-center">
-        <div className="mx-auto max-w-3xl">
-          <h2 className="text-2xl font-black text-brand-dark md:text-3xl">Prefere acesso vitalício?</h2>
-          <p className="mt-2 text-sm text-brand-dark/70">Condição vitalícia com pagamento parcelado ou à vista.</p>
-          <div className="mt-6 flex flex-wrap justify-center gap-2" aria-label="Produto vitalício">
-            {products.map((item) => <button key={item.id} type="button" aria-pressed={product === item.id} onClick={() => setProduct(item.id)} className={`rounded-full px-4 py-2 text-sm font-bold ${product === item.id ? "bg-brand-yellow text-brand-dark" : "bg-brand-lighter text-brand-dark"}`}>{item.label}</button>)}
-          </div>
-          {product !== "pages" && <p className="mt-4 text-sm text-brand-dark/65">O vitalício de Ads e Hub dá direito a 3 redes.</p>}
-          {(() => {
-            const price = lifetime[product][selectedTier][lot.index];
-            return <div className="mx-auto mt-6 max-w-sm rounded-2xl bg-brand-lighter p-6"><p className="text-sm font-bold text-brand-dark/65">{productInfo.label} Vitalício</p>{lot.status === "active" ? <><strong className="mt-3 block text-3xl font-black text-brand-dark">{currency(price.parcel)}</strong><p className="mt-2 text-sm text-brand-dark/75">ou <strong>{currency(price.cash ?? price.parcel)} à vista</strong></p></> : <p className="mt-3 text-sm text-brand-dark/75">{lot.status === "upcoming" ? "Valores liberados no início do primeiro lote." : "Oferta encerrada."}</p>}<OfferButton link={checkoutLinks[`${product}/${selectedTier}/vitalicio`]} coupon={null} status={available} label="Assinar vitalício" /></div>;
-          })()}
-        </div>
-      </section>
     </>
   );
 }
