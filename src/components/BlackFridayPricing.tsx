@@ -237,7 +237,7 @@ export default function BlackFridayPricing() {
             </div>
           </div>
 
-          <div id="planos-valores" ref={carouselRef} onScroll={updateActiveCard} className="flex snap-x snap-mandatory items-start gap-4 overflow-x-auto pb-3 pt-4 scroll-mt-24 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:grid md:grid-cols-2 md:items-stretch md:overflow-visible md:pb-0 md:pt-0 xl:grid-cols-5">
+          <div id="planos-valores" ref={carouselRef} onScroll={updateActiveCard} className="flex snap-x snap-mandatory items-start gap-4 overflow-x-auto pb-3 pt-4 scroll-mt-24 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:grid md:grid-cols-2 md:overflow-visible md:pb-0 md:pt-0 xl:grid-cols-5">
             {plans.map((name, index) => {
               const original = prices[product][selectedTier][period][name.toLowerCase()];
               const parcel = discounted(original.parcel, lot.appliedDiscount);
@@ -260,7 +260,7 @@ export default function BlackFridayPricing() {
                     {cash !== undefined ? <p className="mt-2 text-sm text-brand-dark/75">ou <strong className="text-brand-dark">{currency(cash)}</strong> à vista</p> : <p className="mt-2 text-sm text-brand-dark/65">Cobrança mensal</p>}
                     {saving > 0 && <span className="mt-3 inline-block rounded-full bg-brand-yellow/15 px-3 py-1 text-xs font-bold text-brand-dark">Economize {saving}% pagando à vista</span>}
                   </div>
-                  <details className="group border-t border-brand-dark/10 md:mt-auto">
+                  <details className="group border-t border-brand-dark/10">
                     <summary className="flex cursor-pointer list-none items-center justify-between py-4 text-sm font-bold text-brand-dark/75 hover:text-brand-dark focus-visible:rounded-md focus-visible:outline-2 focus-visible:outline-brand-dark [&::-webkit-details-marker]:hidden">
                       <span><span className="group-open:hidden">Veja mais</span><span className="hidden group-open:inline">Veja menos</span></span>
                       <ChevronDown aria-hidden="true" className="size-5 transition-transform group-open:rotate-180" />
@@ -283,7 +283,7 @@ export default function BlackFridayPricing() {
                   <p className="mt-2 text-sm text-brand-dark/75">ou <strong className="text-brand-dark">{currency(lifetimePrice.cash ?? lifetimePrice.parcel)}</strong> à vista</p>
                 </> : <p className="text-sm text-brand-dark/75">{lot.status === "upcoming" ? "Valores liberados no início do primeiro lote." : "Oferta encerrada."}</p>}
               </div>
-              <details className="group border-t border-brand-dark/10 md:mt-auto">
+              <details className="group border-t border-brand-dark/10">
                 <summary className="flex cursor-pointer list-none items-center justify-between py-4 text-sm font-bold text-brand-dark/75 hover:text-brand-dark focus-visible:rounded-md focus-visible:outline-2 focus-visible:outline-brand-dark [&::-webkit-details-marker]:hidden">
                   <span><span className="group-open:hidden">Veja mais</span><span className="hidden group-open:inline">Veja menos</span></span>
                   <ChevronDown aria-hidden="true" className="size-5 transition-transform group-open:rotate-180" />
