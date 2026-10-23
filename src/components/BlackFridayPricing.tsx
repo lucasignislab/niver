@@ -182,9 +182,9 @@ export default function BlackFridayPricing() {
       <PlanCalculator lot={lot} onSelect={selectRecommendedPlan} />
       <section id="planos" className="scroll-mt-24 bg-brand-lighter px-4 py-16 md:py-24">
         <div className="mx-auto max-w-[1400px]">
-          <div className="mx-auto max-w-3xl text-center">
-            <h2 className="text-4xl font-black tracking-tight text-brand-dark md:text-6xl">Escolha como quer começar</h2>
-            <p className="mt-4 text-base text-brand-dark/70 md:text-lg">Escolha o produto, o número de redes simultâneas e o período para visualizar os valores corretos.</p>
+          <div className="mx-auto max-w-3xl text-center lg:max-w-5xl">
+            <h2 className="text-4xl font-black tracking-tight text-brand-dark md:text-6xl lg:whitespace-nowrap">Escolha como quer começar</h2>
+            <p className="mx-auto mt-4 max-w-3xl text-base text-brand-dark/70 md:text-lg">Escolha o produto, o número de redes simultâneas e o período para visualizar os valores corretos.</p>
           </div>
 
           <div className="mx-auto mt-8 max-w-2xl rounded-2xl bg-brand-yellow/15 px-5 py-4 text-center text-brand-dark">
