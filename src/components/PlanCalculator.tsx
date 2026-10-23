@@ -193,13 +193,13 @@ export default function PlanCalculator({
           {step === "result" && volume !== null && (
             <div aria-live="polite">
               <h3 className="text-2xl font-black md:text-3xl">Plano indicado: <span className="underline decoration-brand-yellow decoration-4 underline-offset-4">{productLabels[product]} {plan}</span></h3>
-              <p className="mt-3 max-w-3xl text-sm leading-relaxed text-brand-dark/75">A indicação considera {product === "pages" ? "os acessos mensais" : "as vendas mensais, as redes e os limites de contas informados"}. Os valores abaixo já incluem o desconto de {lot.discount}% do {lot.status === "upcoming" ? "primeiro lote" : lot.status === "ended" ? "último lote" : "lote atual"}.</p>
+              <p className="mt-3 max-w-3xl text-sm leading-relaxed text-brand-dark/75">A indicação considera {product === "pages" ? "os acessos mensais" : "as vendas mensais, as redes e os limites de contas informados"}. {lot.appliedDiscount > 0 ? `Os valores abaixo incluem ${lot.appliedDiscount}% de desconto do lote atual.` : "Os valores abaixo estão sem desconto."}</p>
               {volume === volumeOptions.length - 1 && <p className="mt-3 rounded-xl bg-brand-yellow/15 p-3 text-sm text-brand-dark">Seu volume ultrapassa o limite incluído no Max. Consulte as condições para volumes maiores.</p>}
               <div className="mt-6 grid gap-4 md:grid-cols-3">
                 {periods.map((period) => {
                   const price = selectedPrices[period.id][plan.toLowerCase()];
-                  const parcel = discounted(price.parcel, lot.discount);
-                  const cash = price.cash === undefined ? undefined : discounted(price.cash, lot.discount);
+                  const parcel = discounted(price.parcel, lot.appliedDiscount);
+                  const cash = price.cash === undefined ? undefined : discounted(price.cash, lot.appliedDiscount);
                   return (
                     <article key={period.id} className={`flex flex-col rounded-2xl p-5 ${period.id === "anual" ? "bg-brand-yellow text-brand-dark" : "bg-white text-brand-dark"}`}>
                       <h4 className="text-sm font-black uppercase tracking-wide">{period.label}</h4>

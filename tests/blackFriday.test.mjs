@@ -21,8 +21,9 @@ test("troca os cinco lotes a cada 10 minutos a partir das 15:00 de São Paulo", 
     assert.equal(lot.status, status, time);
     assert.equal(lot.coupon, coupon, time);
     assert.equal(lot.discount, discount, time);
+    assert.equal(lot.appliedDiscount, status === "active" ? discount : 0, time);
     assert.equal(lot.nextChange, nextChange, time);
-    assert.equal(discounted(197, lot.discount), Math.round(197 * (100 - discount)) / 100, time);
+    assert.equal(discounted(197, lot.appliedDiscount), Math.round(197 * (100 - lot.appliedDiscount)) / 100, time);
   }
 });
 
@@ -33,6 +34,8 @@ test("mantém os centavos da tabela", () => {
 });
 
 test("atualiza assinatura e vitalício junto com cada lote", () => {
+  const before = currentLot(new Date("2026-10-23T14:59:59-03:00"));
+  assert.equal(discounted(priceData.prices.hub["1"].anual.basic.parcel, before.appliedDiscount), 223);
   const expectedParcels = [144.95, 156.1, 162.79, 167.25, 173.94];
   const expectedLifetime = [6650, 7000, 7300, 7450, 7600];
   for (let index = 0; index < 5; index += 1) {

@@ -190,7 +190,7 @@ export default function BlackFridayPricing() {
           <div className="mx-auto mt-8 max-w-2xl rounded-2xl bg-brand-yellow/15 px-5 py-4 text-center text-brand-dark">
             {testSchedule && <p className="mb-2 text-xs font-black uppercase tracking-wide text-brand-dark/60">Teste dos lotes · 23/10 · viradas a cada 10 minutos</p>}
             <p className="font-black" aria-live="polite">{lot.status === "upcoming" ? testSchedule ? "Primeiro lote começa hoje às 15:00" : "Pré-Black começa em 29/10" : lot.status === "ended" ? testSchedule ? "Teste encerrado às 15:50" : "Campanha encerrada" : `${lot.discount}% de desconto até ${lot.end}`}</p>
-            <p className="mt-1 text-sm text-brand-dark/75">{lot.status === "upcoming" ? testSchedule ? "Prévia dos preços do primeiro lote." : "Prévia dos preços do primeiro lote. A campanha vai até 30/11." : lot.status === "ended" ? "Os preços abaixo são do último lote da campanha." : `Lote atual: ${lot.coupon}. Os preços mudam na próxima virada de lote.`}</p>
+            <p className="mt-1 text-sm text-brand-dark/75">{lot.status === "upcoming" ? "Os descontos serão aplicados quando o primeiro lote começar." : lot.status === "ended" ? "Os descontos terminaram; os valores abaixo estão sem desconto." : `Lote atual: ${lot.coupon}. Os preços mudam na próxima virada de lote.`}</p>
             {lot.nextChange && <p className="mt-3 text-sm font-semibold tabular-nums">{lot.status === "upcoming" ? "Começa em" : "Próxima virada em"} <time className="ml-1 font-black" dateTime={lot.nextChange}>{clock(secondsLeft)}</time></p>}
           </div>
 
@@ -240,8 +240,8 @@ export default function BlackFridayPricing() {
           <div id="planos-valores" ref={carouselRef} onScroll={updateActiveCard} className="flex snap-x snap-mandatory items-start gap-4 overflow-x-auto pb-3 pt-4 scroll-mt-24 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:grid md:grid-cols-2 md:overflow-visible md:pb-0 md:pt-0 xl:grid-cols-4">
             {plans.map((name, index) => {
               const original = prices[product][selectedTier][period][name.toLowerCase()];
-              const parcel = discounted(original.parcel, lot.discount);
-              const cash = original.cash === undefined ? undefined : discounted(original.cash, lot.discount);
+              const parcel = discounted(original.parcel, lot.appliedDiscount);
+              const cash = original.cash === undefined ? undefined : discounted(original.cash, lot.appliedDiscount);
               const count = periods.find((item) => item.id === period)!.installments;
               const saving = cash === undefined ? 0 : Math.round((1 - cash / (parcel * count)) * 100);
               const featured = index === 1;
@@ -254,6 +254,7 @@ export default function BlackFridayPricing() {
                   <h3 className="mt-3 text-3xl font-black text-brand-dark">{name}</h3>
                   <p className="mt-2 min-h-12 text-sm leading-5 text-brand-dark/65">{productInfo.description[index]}</p>
                   <div className="mt-5 min-h-32 tabular-nums">
+                    {lot.appliedDiscount > 0 && <p className="mb-2 text-xs font-bold text-brand-dark/60">De <s>{currency(original.parcel)}</s> <span className="ml-2 rounded-full bg-emerald-100 px-2 py-0.5 font-black text-emerald-700">{lot.appliedDiscount}% OFF</span></p>}
                     {count > 1 && <span className="text-sm font-black text-brand-dark">{count}x</span>}
                     <p className="flex flex-wrap items-baseline gap-x-1"><strong className="text-4xl font-black tracking-tight text-brand-dark">{currency(parcel)}</strong>{count === 1 && <span className="text-sm text-brand-dark/65">/mês</span>}</p>
                     {cash !== undefined ? <p className="mt-2 text-sm text-brand-dark/75">ou <strong className="text-brand-dark">{currency(cash)}</strong> à vista</p> : <p className="mt-2 text-sm text-brand-dark/65">Cobrança mensal</p>}
@@ -291,7 +292,7 @@ export default function BlackFridayPricing() {
           {product !== "pages" && <p className="mt-4 text-sm text-brand-dark/65">O vitalício de Ads e Hub dá direito a 3 redes.</p>}
           {(() => {
             const price = lifetime[product][selectedTier][lot.index];
-            return <div className="mx-auto mt-6 max-w-sm rounded-2xl bg-brand-lighter p-6"><p className="text-sm font-bold text-brand-dark/65">{productInfo.label} Vitalício</p><strong className="mt-3 block text-3xl font-black text-brand-dark">{currency(price.parcel)}</strong><p className="mt-2 text-sm text-brand-dark/75">ou <strong>{currency(price.cash ?? price.parcel)} à vista</strong></p><OfferButton link={checkoutLinks[`${product}/${selectedTier}/vitalicio`]} coupon={null} status={available} label="Assinar vitalício" /></div>;
+            return <div className="mx-auto mt-6 max-w-sm rounded-2xl bg-brand-lighter p-6"><p className="text-sm font-bold text-brand-dark/65">{productInfo.label} Vitalício</p>{lot.status === "active" ? <><strong className="mt-3 block text-3xl font-black text-brand-dark">{currency(price.parcel)}</strong><p className="mt-2 text-sm text-brand-dark/75">ou <strong>{currency(price.cash ?? price.parcel)} à vista</strong></p></> : <p className="mt-3 text-sm text-brand-dark/75">{lot.status === "upcoming" ? "Valores liberados no início do primeiro lote." : "Oferta encerrada."}</p>}<OfferButton link={checkoutLinks[`${product}/${selectedTier}/vitalicio`]} coupon={null} status={available} label="Assinar vitalício" /></div>;
           })()}
         </div>
       </section>

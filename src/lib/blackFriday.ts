@@ -26,7 +26,7 @@ export function currentLot(date: Date) {
   const status: CampaignStatus = time < Date.parse(lots[0].start) ? "upcoming" : time >= Date.parse(campaignEnd) ? "ended" : "active";
   const index = status === "upcoming" ? 0 : Math.max(0, lots.findLastIndex((lot) => time >= Date.parse(lot.start)));
   const nextChange = status === "ended" ? null : status === "upcoming" ? lots[0].start : lots[index + 1]?.start ?? campaignEnd;
-  return { status, index, nextChange, ...lots[index] };
+  return { status, index, nextChange, ...lots[index], appliedDiscount: status === "active" ? lots[index].discount : 0 };
 }
 
 export function discounted(value: number, percent: number): number {
