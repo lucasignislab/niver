@@ -22,3 +22,7 @@ export function currentLot(date: Date) {
 export function discounted(value: number, percent: number): number {
   return Math.round((value * (100 - percent) + Number.EPSILON) * 100) / 10000;
 }
+
+export function cashSavingPercent(parcel: number, cash: number | undefined, installments: number, lotDiscount: number): number {
+  return cash === undefined || lotDiscount > 0 ? 0 : Math.round((1 - cash / (parcel * installments)) * 100);
+}

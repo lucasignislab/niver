@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import test from "node:test";
-import { currentLot, discounted } from "../src/lib/blackFriday.ts";
+import { cashSavingPercent, currentLot, discounted } from "../src/lib/blackFriday.ts";
 
 const priceData = JSON.parse(readFileSync(new URL("../src/data/black-friday-prices.json", import.meta.url), "utf8"));
 
@@ -32,6 +32,28 @@ test("mantém os centavos da tabela", () => {
   assert.equal(discounted(197, 35), 128.05);
   assert.equal(discounted(197, 27), 143.81);
   assert.equal(discounted(1970, 22), 1536.6);
+});
+
+test("mostra a economia à vista só fora dos lotes promocionais", () => {
+  assert.equal(cashSavingPercent(223, 2497, 12, 0), 7);
+  for (const discount of [35, 30, 27, 25, 22]) {
+    assert.equal(cashSavingPercent(223, 2497, 12, discount), 0);
+  }
+  assert.equal(cashSavingPercent(197, undefined, 1, 0), 0);
+});
+
+test("aplica cada desconto uma vez aos preços de referência", () => {
+  const examples = [
+    ["ads", "1", "anual", "basic", 35, 117, 1280.5],
+    ["pages", "single", "semestral", "basic", 27, 64.24, 362.81],
+    ["hub", "1", "anual", "basic", 22, 173.94, 1947.66],
+    ["hub", "1", "mensal", "max", 30, 928.9, null],
+  ];
+  for (const [product, tier, period, plan, discount, parcel, cash] of examples) {
+    const base = priceData.prices[product][tier][period][plan];
+    assert.equal(discounted(base.parcel, discount), parcel);
+    if (cash !== null) assert.equal(discounted(base.cash, discount), cash);
+  }
 });
 
 test("atualiza assinatura e vitalício junto com cada lote", () => {

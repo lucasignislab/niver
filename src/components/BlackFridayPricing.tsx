@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { Check, ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
 import priceData from "../data/black-friday-prices.json";
-import { currentLot, discounted, type CampaignStatus } from "../lib/blackFriday";
+import { cashSavingPercent, currentLot, discounted, type CampaignStatus } from "../lib/blackFriday";
 import {
   accountLimits,
   googleEmailLimits,
@@ -243,7 +243,8 @@ export default function BlackFridayPricing() {
               const parcel = discounted(original.parcel, lot.appliedDiscount);
               const cash = original.cash === undefined ? undefined : discounted(original.cash, lot.appliedDiscount);
               const count = periods.find((item) => item.id === period)!.installments;
-              const saving = cash === undefined ? 0 : Math.round((1 - cash / (parcel * count)) * 100);
+              const saving = cashSavingPercent(parcel, cash, count, lot.appliedDiscount);
+              const promotionalCash = lot.appliedDiscount > 0 && original.cash !== undefined && cash !== undefined;
               const featured = index === 1;
               const unlimited = index === plans.length - 1;
               return (
@@ -253,11 +254,11 @@ export default function BlackFridayPricing() {
                   {recommendedPlan === name && <span className="absolute right-5 top-5 rounded-full bg-brand-dark px-3 py-1 text-xs font-black text-white">Indicado para você</span>}
                   <h3 className="mt-3 text-3xl font-black text-brand-dark">{name}</h3>
                   <p className="mt-2 min-h-12 text-sm leading-5 text-brand-dark/65">{productInfo.description[index]}</p>
-                  <div className="mt-5 min-h-32 tabular-nums">
-                    {lot.appliedDiscount > 0 && <p className="mb-2 text-xs font-bold text-brand-dark/60">De <s>{currency(original.parcel)}</s> <span className="ml-2 rounded-full bg-emerald-100 px-2 py-0.5 font-black text-emerald-700">{lot.appliedDiscount}% OFF</span></p>}
+                  <div className="mt-5 min-h-36 tabular-nums">
+                    {lot.appliedDiscount > 0 && <p className="mb-2 flex flex-wrap items-center gap-2 text-xs text-brand-dark/60">De <s>{currency(original.parcel)}</s> <span className="rounded-full bg-emerald-100 px-2 py-0.5 font-black text-emerald-700">{lot.appliedDiscount}% OFF</span></p>}
                     {count > 1 && <span className="text-sm font-black text-brand-dark">{count}x</span>}
                     <p className="flex flex-wrap items-baseline gap-x-1"><strong className="text-3xl font-black tracking-tight text-brand-dark 2xl:text-4xl">{currency(parcel)}</strong>{count === 1 && <span className="text-sm text-brand-dark/65">/mês</span>}</p>
-                    {cash !== undefined ? <p className="mt-2 text-sm text-brand-dark/75">ou <strong className="text-brand-dark">{currency(cash)}</strong> à vista</p> : <p className="mt-2 text-sm text-brand-dark/65">Cobrança mensal</p>}
+                    {cash !== undefined ? promotionalCash ? <p className="mt-2 text-sm text-brand-dark/75"><span className="block">ou {original.cash !== undefined && <s className="text-brand-dark/50">{currency(original.cash)}</s>}</span><span className="block"><strong className="text-brand-dark">{currency(cash)}</strong> à vista</span></p> : <p className="mt-2 text-sm text-brand-dark/75">ou <strong className="text-brand-dark">{currency(cash)}</strong> à vista</p> : <p className="mt-2 text-sm text-brand-dark/65">Cobrança mensal</p>}
                     {saving > 0 && <span className="mt-3 inline-block rounded-full bg-brand-yellow/15 px-3 py-1 text-xs font-bold text-brand-dark">Economize {saving}% pagando à vista</span>}
                   </div>
                   <details className="group border-t border-brand-dark/10">
