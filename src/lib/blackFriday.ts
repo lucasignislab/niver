@@ -18,15 +18,17 @@ const trialLots = [
   { start: "2026-10-23T15:55:00-03:00", end: "16:00", discount: 22, coupon: "BLACK22" },
 ] as const;
 
-export const lots = testSchedule ? trialLots : productionLots;
-const campaignEnd = testSchedule ? "2026-10-23T16:00:00-03:00" : "2026-12-01T00:00:00-03:00";
+const trialEnd = "2026-10-23T16:00:00-03:00";
 
 export function currentLot(date: Date) {
   const time = date.getTime();
+  const isTest = testSchedule && time < Date.parse(trialEnd);
+  const lots = isTest ? trialLots : productionLots;
+  const campaignEnd = isTest ? trialEnd : "2026-12-01T00:00:00-03:00";
   const status: CampaignStatus = time < Date.parse(lots[0].start) ? "upcoming" : time >= Date.parse(campaignEnd) ? "ended" : "active";
   const index = status === "upcoming" ? 0 : Math.max(0, lots.findLastIndex((lot) => time >= Date.parse(lot.start)));
   const nextChange = status === "ended" ? null : status === "upcoming" ? lots[0].start : lots[index + 1]?.start ?? campaignEnd;
-  return { status, index, nextChange, ...lots[index], appliedDiscount: status === "active" ? lots[index].discount : 0 };
+  return { status, index, nextChange, isTest, ...lots[index], appliedDiscount: status === "active" ? lots[index].discount : 0 };
 }
 
 export function discounted(value: number, percent: number): number {

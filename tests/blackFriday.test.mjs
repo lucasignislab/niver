@@ -14,7 +14,7 @@ test("troca os cinco lotes de teste a cada 5 minutos a partir das 15:35", () => 
     ["2026-10-23T15:50:00-03:00", "active", "BLACK25", 25, "2026-10-23T15:55:00-03:00"],
     ["2026-10-23T15:55:00-03:00", "active", "BLACK22", 22, "2026-10-23T16:00:00-03:00"],
     ["2026-10-23T15:59:59-03:00", "active", "BLACK22", 22, "2026-10-23T16:00:00-03:00"],
-    ["2026-10-23T16:00:00-03:00", "ended", "BLACK22", 22, null],
+    ["2026-10-23T16:00:00-03:00", "upcoming", "BLACK35", 35, "2026-10-29T00:00:00-03:00"],
   ];
   for (const [time, status, coupon, discount, nextChange] of cases) {
     const lot = currentLot(new Date(time));
@@ -23,6 +23,7 @@ test("troca os cinco lotes de teste a cada 5 minutos a partir das 15:35", () => 
     assert.equal(lot.discount, discount, time);
     assert.equal(lot.appliedDiscount, status === "active" ? discount : 0, time);
     assert.equal(lot.nextChange, nextChange, time);
+    assert.equal(lot.isTest, new Date(time) < new Date("2026-10-23T16:00:00-03:00"), time);
     assert.equal(discounted(197, lot.appliedDiscount), Math.round(197 * (100 - lot.appliedDiscount)) / 100, time);
   }
 });
