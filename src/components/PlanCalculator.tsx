@@ -266,7 +266,8 @@ export default function PlanCalculator({
                   return (
                     <article key={period.id} className={`flex flex-col rounded-2xl p-5 ${period.id === "anual" ? "bg-brand-yellow text-brand-dark" : "bg-white text-brand-dark"}`}>
                       <h4 className="text-sm font-black uppercase tracking-wide">{period.label}</h4>
-                      <p className="mt-4 text-2xl font-black tabular-nums">{period.installments > 1 ? `${period.installments}x ` : ""}{money.format(parcel)}{period.installments === 1 ? "/mês" : ""}</p>
+                      {lot.appliedDiscount > 0 && <p className="mt-4 flex flex-wrap items-center gap-2 text-xs font-semibold text-brand-dark/60"><span>De <s>{period.installments > 1 ? `${period.installments}x ` : ""}{money.format(price.parcel)}{period.installments === 1 ? "/mês" : ""}</s></span><span className="rounded-full bg-emerald-100 px-2 py-0.5 font-black text-emerald-700">{lot.appliedDiscount}% OFF</span></p>}
+                      <p className={`${lot.appliedDiscount > 0 ? "mt-2" : "mt-4"} text-2xl font-black tabular-nums`}>{period.installments > 1 ? `${period.installments}x ` : ""}{money.format(parcel)}{period.installments === 1 ? "/mês" : ""}</p>
                       {cash !== undefined && <p className="mt-2 text-sm">ou <strong>{money.format(cash)} à vista</strong></p>}
                       <div className="mt-auto pt-6">
                         <button type="button" onClick={() => onSelect(product, tier === "single" ? "1" : tier, period.id, plan)} className="mb-4 flex min-h-10 items-center gap-2 text-left text-sm font-bold text-brand-dark underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-brand-dark"><Plus aria-hidden="true" className="size-4 shrink-0" /> Ver todos os limites desse plano</button>
