@@ -95,7 +95,7 @@ export default function PlanCalculator({
   const currentIndex = Math.min(stepIndex, payment === "discount" && volume === null ? steps.indexOf("volume") : steps.length - 1);
   const step = steps[currentIndex];
   const questionCount = payment ? steps.length - 1 : 1;
-  const progress = step === "result" ? 100 : payment ? Math.round(((currentIndex + 1) / questionCount) * 100) : 0;
+  const progress = step === "result" ? 100 : payment ? Math.round((currentIndex / questionCount) * 100) : 0;
   const recommended = recommendPlan(product, selectedNetworks, volume ?? 0, accounts, googleEmails);
   const tier = product === "pages" ? "single" : networkTier(selectedNetworks.length);
   const plan = plans[recommended];
@@ -147,14 +147,14 @@ export default function PlanCalculator({
 
           {step === "payment" && (
             <fieldset>
-              <legend className="mb-2 text-2xl font-black">Como você prefere pagar?</legend>
-              <p className="mb-6 text-sm text-brand-dark/70">Escolha entre acesso vitalício ou desconto nos planos vigentes.</p>
+              <legend className="mb-2 text-2xl font-black">Vitalício ou desconto no plano?</legend>
+              <p className="mb-6 text-sm text-brand-dark/70">As duas condições existem na Black. A escolha muda os preços que você vai ver no fim.</p>
               <div className="grid gap-3 sm:grid-cols-2">
                 <button type="button" aria-pressed={payment === "lifetime"} onClick={() => { setPayment("lifetime"); setStepIndex(1); }} className={choiceClass(payment === "lifetime")}>
-                  <strong className="block">Vitalício</strong><span className="mt-1 block text-sm opacity-80">Pague uma vez, sem renovação de assinatura.</span>
+                  <strong className="block">Quero o vitalício</strong><span className="mt-1 block text-sm opacity-80">Pago uma vez e nunca mais renovo</span>
                 </button>
                 <button type="button" aria-pressed={payment === "discount"} onClick={() => { setPayment("discount"); setStepIndex(1); }} className={choiceClass(payment === "discount")}>
-                  <strong className="block">Plano com desconto da Black Friday</strong><span className="mt-1 block text-sm opacity-80">Mensal, semestral ou anual com desconto por lote.</span>
+                  <strong className="block">Quero desconto no plano vigente</strong><span className="mt-1 block text-sm opacity-80">Mensal, semestral ou anual com o desconto do lote</span>
                 </button>
               </div>
             </fieldset>
@@ -233,12 +233,13 @@ export default function PlanCalculator({
                     <article key={choice.tier} className="flex flex-col rounded-2xl bg-white p-5 text-brand-dark">
                       <h4 className="text-lg font-black">{choice.label}</h4>
                       <p className="mt-2 text-sm text-brand-dark/70">{choice.description}</p>
-                      {lot.status === "active" ? (
+                      {lot.status !== "ended" ? (
                         <div className="mt-4 tabular-nums">
-                          <p className="text-2xl font-black">12x {money.format(price.parcel / 12)}</p>
-                          <p className="mt-2 text-sm">ou <strong>{money.format(price.cash ?? price.parcel)} à vista</strong></p>
+                          <p className="text-sm font-black">Pagamento único</p>
+                          <p className="text-2xl font-black">{money.format(price.parcel)}</p>
+                          {price.cash !== undefined && <p className="mt-2 text-sm">ou <strong>{money.format(price.cash)} à vista</strong></p>}
                         </div>
-                      ) : <p className="mt-4 text-sm text-brand-dark/70">{lot.status === "upcoming" ? "Valores liberados no início do primeiro lote." : "Oferta encerrada."}</p>}
+                      ) : <p className="mt-4 text-sm text-brand-dark/70">Oferta encerrada.</p>}
                       <button type="button" onClick={() => onSelect(product, choice.tier === "single" ? "1" : choice.tier, "vitalicio", "Vitalício")} className="mt-6 min-h-11 rounded-full bg-brand-yellow px-4 text-sm font-black uppercase text-brand-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-yellow">Ver vitalício <ArrowRight className="ml-1 inline size-4" /></button>
                     </article>
                   );
@@ -281,6 +282,16 @@ export default function PlanCalculator({
               <button type="button" disabled={(step === "payment" && payment === null) || (step === "product" && !productChosen) || (step === "networks" && selectedNetworks.length === 0) || (step === "volume" && volume === null)} onClick={() => setStepIndex(currentIndex + 1)} className="inline-flex min-h-12 flex-1 items-center justify-center gap-2 rounded-full bg-brand-yellow px-5 font-black text-brand-dark disabled:cursor-not-allowed disabled:opacity-40 hover:bg-brand-yellow-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-yellow">Continuar <ArrowRight size={17} /></button>
             </div>
           )}
+        </div>
+        <div className="mx-auto mt-6 grid max-w-4xl gap-3 md:grid-cols-2">
+          <div className="rounded-2xl border border-brand-dark/10 bg-brand-lighter p-5 text-sm leading-relaxed text-brand-dark/80">
+            <strong className="mb-1 block text-brand-dark">Já é assinante?</strong>
+            Quem está nos planos Camundongo, Rato, Ratazana ou Ratazana Plus faz o upgrade direto na <a href="https://ratoeirahub.com/" className="font-bold underline underline-offset-2">plataforma</a>, com condições exclusivas e melhores que as desta página.
+          </div>
+          <div className="rounded-2xl border border-brand-dark/10 bg-brand-lighter p-5 text-sm leading-relaxed text-brand-dark/80">
+            <strong className="mb-1 block text-brand-dark">Evento presencial</strong>
+            Oferecido depois da compra aprovada e adquirido com um clique, sem digitar os dados de pagamento de novo.
+          </div>
         </div>
       </div>
     </section>

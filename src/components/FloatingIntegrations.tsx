@@ -96,6 +96,7 @@ export default function FloatingIntegrations({ items }: FloatingIntegrationsProp
             </div>
 
             <div className="relative z-10 mx-auto flex w-full max-w-3xl flex-col items-center text-center">
+                <p className="mb-3 text-xs font-black uppercase tracking-[0.2em] text-brand-dark/50">Checkouts e plataformas de venda</p>
                 <h2 className="mb-6 text-3xl font-black uppercase leading-tight tracking-tight text-brand-dark sm:text-4xl lg:text-5xl">
                     CONECTA COM <span className="text-brand-yellow italic">TUDO</span> QUE VOCÊ JÁ USA
                 </h2>

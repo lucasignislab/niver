@@ -25,38 +25,18 @@
         <div class="h-px bg-brand-yellow/30 grow"></div>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 auto-rows-fr">
+      <div class="grid grid-cols-1 gap-8">
         <!-- Feature Ads 1 -->
-        <div class="card-feature group bg-white/80 backdrop-blur-sm p-8 md:p-12 rounded-[2.5rem] border border-black/5 hover:border-brand-yellow/40 transition-all duration-500 shadow-xl hover:shadow-2xl relative overflow-hidden flex flex-col justify-between h-full">
-          <div class="relative z-10">
+        <div class="card-feature group bg-white/80 backdrop-blur-sm p-8 md:p-12 rounded-[2.5rem] border border-black/5 hover:border-brand-yellow/40 transition-all duration-500 shadow-xl hover:shadow-2xl relative overflow-hidden flex flex-col md:flex-row items-center gap-8">
+          <div class="relative z-10 flex-1">
             <h3 class="text-3xl font-black mb-4 group-hover:text-brand-yellow transition-colors italic uppercase leading-none">
-              A MORTE<br>DOS BOTS
+              TRACKEAMENTO AVANÇADO<br>SERVER-SIDE
             </h3>
-            <p class="text-brand-text/70 text-lg mb-8 leading-relaxed max-w-md">
-              Defina um limite de cliques por IP. No Google Ads, a Ratoeira identifica acessos repetidos e bloqueia automaticamente os IPs que ultrapassam esse limite.
-            </p>
-          </div>
-          <div class="mt-auto transform transition-transform duration-700 group-hover:scale-105">
-            <img 
-              src="/images/features/bloqueio-ips.png"
-              alt="Lista de acessos e IPs bloqueados no Ratoeira Ads"
-              class="w-full rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.1)] transition-all"
-            />
-          </div>
-          <div class="absolute -bottom-10 -right-10 w-40 h-40 bg-brand-yellow/5 rounded-full blur-[60px] group-hover:bg-brand-yellow/10 transition-all"></div>
-        </div>
-
-        <!-- Feature Ads 2 -->
-        <div class="card-feature group bg-white/80 backdrop-blur-sm p-8 md:p-12 rounded-[2.5rem] border border-black/5 hover:border-brand-yellow/40 transition-all duration-500 shadow-xl hover:shadow-2xl relative overflow-hidden flex flex-col justify-between h-full">
-          <div class="relative z-10">
-            <h3 class="text-3xl font-black mb-4 group-hover:text-brand-yellow transition-colors italic uppercase leading-none">
-              VISÃO DE<br>PREDADOR
-            </h3>
-            <p class="text-brand-text/70 text-lg mb-8 leading-relaxed max-w-md">
+            <p class="text-brand-text/70 text-lg leading-relaxed max-w-md">
               O tracking server-side envia conversões pela API do Google. GCLID e UTMs preservados ajudam a ligar cada venda à campanha, ao anúncio e à palavra-chave de origem.
             </p>
           </div>
-          <div class="mt-auto transform transition-transform duration-700 group-hover:scale-105">
+          <div class="w-full max-w-md flex-1 transform transition-transform duration-700 group-hover:scale-105">
             <img 
               src="/images/features/tracking-server-side.webp"
               alt="Fluxo de conversões enviadas ao Google Ads por tracking server-side"
@@ -65,17 +45,43 @@
           </div>
           <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-brand-yellow/5 rounded-full blur-[60px] group-hover:bg-brand-yellow/10 transition-all"></div>
         </div>
+        <div class="card-feature group bg-white/80 backdrop-blur-sm p-8 md:p-12 rounded-[2.5rem] border border-black/5 hover:border-brand-yellow/40 transition-all duration-500 shadow-xl hover:shadow-2xl relative overflow-hidden flex flex-col md:flex-row-reverse items-center gap-8">
+          <div class="relative z-10 flex-1">
+            <h3 class="text-3xl font-black mb-4 group-hover:text-brand-yellow transition-colors italic uppercase leading-none">DADO<br>ENRIQUECIDO</h3>
+            <p class="text-brand-text/70 text-lg leading-relaxed max-w-md">A Ratoeira não envia só o evento — envia o sinal enriquecido. Dados primários tratados e protegidos, como e-mail e telefone, vão pela API de Conversões. O Google casa mais vendas ao clique que as gerou e o Smart Bidding passa a mirar quem compra.</p>
+          </div>
+          <div class="w-full max-w-md flex-1 transform transition-transform duration-700 group-hover:scale-105">
+            <img src="/images/features/conversoesotimizadas.webp" alt="Envio de conversões com dados enriquecidos pela API de Conversões" class="w-full rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.1)] transition-all" loading="lazy" decoding="async" />
+          </div>
+        </div>
+        <div class="card-feature group bg-white/80 backdrop-blur-sm p-8 md:p-12 rounded-[2.5rem] border border-black/5 hover:border-brand-yellow/40 transition-all duration-500 shadow-xl hover:shadow-2xl relative overflow-hidden flex flex-col md:flex-row items-center gap-8">
+          <div class="relative z-10 flex-1">
+            <h3 class="text-3xl font-black mb-4 group-hover:text-brand-yellow transition-colors italic uppercase leading-none">FUNIL<br>COMPLETO</h3>
+            <p class="text-brand-text/70 text-lg leading-relaxed max-w-md">Outras ferramentas mostram de onde vieram os cliques. A Ratoeira mostra de onde vieram as vendas — visitas, leads e conversões integradas num lugar só.</p>
+          </div>
+          <div class="w-full max-w-md flex-1 transform transition-transform duration-700 group-hover:scale-105">
+            <img src="/images/features/funil.webp" alt="Funil de visitas, leads e vendas no Ratoeira Ads" class="w-full rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.1)] transition-all" loading="lazy" decoding="async" />
+          </div>
+        </div>
+        <div class="card-feature group bg-white/80 backdrop-blur-sm p-8 md:p-12 rounded-[2.5rem] border border-black/5 hover:border-brand-yellow/40 transition-all duration-500 shadow-xl hover:shadow-2xl relative overflow-hidden flex flex-col md:flex-row-reverse items-center gap-8">
+          <div class="relative z-10 flex-1">
+            <h3 class="text-3xl font-black mb-4 group-hover:text-brand-yellow transition-colors italic uppercase leading-none">ENVIOS CAPI<br>100% AUDITÁVEIS</h3>
+            <p class="text-brand-text/70 text-lg leading-relaxed max-w-md">Cada evento sai para a API de Conversões com os parâmetros de atribuição e com deduplicação contra o pixel do navegador. Cada envio fica registrado no painel para consulta individual.</p>
+          </div>
+          <div class="w-full max-w-md flex-1 transform transition-transform duration-700 group-hover:scale-105">
+            <img src="/images/features/serveraside.png" alt="Registro de conversões no painel da Ratoeira Ads" class="w-full rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.1)] transition-all" loading="lazy" decoding="async" />
+          </div>
+        </div>
       </div>
       
       <!-- Feature Ads 3 (Full Width) -->
       <div class="mt-8 card-feature group bg-white/80 backdrop-blur-sm p-8 md:p-12 rounded-[2.5rem] border border-black/5 hover:border-brand-yellow/40 transition-all duration-500 shadow-xl hover:shadow-2xl relative overflow-hidden flex flex-col md:flex-row items-center gap-12">
         <div class="flex-1 relative z-10">
-          <span class="text-brand-yellow text-xs font-black uppercase mb-4 block tracking-widest">Controle Total</span>
           <h3 class="text-3xl md:text-5xl font-black mb-6 group-hover:text-brand-yellow transition-colors italic uppercase leading-tight">
-            SEU CENTRO<br>DE COMANDO
+            DADOS EM<br>TEMPO REAL
           </h3>
           <p class="text-brand-text/70 text-lg mb-8 leading-relaxed">
-            Veja impressões, cliques, CPC, ROAS, conversões e receita no mesmo dashboard. Cruze dados das campanhas com suas plataformas de venda para decidir o que escalar.
+            O Google Ads demora para consolidar conversão, e nesse intervalo o algoritmo otimiza para o público errado. A Ratoeira mostra impressões, cliques, CPC, ROAS, conversões e receita antes do próprio painel do Google — e cruza com suas plataformas de venda para você decidir o que escalar.
           </p>
           <a href="#planos" class="inline-flex items-center gap-2 bg-brand-dark text-white font-black px-6 py-3 rounded-full text-sm uppercase tracking-tighter hover:bg-brand-yellow hover:text-brand-dark transition-all group-hover:shadow-[0_0_20px_rgba(255,184,0,0.3)]">
             Explorar Dashboard
@@ -93,7 +99,7 @@
 
       <div class="card-feature group mt-8 rounded-[2.5rem] border border-amber-200 bg-amber-50 p-8 shadow-lg md:p-12">
         <div class="grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
-          <div>
+          <div class="lg:order-2">
             <h3 class="text-2xl font-black uppercase text-brand-dark md:text-3xl">MCP Ratoeira Ads</h3>
             <p class="mt-4 max-w-xl text-base leading-relaxed text-brand-dark/75 md:text-lg">
               Conecte seus dados da Ratoeira Ads ao Claude ou ChatGPT por MCP. Consulte a operação e execute ações em linguagem natural, sem abrir o painel.
@@ -107,7 +113,7 @@
               <li class="rounded-xl bg-white px-5 py-3">Liste campanhas ativas e confira os IPs bloqueados.</li>
             </ul>
           </div>
-          <div class="overflow-hidden rounded-2xl border border-black/10 bg-white shadow-2xl transition-transform duration-500 group-hover:scale-[1.02]">
+          <div class="overflow-hidden rounded-2xl border border-black/10 bg-white shadow-2xl transition-transform duration-500 group-hover:scale-[1.02] lg:order-1">
             <img src="/images/features/mcp-ads.png" alt="Gerenciador de campanhas do Ratoeira Ads" class="block h-auto w-full" loading="lazy" decoding="async" />
           </div>
         </div>
@@ -122,7 +128,7 @@
         <div class="h-px bg-orange-600/20 grow"></div>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 auto-rows-fr">
+      <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
         
         <!-- Feature Pages 1: Flash Pages (Destaque com Imagem) -->
         <div class="card-feature group bg-white/80 backdrop-blur-sm p-8 md:p-10 rounded-[2.5rem] border border-black/5 hover:border-orange-600/40 transition-all duration-500 shadow-lg hover:shadow-xl relative overflow-hidden flex flex-col md:col-span-2">
@@ -145,42 +151,42 @@
           </div>
         </div>
 
-        <!-- Feature Pages 2: Templates Prontos (Layout Invertido) -->
+        <!-- Feature Pages 2: Connect Rate -->
         <div class="card-feature group bg-white/80 backdrop-blur-sm p-8 md:p-10 rounded-[2.5rem] border border-black/5 hover:border-orange-600/40 transition-all duration-500 shadow-lg hover:shadow-xl relative overflow-hidden flex flex-col md:col-span-2">
           <div class="flex flex-col md:flex-row-reverse gap-8 h-full items-center">
             <div class="flex-1">
               <div class="w-14 h-14 bg-orange-600/10 rounded-2xl flex items-center justify-center mb-6 border border-orange-600/20 group-hover:bg-orange-600/20 transition-colors">
-                <svg class="w-7 h-7 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"></path></svg>
+                <svg class="w-7 h-7 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 16.6A4.5 4.5 0 0017.5 8a6 6 0 00-11.8 1.5A4 4 0 007 17h10a4 4 0 003-0.4z"></path></svg>
               </div>
-              <h3 class="text-2xl font-black mb-4 italic uppercase text-brand-dark group-hover:text-orange-600 transition-colors leading-tight">TEMPLATES PRONTOS</h3>
+              <h3 class="text-2xl font-black mb-4 italic uppercase text-brand-dark group-hover:text-orange-600 transition-colors leading-tight">CONNECT RATE ALTO NA CLOUDFLARE</h3>
               <p class="text-brand-text/70 text-base leading-relaxed mb-6">
-                Escolha um modelo pronto e adapte textos, cores e imagens à sua oferta e à identidade da sua marca.
+                As páginas rodam na borda da Cloudflare, com cache global e certificado próprio. A página abre antes de o clique esfriar — e connect rate alto é o que separa a visita que entra no seu relatório da visita que você pagou e nunca viu, principalmente em native e no mobile.
               </p>
             </div>
             <div class="flex-1 w-full max-w-md">
               <div class="relative rounded-2xl overflow-hidden border border-black/10 shadow-2xl transform group-hover:scale-[1.02] transition-transform duration-500 bg-brand-dark/5">
-                <img src="/images/features/templates-prontos.png" alt="Interface Templates Prontos" class="w-full h-auto block" />
+                <img src="/images/features/connect-rate.svg" alt="Diagrama de uma página entregue pela borda da rede" class="w-full h-auto block" loading="lazy" decoding="async" />
                 <div class="absolute inset-0 bg-linear-to-t from-black/20 to-transparent pointer-events-none"></div>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Feature Pages 3: Construtor Drag-and-Drop (Destaque com Imagem) -->
+        <!-- Feature Pages 3: Teste A/B -->
         <div class="card-feature group bg-white/80 backdrop-blur-sm p-8 md:p-10 rounded-[2.5rem] border border-black/5 hover:border-orange-600/40 transition-all duration-500 shadow-lg hover:shadow-xl relative overflow-hidden flex flex-col md:col-span-2">
           <div class="flex flex-col md:flex-row gap-8 h-full items-center">
             <div class="flex-1">
               <div class="w-14 h-14 bg-orange-600/10 rounded-2xl flex items-center justify-center mb-6 border border-orange-600/20 group-hover:bg-orange-600/20 transition-colors">
-                <svg class="w-7 h-7 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 11.5V14m0-2.5v-6a1.5 1.5 0 113 0m-3 6a1.5 1.5 0 00-3 0v2a7.5 7.5 0 0015 0v-5a1.5 1.5 0 00-3 0m-6-3V11m0-5.5v-1a1.5 1.5 0 013 0v1m0 0V11m0-5.5a1.5 1.5 0 013 0v3m0 0V11"></path></svg>
+                <svg class="w-7 h-7 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5h6v6H4zM14 13h6v6h-6zM10 8h4m-2 0v8m-2 0h4"></path></svg>
               </div>
-              <h3 class="text-2xl font-black mb-4 italic uppercase text-brand-dark group-hover:text-orange-600 transition-colors leading-tight">CONSTRUTOR DRAG-AND-DROP</h3>
+              <h3 class="text-2xl font-black mb-4 italic uppercase text-brand-dark group-hover:text-orange-600 transition-colors leading-tight">TESTE A/B NATIVO NO SERVIDOR</h3>
               <p class="text-brand-text/70 text-base leading-relaxed mb-6">
-                Liberdade Total de Edição. Arraste e solte elementos para criar layouts personalizados sem precisar tocar em uma única linha de código. A ferramenta definitiva para transformar ideias em páginas.
+                Crie variações da página e divida o tráfego no próprio servidor, sem script de redirect rodando no navegador. Impressões, conversões, taxa e receita em tempo real, sem ferramenta externa e sem o flicker que entrega o teste para o visitante.
               </p>
             </div>
             <div class="flex-1 w-full max-w-md">
               <div class="relative rounded-2xl overflow-hidden border border-black/10 shadow-2xl transform group-hover:scale-[1.02] transition-transform duration-500 bg-brand-dark/5">
-                <img src="/images/features/drag-and-drop.png" alt="Interface Construtor Drag-and-Drop" class="w-full h-auto block" />
+                <img src="/images/features/testab.png" alt="Painel de teste A/B da Ratoeira Pages com variantes e resultados" class="w-full h-auto block" loading="lazy" decoding="async" />
                 <div class="absolute inset-0 bg-linear-to-t from-black/20 to-transparent pointer-events-none"></div>
               </div>
             </div>
@@ -208,30 +214,9 @@
           </div>
         </div>
 
-        <!-- Feature Pages 5: Presell Review com IA (Destaque com Imagem - Invertido para Z-Pattern) -->
+        <!-- Feature Pages 5: Integração Ratoeira Ads (Destaque com Imagem) -->
         <div class="card-feature group bg-white/80 backdrop-blur-sm p-8 md:p-10 rounded-[2.5rem] border border-black/5 hover:border-orange-600/40 transition-all duration-500 shadow-lg hover:shadow-xl relative overflow-hidden flex flex-col md:col-span-2">
           <div class="flex flex-col md:flex-row gap-8 h-full items-center">
-            <div class="flex-1">
-              <div class="w-14 h-14 bg-orange-600/10 rounded-2xl flex items-center justify-center mb-6 border border-orange-600/20 group-hover:bg-orange-600/20 transition-colors">
-                <svg class="w-7 h-7 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0012 18.75c-1.03 0-1.9-.4-2.593-.912l-.547-.547z"></path></svg>
-              </div>
-              <h3 class="text-2xl font-black mb-4 italic uppercase text-brand-dark group-hover:text-orange-600 transition-colors leading-tight">PÁGINAS COM IA</h3>
-              <p class="text-brand-text/70 text-base leading-relaxed mb-6">
-                Descreva o produto, a oferta e o público. A IA gera uma página com estrutura, textos e layout para você revisar, ajustar e publicar.
-              </p>
-            </div>
-            <div class="flex-1 w-full max-w-md">
-              <div class="relative rounded-2xl overflow-hidden border border-black/10 shadow-2xl transform group-hover:scale-[1.02] transition-transform duration-500 bg-brand-dark/5">
-                <img src="/images/features/review-ia.png" alt="Interface de criação de páginas com IA" class="w-full h-auto block" />
-                <div class="absolute inset-0 bg-linear-to-t from-black/20 to-transparent pointer-events-none"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Feature Pages 6: Integração Ratoeira Ads (Destaque com Imagem) -->
-        <div class="card-feature group bg-white/80 backdrop-blur-sm p-8 md:p-10 rounded-[2.5rem] border border-black/5 hover:border-orange-600/40 transition-all duration-500 shadow-lg hover:shadow-xl relative overflow-hidden flex flex-col md:col-span-2">
-          <div class="flex flex-col md:flex-row-reverse gap-8 h-full items-center">
             <div class="flex-1">
               <div class="w-14 h-14 bg-orange-600/10 rounded-2xl flex items-center justify-center mb-6 border border-orange-600/20 group-hover:bg-orange-600/20 transition-colors">
                 <svg class="w-7 h-7 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
@@ -254,7 +239,7 @@
 
       <div class="card-feature group mt-8 rounded-[2.5rem] border border-orange-200 bg-orange-50 p-8 shadow-lg md:p-12">
         <div class="grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
-          <div>
+          <div class="lg:order-2">
             <h3 class="text-2xl font-black uppercase text-brand-dark md:text-3xl">MCP Ratoeira Pages</h3>
             <p class="mt-4 max-w-xl text-base leading-relaxed text-brand-dark/75 md:text-lg">
               Com o MCP da Ratoeira Pages no Claude, descreva a página que quer criar. Depois, consulte os resultados e gerencie a publicação pelo chat.
@@ -268,7 +253,7 @@
               <li class="rounded-xl bg-white px-5 py-3">Pergunte sobre visitas, origem do tráfego e conversões.</li>
             </ul>
           </div>
-          <div class="overflow-hidden rounded-2xl border border-black/10 bg-white shadow-2xl transition-transform duration-500 group-hover:scale-[1.02]">
+          <div class="overflow-hidden rounded-2xl border border-black/10 bg-white shadow-2xl transition-transform duration-500 group-hover:scale-[1.02] lg:order-1">
             <img src="/images/features/mcp-pages.png" alt="Interface de criação de páginas com IA no Ratoeira Pages" class="block h-auto w-full" loading="lazy" decoding="async" />
           </div>
         </div>

@@ -1,0 +1,55 @@
+---
+const speakers = [
+  { name: 'Eitor Guimarães', topic: 'Fundador e CEO da Ratoeira', initials: 'EG' },
+  { name: 'Sarah Lima', topic: 'Google Ads em escala global', initials: 'SL' },
+  { name: 'Luka', topic: 'Negócios globais · ex-dono da Six', initials: 'LK' },
+  { name: 'Dairo Junior', topic: 'O que está rodando e escalando no Meta agora', initials: 'DJ' },
+  { name: 'André Xavier', topic: 'Meta Ads', image: '/assets/andre-xavier.webp' },
+  { name: 'Maurício Brollo', topic: 'Native Ads', image: '/assets/mauricio-brollo.webp' },
+  { name: 'Ronaldo Ibrahim', topic: 'Operação de afiliado em múltiplas fontes', initials: 'RI' },
+  { name: 'Bruno Borges · Ratão', topic: 'Marketing digital de ponta a ponta', initials: 'BB' },
+];
+---
+
+<section id="evento" class="bg-brand-dark py-20 text-white md:py-28">
+  <div class="mx-auto max-w-6xl px-6">
+    <div class="text-center">
+      <p class="text-sm font-bold tracking-widest text-brand-yellow">EVENTO PRESENCIAL</p>
+      <h2 class="mt-6">
+        <span class="sr-only">RX — Ratoeira Experience</span>
+        <span class="mx-auto flex h-[220px] w-full max-w-[520px] items-center justify-center rounded-3xl bg-white p-2 sm:h-60">
+          <img src="/assets/rx-logo.png" alt="" width="1024" height="1024" class="h-full w-auto max-w-full object-contain" loading="lazy" decoding="async" />
+        </span>
+      </h2>
+      <p class="mx-auto mt-6 max-w-3xl text-lg leading-relaxed text-white/70 md:text-xl">
+        Os palestrantes desta edição já somam <strong class="text-white">bilhões em faturamento</strong>. Um evento de conteúdo para quem quer chegar no próximo nível.
+      </p>
+    </div>
+
+    <img src="/assets/rx-space.png" alt="Entrada do espaço do evento" width="1916" height="1057" class="mt-12 w-full rounded-3xl" loading="lazy" decoding="async" />
+
+    <h3 class="mt-16 text-center text-sm font-bold tracking-widest text-brand-yellow">PALESTRANTES CONFIRMADOS</h3>
+    <div class="mt-7 flex flex-wrap justify-center gap-4">
+      {speakers.map((speaker) => (
+        <article class="speaker-card min-h-52 rounded-3xl border border-white/15 bg-white/5 p-6 text-center">
+          <div class="mx-auto mb-4 flex size-[72px] items-center justify-center overflow-hidden rounded-full bg-brand-yellow text-[22px] font-black text-brand-dark">
+            {speaker.image ? <img src={speaker.image} alt="" class="h-full w-full object-cover object-top" loading="lazy" decoding="async" /> : speaker.initials}
+          </div>
+          <h4 class="font-black">{speaker.name}</h4>
+          <p class="mt-1 text-sm leading-relaxed text-white/70">{speaker.topic}</p>
+        </article>
+      ))}
+    </div>
+
+    <p class="mx-auto mt-12 max-w-2xl text-center text-sm leading-relaxed text-white/70">
+      O ingresso é oferecido depois da compra aprovada e adquirido com um clique, sem digitar os dados de pagamento de novo.
+    </p>
+  </div>
+</section>
+
+<style>
+  .speaker-card { flex: 0 0 230px; }
+  @media (max-width: 420px) {
+    .speaker-card { flex-basis: 100%; }
+  }
+</style>

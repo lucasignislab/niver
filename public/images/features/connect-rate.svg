@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 690" role="img" aria-labelledby="title desc">
+  <title id="title">Entrega de página pela borda da rede</title>
+  <desc id="desc">O clique chega à borda da rede e a página é entregue ao visitante.</desc>
+  <rect width="1200" height="690" rx="36" fill="#fff7ed"/>
+  <path d="M240 345h205m310 0h205" fill="none" stroke="#ea580c" stroke-width="10" stroke-linecap="round" stroke-dasharray="18 22"/>
+  <path d="m432 323 24 22-24 22m516-44 24 22-24 22" fill="none" stroke="#ea580c" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="175" cy="345" r="83" fill="#fff" stroke="#fed7aa" stroke-width="6"/>
+  <path d="m151 292 53 51-31 3 20 40-20 10-19-41-22 23z" fill="#ea580c"/>
+  <circle cx="600" cy="345" r="152" fill="#fff" stroke="#fdba74" stroke-width="8"/>
+  <path d="M520 375h160a46 46 0 0 0 0-92 67 67 0 0 0-125-9 51 51 0 0 0-35 101Z" fill="#fb923c"/>
+  <path d="M543 375h137a46 46 0 0 0 0-92" fill="none" stroke="#ea580c" stroke-width="8" stroke-linecap="round"/>
+  <rect x="955" y="267" width="150" height="157" rx="15" fill="#fff" stroke="#fed7aa" stroke-width="6"/>
+  <path d="M955 304h150" stroke="#fed7aa" stroke-width="6"/>
+  <circle cx="976" cy="286" r="5" fill="#ea580c"/>
+  <circle cx="993" cy="286" r="5" fill="#fb923c"/>
+  <path d="M981 340h95m-95 24h95m-95 24h57" stroke="#fdba74" stroke-width="10" stroke-linecap="round"/>
+  <g fill="#9a3412" font-family="Arial, sans-serif" font-size="27" font-weight="700" text-anchor="middle">
+    <text x="175" y="470">CLIQUE</text>
+    <text x="600" y="545">BORDA GLOBAL</text>
+    <text x="1030" y="470">PÁGINA</text>
+  </g>
+</svg>

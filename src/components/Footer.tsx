@@ -1,7 +1,5 @@
 "use client";
-import React from "react";
 import {
-  Mail,
   Phone,
   MapPin,
   Facebook,
@@ -59,7 +57,7 @@ function Footer() {
           </div>
 
           {/* Section: Suporte & Contato */}
-          <div className="lg:col-span-1">
+          <div id="suporte" className="lg:col-span-1 scroll-mt-24">
             <h4 className="text-white text-lg font-black mb-6 uppercase tracking-widest">Suporte</h4>
             <ul className="space-y-4">
               <li className="flex items-start gap-3">

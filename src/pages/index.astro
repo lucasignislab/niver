@@ -6,10 +6,11 @@ import BlackFridayGuarantee from '../components/BlackFridayGuarantee.astro';
 import SocialProofMarquee from '../components/SocialProofMarquee.astro';
 import SocialProof from '../components/SocialProof.astro';
 import Pricing from '../components/Pricing.astro';
+import EventExperience from '../components/EventExperience.astro';
 import HighConversionFeatures from '../components/HighConversionFeatures.astro';
 import ResultsOnStatement from '../components/ResultsOnStatement.astro';
+import RiskZeroGuarantee from '../components/RiskZeroGuarantee.astro';
 import FloatingIntegrations from '../components/FloatingIntegrations';
-import FAQ from '../components/FAQ.tsx';
 import Footer from '../components/Footer.astro';
 
 const platformLogos: Record<string, string> = {
@@ -259,11 +260,12 @@ const platforms = [
     <BlackFridayGuarantee />
     <SocialProof />
     <Pricing />
+    <EventExperience />
     <SocialProofMarquee />
     <HighConversionFeatures />
-    <FloatingIntegrations client:load items={platforms} />
     <ResultsOnStatement />
-    <FAQ client:visible />
+    <FloatingIntegrations client:load items={platforms} />
+    <RiskZeroGuarantee />
   </main>
   <Footer />
 </Layout>
