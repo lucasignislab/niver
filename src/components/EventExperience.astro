@@ -17,9 +17,15 @@ const speakers = [
       <p class="text-sm font-bold tracking-widest text-brand-yellow">EVENTO PRESENCIAL</p>
       <h2 class="mt-6">
         <span class="sr-only">RX — Ratoeira Experience</span>
-        <span class="mx-auto flex h-[220px] w-full max-w-[520px] items-center justify-center rounded-3xl bg-white p-2 sm:h-60">
-          <img src="/assets/rx-logo.png" alt="" width="1024" height="1024" class="h-full w-auto max-w-full object-contain" loading="lazy" decoding="async" />
-        </span>
+        <svg class="mx-auto mt-5 h-[220px] w-auto max-w-full sm:h-60" viewBox="120 220 790 700" aria-hidden="true">
+          <filter id="rx-mark" color-interpolation-filters="sRGB">
+            <feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  5 0 -5 0 -1.05" />
+          </filter>
+          <image href="/assets/rx-logo.png" width="1024" height="1024" filter="url(#rx-mark)" />
+          <text x="512" y="825" fill="white" text-anchor="middle" font-family="Montserrat, sans-serif" font-size="31" font-weight="800" letter-spacing="10">RATOEIRA EXPERIENCE</text>
+          <path d="M385 860h70m150 0h70" stroke="#ffb900" stroke-width="2" />
+          <text x="530" y="869" fill="#ffb900" text-anchor="middle" font-family="Montserrat, sans-serif" font-size="17" font-weight="700" letter-spacing="8">2026</text>
+        </svg>
       </h2>
       <p class="mx-auto mt-6 max-w-3xl text-lg leading-relaxed text-white/70 md:text-xl">
         Os palestrantes desta edição já somam <strong class="text-white">bilhões em faturamento</strong>. Um evento de conteúdo para quem quer chegar no próximo nível.
