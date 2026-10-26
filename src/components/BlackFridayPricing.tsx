@@ -1,8 +1,8 @@
-import { useEffect, useRef, useState, type FormEvent, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { Check, ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
 import priceData from "../data/black-friday-prices.json";
-import { cashSavingPercent, currentLot, discounted, type CampaignStatus } from "../lib/blackFriday";
-import { checkoutUrl } from "../lib/checkout";
+import { cashSavingPercent, currentLot, discounted } from "../lib/blackFriday";
+import { checkoutLinks } from "../lib/checkoutLinks";
 import {
   accountLimits,
   googleEmailLimits,
@@ -13,6 +13,7 @@ import {
   type Product,
 } from "../lib/planCalculator";
 import PlanCalculator from "./PlanCalculator";
+import OfferButton from "./OfferButton";
 
 type Period = "mensal" | "semestral" | "anual" | "vitalicio";
 type NetworkCount = 1 | 2 | 6;
@@ -50,100 +51,6 @@ const extraSaleRates = {
 };
 const prices: Record<string, Record<string, Record<string, Record<string, Price>>>> = priceData.prices;
 const lifetime: Record<string, Record<string, Price[]>> = priceData.vitalicio;
-
-const checkoutLinks: Record<string, string> = {
-  "ads/1/mensal/basic": "https://go.checkout-ra.com/subscribe/mensal-ratoeira-ads-basic-1-rede",
-  "ads/1/mensal/starter": "https://go.checkout-ra.com/subscribe/mensal-ratoeira-ads-starter-1-rede",
-  "ads/1/mensal/scale": "https://go.checkout-ra.com/subscribe/mensal-ratoeira-ads-scale-1-rede",
-  "ads/1/mensal/max": "https://go.checkout-ra.com/subscribe/mensal-ratoeira-ads-max-1-rede",
-  "ads/1/semestral/basic": "https://go.checkout-ra.com/subscribe/a2beef85-7c26-4a7e-8f83-3a48bc521f00",
-  "ads/1/semestral/starter": "https://go.checkout-ra.com/subscribe/semestral-ratoeira-ads-starter-1-rede",
-  "ads/1/semestral/scale": "https://go.checkout-ra.com/subscribe/semestral-ratoeira-ads-scale-1-rede",
-  "ads/1/semestral/max": "https://go.checkout-ra.com/subscribe/semestral-ratoeira-ads-max-1-rede",
-  "ads/1/anual/basic": "https://go.checkout-ra.com/subscribe/a2bef376-afd1-4a06-9420-e089e70efad6",
-  "ads/1/anual/starter": "https://go.checkout-ra.com/subscribe/anual-ratoeira-ads-starter-1-rede",
-  "ads/1/anual/scale": "https://go.checkout-ra.com/subscribe/anual-ratoeira-ads-scale-1-rede",
-  "ads/1/anual/max": "https://go.checkout-ra.com/subscribe/anual-ratoeira-ads-max-1-rede",
-  "ads/2/mensal/basic": "https://go.checkout-ra.com/subscribe/a2bef44b-a58f-4c3b-b939-2bc349d1231c",
-  "ads/2/mensal/starter": "https://go.checkout-ra.com/subscribe/mensal-ratoeira-ads-starter-2-redes",
-  "ads/2/mensal/scale": "https://go.checkout-ra.com/subscribe/mensal-ratoeira-ads-scale-2-redes",
-  "ads/2/mensal/max": "https://go.checkout-ra.com/subscribe/mensal-ratoeira-ads-max-2-redes",
-  "ads/2/semestral/basic": "https://go.checkout-ra.com/subscribe/a2bef44b-b3fd-4d80-b5d0-1cf5ce1111c8",
-  "ads/2/semestral/starter": "https://go.checkout-ra.com/subscribe/semestral-ratoeira-ads-starter-2-redes",
-  "ads/2/semestral/scale": "https://go.checkout-ra.com/subscribe/semestral-ratoeira-ads-scale-2-redes",
-  "ads/2/semestral/max": "https://go.checkout-ra.com/subscribe/semestral-ratoeira-ads-max-2-redes",
-  "ads/2/anual/basic": "https://go.checkout-ra.com/subscribe/a2bef44b-c1de-4dfe-9d94-bba577b5d6c9",
-  "ads/2/anual/starter": "https://go.checkout-ra.com/subscribe/anual-ratoeira-ads-starter-2-redes",
-  "ads/2/anual/scale": "https://go.checkout-ra.com/subscribe/anual-ratoeira-ads-scale-2-redes",
-  "ads/2/anual/max": "https://go.checkout-ra.com/subscribe/anual-ratoeira-ads-max-2-redes",
-  "ads/all/mensal/basic": "https://go.checkout-ra.com/subscribe/a2bef65e-ca1b-42ba-89c2-f0e3fadcc40a",
-  "ads/all/mensal/starter": "https://go.checkout-ra.com/subscribe/mensal-ratoeira-ads-starter-todas-as-redes",
-  "ads/all/mensal/scale": "https://go.checkout-ra.com/subscribe/mensal-ratoeira-ads-scale-todas-as-redes",
-  "ads/all/mensal/max": "https://go.checkout-ra.com/subscribe/mensal-ratoeira-ads-max-todas-as-redes",
-  "ads/all/semestral/basic": "https://go.checkout-ra.com/subscribe/a2bef65e-d7a0-4b6f-ad55-9a61bf40340c",
-  "ads/all/semestral/starter": "https://go.checkout-ra.com/subscribe/semestral-ratoeira-ads-starter-todas-as-redes",
-  "ads/all/semestral/scale": "https://go.checkout-ra.com/subscribe/semestral-ratoeira-ads-scale-todas-as-redes",
-  "ads/all/semestral/max": "https://go.checkout-ra.com/subscribe/semestral-ratoeira-ads-max-todas-as-redes",
-  "ads/all/anual/basic": "https://go.checkout-ra.com/subscribe/a2bef65e-f489-4069-81b8-a94b6fda997c",
-  "ads/all/anual/starter": "https://go.checkout-ra.com/subscribe/anual-ratoeira-ads-starter-todas-as-redes",
-  "ads/all/anual/scale": "https://go.checkout-ra.com/subscribe/anual-ratoeira-ads-scale-todas-as-redes",
-  "ads/all/anual/max": "https://go.checkout-ra.com/subscribe/anual-ratoeira-ads-max-todas-as-redes",
-  "pages/single/mensal/basic": "https://go.checkout-ra.com/subscribe/a2bf4e7b-057c-4bde-93ec-d98d832a61a4",
-  "pages/single/mensal/starter": "https://go.checkout-ra.com/subscribe/a2fd37ea-ef3d-432d-99cb-6f037bbc8716",
-  "pages/single/mensal/scale": "https://go.checkout-ra.com/subscribe/a2bf5774-5cf2-4d5a-84de-17dfe209f7cb",
-  "pages/single/mensal/max": "https://go.checkout-ra.com/subscribe/a2bf585e-43b4-4a39-ab6b-6bc4324aabcf",
-  "pages/single/semestral/basic": "https://go.checkout-ra.com/subscribe/a2bf4e7b-10e5-4c0a-92e4-9c8ba7cc3f6b",
-  "pages/single/semestral/starter": "https://go.checkout-ra.com/subscribe/a2bf55f0-9422-41dd-8cb4-90cf02c820f7",
-  "pages/single/semestral/scale": "https://go.checkout-ra.com/subscribe/a2bf5774-6a4d-4ced-9aa9-d9862f7d7708",
-  "pages/single/semestral/max": "https://go.checkout-ra.com/subscribe/a2bf585e-51d7-46da-b0ce-e33e373be4e2",
-  "pages/single/anual/basic": "https://go.checkout-ra.com/subscribe/a2bf4e7b-1da9-4e6d-99e6-201139f5ada5",
-  "pages/single/anual/starter": "https://go.checkout-ra.com/subscribe/a2bf55f0-a156-44c3-b314-f23393baf7a6",
-  "pages/single/anual/scale": "https://go.checkout-ra.com/subscribe/a2bf5774-773a-4548-ae8d-d8a7c986acc1",
-  "pages/single/anual/max": "https://go.checkout-ra.com/subscribe/a2bf585e-5ebe-4bfd-a508-2f25410a767a",
-  "hub/1/mensal/basic": "https://go.checkout-ra.com/subscribe/a2c31c03-0547-40a8-9fd4-8e3720c9e970",
-  "hub/1/mensal/starter": "https://go.checkout-ra.com/subscribe/a2c32b4d-8349-487f-9cbf-889af504e3a9",
-  "hub/1/mensal/scale": "https://go.checkout-ra.com/subscribe/a2c32d63-25de-492e-bb27-3ac1e0be7e9c",
-  "hub/1/mensal/max": "https://go.checkout-ra.com/subscribe/a2c32e70-e3fe-445d-a802-0227faa84028",
-  "hub/1/semestral/basic": "https://go.checkout-ra.com/subscribe/a2c32507-4adf-4ee0-874c-348f02ca403d",
-  "hub/1/semestral/starter": "https://go.checkout-ra.com/subscribe/semestral-ratoeira-hub-starter-1-rede",
-  "hub/1/semestral/scale": "https://go.checkout-ra.com/subscribe/a2c33948-9f8f-4922-8d2e-b29e20ac38ac",
-  "hub/1/semestral/max": "https://go.checkout-ra.com/subscribe/a2c33a8f-6ac8-4d35-a304-984b2c389958",
-  "hub/1/anual/basic": "https://go.checkout-ra.com/subscribe/a2c3266a-f79a-4988-8a74-ef00ed5aafb0",
-  "hub/1/anual/starter": "https://go.checkout-ra.com/subscribe/a2c37076-b98c-4c5c-bbc7-50e6cb2ecb57",
-  "hub/1/anual/scale": "https://go.checkout-ra.com/subscribe/a2c37169-0a23-418a-b16c-1c83f670b966",
-  "hub/1/anual/max": "https://go.checkout-ra.com/subscribe/a2c376f5-6d7c-4337-bd01-bd57a9ef4a21",
-  "hub/2/mensal/basic": "https://go.checkout-ra.com/subscribe/a2c32f64-e7ae-4b18-85d9-8364b0719cad",
-  "hub/2/mensal/starter": "https://go.checkout-ra.com/subscribe/a2c33053-36e5-4ca2-b9d8-bc343851b5de",
-  "hub/2/mensal/scale": "https://go.checkout-ra.com/subscribe/a2c33146-a0ee-4c68-a4be-388b4a02dfb3",
-  "hub/2/mensal/max": "https://go.checkout-ra.com/subscribe/a2c33269-1245-4577-be2e-232830d2ddf3",
-  "hub/2/semestral/basic": "https://go.checkout-ra.com/subscribe/a2c33b88-1624-4d5f-9733-2ee2f76927db",
-  "hub/2/semestral/starter": "https://go.checkout-ra.com/subscribe/a2c33c63-23de-4817-93f6-43cb397f0bf9",
-  "hub/2/semestral/scale": "https://go.checkout-ra.com/subscribe/a2c33d38-bbfb-4ac5-bb2f-01bdca1ad3e5",
-  "hub/2/semestral/max": "https://go.checkout-ra.com/subscribe/a2c36bae-255d-4b69-b1a0-aa0d17ac2c47",
-  "hub/2/anual/basic": "https://go.checkout-ra.com/subscribe/a2c377e6-5271-46d0-ac9a-b5df610bc115",
-  "hub/2/anual/starter": "https://go.checkout-ra.com/subscribe/a2c378a4-617c-4289-8048-6a859b9502bf",
-  "hub/2/anual/scale": "https://go.checkout-ra.com/subscribe/a2c37945-7e37-4a6c-bb2b-13847020b297",
-  "hub/2/anual/max": "https://go.checkout-ra.com/subscribe/a2c37a7d-2487-498d-95af-85ece41371d6",
-  "hub/all/mensal/basic": "https://go.checkout-ra.com/subscribe/a2c3335f-e3c9-424c-b8d4-18eefdf0a901",
-  "hub/all/mensal/starter": "https://go.checkout-ra.com/subscribe/a2c33463-1b7f-49af-b0f5-74db406c5e6d",
-  "hub/all/mensal/scale": "https://go.checkout-ra.com/subscribe/a2c3355b-d293-407b-aa05-3590ba4d4117",
-  "hub/all/mensal/max": "https://go.checkout-ra.com/subscribe/a2c33665-5473-4272-a378-bc29802c0426",
-  "hub/all/semestral/basic": "https://go.checkout-ra.com/subscribe/a2c36c99-fafd-417c-845b-5be73d108e8d",
-  "hub/all/semestral/starter": "https://go.checkout-ra.com/subscribe/a2c36d7f-e3ef-42c6-9308-0d3bb6a858de",
-  "hub/all/semestral/scale": "https://go.checkout-ra.com/subscribe/a2c36e58-54a4-4653-bbd4-5a245d44ff7f",
-  "hub/all/semestral/max": "https://go.checkout-ra.com/subscribe/a2c36f37-4e34-4b3c-a2b2-9e1b321837b9",
-  "hub/all/anual/basic": "https://go.checkout-ra.com/subscribe/a2c37b40-e719-481e-a6c2-fddb3066e022",
-  "hub/all/anual/starter": "https://go.checkout-ra.com/subscribe/a2c37be8-dd91-4786-8746-c318210fa21f",
-  "hub/all/anual/scale": "https://go.checkout-ra.com/subscribe/a2c37caa-048d-44bc-9ada-1a1e011c88fa",
-  "hub/all/anual/max": "https://go.checkout-ra.com/subscribe/a2c37e04-7840-48d3-b748-343b2b438a74",
-  "ads/1/vitalicio": "https://go.checkout-ra.com/pay/vitalicio-ratoeira-ads-scale-1-rede",
-  "ads/2/vitalicio": "https://go.checkout-ra.com/pay/a2ccb478-f67f-4638-b1de-6af7499d3e76",
-  "ads/all/vitalicio": "https://go.checkout-ra.com/pay/a2ccb503-0ac1-4b0f-b1a9-3a731d84b701",
-  "hub/1/vitalicio": "https://go.checkout-ra.com/pay/a2ccb88a-5a79-4ade-a4a1-869544379fa7",
-  "hub/2/vitalicio": "https://go.checkout-ra.com/pay/a2ccb984-bf2c-4f3e-8231-6f6d4d2fd1c8",
-  "hub/all/vitalicio": "https://go.checkout-ra.com/pay/a2ccb9d5-30d7-427a-adf7-229ec6cfd342",
-  "pages/single/vitalicio": "https://go.checkout-ra.com/pay/a2cce395-d23d-4f56-a682-344f9e669a7b",
-};
 
 function currency(value: number): string {
   return new Intl.NumberFormat("pt-BR", {
@@ -193,70 +100,6 @@ function PlanDetails({ product, index, networkCount, tier }: { product: Product;
         </div>
       )}
     </div>
-  );
-}
-
-function OfferButton({ link, coupon, status, label }: { link?: string; coupon: string | null; status: CampaignStatus; label: string }) {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [whatsapp, setWhatsapp] = useState("");
-  const [error, setError] = useState("");
-  const dialogRef = useRef<HTMLDialogElement>(null);
-  const nameRef = useRef<HTMLInputElement>(null);
-  const phoneRef = useRef<HTMLInputElement>(null);
-
-  const active = status === "active" && link;
-  if (!active) return <button type="button" disabled className="mt-6 min-h-12 w-full rounded-full bg-brand-dark/10 px-4 text-sm font-black text-brand-dark/50">{status === "upcoming" ? "Disponível quando o contador zerar" : status === "ended" ? "Campanha encerrada" : "Checkout em preparação"}</button>;
-
-  const submit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const fullName = name.trim().replace(/\s+/g, " ");
-    const digits = whatsapp.replace(/\D/g, "");
-    const phone = digits.startsWith("55") && digits.length > 11 ? digits.slice(2) : digits;
-    if (!fullName.includes(" ")) {
-      setError("Informe nome e sobrenome.");
-      nameRef.current?.focus();
-      return;
-    }
-    if (!/^\d{10,11}$/.test(phone)) {
-      setError("Informe um WhatsApp com DDD válido.");
-      phoneRef.current?.focus();
-      return;
-    }
-    const latest = currentLot(new Date());
-    if (latest.status !== "active") {
-      setError("Esta oferta não está disponível neste momento.");
-      return;
-    }
-    window.location.assign(checkoutUrl(active, coupon === null ? null : latest.coupon, { name: fullName, email: email.trim(), phone }, window.location.href));
-  };
-
-  return (
-    <>
-      <button type="button" aria-haspopup="dialog" onClick={() => { dialogRef.current?.showModal(); nameRef.current?.focus(); }} className="mt-6 inline-flex min-h-12 w-full items-center justify-center rounded-full bg-brand-yellow px-4 text-center text-sm font-black text-brand-dark hover:bg-brand-yellow-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-dark">{label}</button>
-      <dialog ref={dialogRef} aria-label="Seus dados para o checkout" onClose={() => setError("")} className="m-auto max-h-[90vh] w-[min(92vw,460px)] overflow-y-auto rounded-2xl bg-white p-6 text-brand-dark shadow-2xl backdrop:bg-black/60 md:p-8">
-        <div className="mb-5 flex items-start justify-between gap-4">
-          <div>
-            <h3 className="text-xl font-black text-brand-dark">Seus dados para o checkout</h3>
-            <p className="mt-1 text-sm text-brand-dark/65">Preencha para continuar na Guru.</p>
-          </div>
-          <button type="button" onClick={() => dialogRef.current?.close()} aria-label="Fechar" className="rounded-full px-2 py-1 text-xl text-brand-dark/60 hover:bg-brand-dark/10 focus-visible:outline-2 focus-visible:outline-brand-yellow">×</button>
-        </div>
-        <form onSubmit={submit} className="grid gap-4">
-          <label className="grid gap-1 text-xs font-bold text-brand-dark/75">Nome completo
-            <input ref={nameRef} type="text" autoComplete="name" required value={name} onChange={(event) => { setName(event.target.value); setError(""); }} className="min-h-11 w-full rounded-xl border border-brand-dark/20 bg-white px-3 text-sm text-brand-dark focus-visible:outline-2 focus-visible:outline-brand-yellow" />
-          </label>
-          <label className="grid gap-1 text-xs font-bold text-brand-dark/75">E-mail
-            <input type="email" autoComplete="email" required value={email} onChange={(event) => { setEmail(event.target.value); setError(""); }} className="min-h-11 w-full rounded-xl border border-brand-dark/20 bg-white px-3 text-sm text-brand-dark focus-visible:outline-2 focus-visible:outline-brand-yellow" />
-          </label>
-          <label className="grid gap-1 text-xs font-bold text-brand-dark/75">WhatsApp com DDD
-            <input ref={phoneRef} type="tel" inputMode="tel" autoComplete="tel-national" required placeholder="11 99999-9999" value={whatsapp} onChange={(event) => { setWhatsapp(event.target.value); setError(""); }} className="min-h-11 w-full rounded-xl border border-brand-dark/20 bg-white px-3 text-sm text-brand-dark focus-visible:outline-2 focus-visible:outline-brand-yellow" />
-          </label>
-          {error && <p role="alert" className="text-xs font-semibold text-red-700">{error}</p>}
-          <button type="submit" className="min-h-11 w-full rounded-full bg-brand-dark px-4 text-sm font-black text-white hover:bg-brand-dark/85 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-dark">Ir para o checkout</button>
-        </form>
-      </dialog>
-    </>
   );
 }
 
