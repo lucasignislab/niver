@@ -11,6 +11,8 @@ const rows = [
       { name: "Yury Ferreira", instagram: "@yuryferreira.ads", image: "/assets/yury-ferreira.webp", imageOffset: null },
       { name: "Robson Abreu", instagram: "@robsonabreu.ads", image: "/assets/robson-abreu.webp", imageOffset: null },
       { name: "André Xavier", instagram: "@andrexavier.ads", image: "/assets/andre-xavier.webp", imageOffset: null },
+      { name: "Edvaldo Anjos", instagram: null, image: null, imageOffset: null, initials: "EA" },
+      { name: "Dair Junior", instagram: null, image: null, imageOffset: null, initials: "DJ" },
     ],
   },
   {
@@ -24,6 +26,8 @@ const rows = [
       { name: "Amanda Gomes", instagram: "@amandagomes.ads", image: "/assets/amanda-gomes.webp", imageOffset: null },
       { name: "Maurício Brollo", instagram: "@dombrollo", image: "/assets/mauricio-brollo.webp", imageOffset: null },
       { name: "Davy Marcelo", instagram: "@eudavymarcelo", image: "/assets/davy-marcelo.webp", imageOffset: null },
+      { name: "Lígia de Souza", instagram: null, image: null, imageOffset: null, initials: "LS" },
+      { name: "Clarissa Águiar", instagram: null, image: null, imageOffset: null, initials: "CA" },
     ],
   },
 ];
@@ -48,17 +52,19 @@ const rows = [
             <div class="flex shrink-0" aria-hidden={repetition > 0}>
               {profiles.map((profile) => (
                 <div class="mentor-card flex shrink-0 items-center gap-2" style="width:var(--card-width);height:var(--avatar-size);">
-                  <div class="mentor-avatar relative shrink-0 overflow-hidden rounded-full bg-brand-yellow" style="width:var(--avatar-size);height:var(--avatar-size);">
-                    <img
-                      src={profile.image}
-                      alt=""
-                      class={profile.imageOffset === null ? "h-full w-full object-cover object-top" : "absolute top-0 h-full w-auto max-w-none"}
-                      style={profile.imageOffset === null ? undefined : `left: calc(var(--avatar-size) * ${profile.imageOffset});`}
-                    />
+                  <div class="mentor-avatar relative flex shrink-0 items-center justify-center overflow-hidden rounded-full bg-brand-yellow text-sm font-black text-brand-dark" style="width:var(--avatar-size);height:var(--avatar-size);">
+                    {profile.image ? (
+                      <img
+                        src={profile.image}
+                        alt=""
+                        class={profile.imageOffset === null ? "h-full w-full object-cover object-top" : "absolute top-0 h-full w-auto max-w-none"}
+                        style={profile.imageOffset === null ? undefined : `left: calc(var(--avatar-size) * ${profile.imageOffset});`}
+                      />
+                    ) : "initials" in profile ? profile.initials : null}
                   </div>
                   <div class="min-w-0 whitespace-nowrap leading-none">
                     <span class="block text-xs font-black uppercase text-brand-dark md:text-lg lg:text-xl">{profile.name}</span>
-                    <span class="mt-0.5 block text-[8px] font-bold uppercase text-gray-500 md:text-xs">{profile.instagram}</span>
+                    {profile.instagram && <span class="mt-0.5 block text-[8px] font-bold uppercase text-gray-500 md:text-xs">{profile.instagram}</span>}
                   </div>
                 </div>
               ))}
