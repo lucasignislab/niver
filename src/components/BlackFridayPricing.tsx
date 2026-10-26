@@ -287,7 +287,7 @@ export default function BlackFridayPricing() {
               return (
                 <article key={option.tier} className={`relative flex min-w-full snap-start flex-col rounded-2xl bg-white p-5 shadow-[0_12px_32px_rgba(0,0,0,0.07)] md:min-w-0 ${option.tier === "2" ? "ring-2 ring-brand-yellow" : ""} ${option.tier === "all" ? "ring-2 ring-emerald-500/70" : ""} ${recommendedPlan === `vitalicio:${option.tier}` ? "outline-2 outline-offset-4 outline-brand-yellow" : ""}`}>
                   {option.tier === "2" && <span className="absolute -top-3 left-4 rounded-full bg-brand-yellow px-3 py-1 text-xs font-black uppercase text-brand-dark">Meio-termo</span>}
-                  {option.tier === "all" && <span className="absolute -top-3 right-4 rounded-full bg-emerald-500 px-3 py-1 text-xs font-black uppercase text-white">Todas as redes</span>}
+                  {option.tier === "all" && <span className="absolute -top-3 right-4 rounded-full bg-emerald-500 px-3 py-1 text-xs font-black uppercase text-white">GANHA INGRESSO DO EVENTO</span>}
                   {recommendedPlan === `vitalicio:${option.tier}` && <span className="absolute right-5 top-5 rounded-full bg-brand-dark px-3 py-1 text-xs font-black text-white">Indicado para você</span>}
                   <h3 className="mt-3 text-3xl font-black text-brand-dark">{option.label}</h3>
                   <p className="mt-2 min-h-12 text-sm leading-5 text-brand-dark/65">{option.description}</p>
