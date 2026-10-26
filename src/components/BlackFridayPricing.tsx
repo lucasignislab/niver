@@ -13,7 +13,7 @@ import {
 } from "../lib/planCalculator";
 import PlanCalculator from "./PlanCalculator";
 
-type Period = "mensal" | "semestral" | "anual";
+type Period = "mensal" | "semestral" | "anual" | "vitalicio";
 type NetworkCount = 1 | 2 | 6;
 type Price = { parcel: number; cash?: number };
 
@@ -22,11 +22,17 @@ const products: { id: Product; label: string; logo: string; description: string[
   { id: "pages", label: "Ratoeira Pages", logo: "/logopages2.png", description: ["Para testar a performance da Ratoeira Pages.", "Para quem precisa publicar mais páginas.", "Para ganhar flexibilidade de domínios.", "Para operações de alto tráfego."] },
   { id: "hub", label: "Ratoeira Hub", logo: "/logo_ads_pages.png", description: ["O combo para iniciar sua escala integrada.", "Flexibilidade para testar e escalar.", "Estrutura para não travar sua operação.", "O ecossistema completo, sem teto."] },
 ];
-const periods: { id: Period; label: string; installments: number }[] = [
+const periods: { id: Exclude<Period, "vitalicio">; label: string; installments: number }[] = [
   { id: "mensal", label: "Mensal", installments: 1 },
   { id: "semestral", label: "Semestral", installments: 6 },
   { id: "anual", label: "Anual", installments: 12 },
 ];
+const periodOptions: { id: Period; label: string }[] = [{ id: "vitalicio", label: "Vitalício" }, ...periods];
+const lifetimeOptions = [
+  { tier: "1", label: "1 rede", networkCount: 1, description: "Uma rede de tráfego ao mesmo tempo." },
+  { tier: "2", label: "2 redes", networkCount: 2, description: "Duas redes de tráfego ao mesmo tempo." },
+  { tier: "all", label: "Todas as redes", networkCount: 6, description: "Todas as redes de tráfego disponíveis." },
+] as const;
 const accountNetworks: { id: AccountNetwork; label: string; logo: string }[] = [
   { id: "google", label: "Google Ads", logo: "/assets/platforms/google-ads.webp" },
   { id: "meta", label: "Meta Ads", logo: "/assets/platforms/meta.svg" },
@@ -143,7 +149,8 @@ export default function BlackFridayPricing() {
   const tier = networkCount === 1 ? "1" : networkCount === 2 ? "2" : "all";
   const selectedTier = product === "pages" ? "single" : tier;
   const productInfo = products.find((item) => item.id === product)!;
-  const lifetimePrice = lifetime[product][selectedTier][lot.index];
+  const isLifetime = period === "vitalicio";
+  const visibleCardCount = isLifetime ? product === "pages" ? 1 : lifetimeOptions.length : plans.length;
 
   const scrollToCard = (index: number) => {
     const container = carouselRef.current;
@@ -165,12 +172,12 @@ export default function BlackFridayPricing() {
     setActiveCard(index);
   };
 
-  const selectRecommendedPlan = (nextProduct: Product, nextNetwork: "1" | "2" | "all", nextPeriod: Period | "vitalicio", plan: string) => {
-    const index = nextPeriod === "vitalicio" ? plans.length : plans.indexOf(plan as (typeof plans)[number]);
+  const selectRecommendedPlan = (nextProduct: Product, nextNetwork: "1" | "2" | "all", nextPeriod: Period, plan: string) => {
+    const index = nextPeriod === "vitalicio" ? nextProduct === "pages" ? 0 : lifetimeOptions.findIndex((item) => item.tier === nextNetwork) : plans.indexOf(plan as (typeof plans)[number]);
     setProduct(nextProduct);
     setNetworkCount(nextNetwork === "all" ? 6 : Number(nextNetwork) as NetworkCount);
-    if (nextPeriod !== "vitalicio") setPeriod(nextPeriod);
-    setRecommendedPlan(plan);
+    setPeriod(nextPeriod);
+    setRecommendedPlan(nextPeriod === "vitalicio" ? `vitalicio:${nextProduct === "pages" ? "single" : nextNetwork}` : plan);
     setActiveCard(index);
     requestAnimationFrame(() => {
       document.getElementById("planos-valores")?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -198,13 +205,13 @@ export default function BlackFridayPricing() {
           <div className="mb-10 mt-9 flex flex-col items-center gap-5">
             <div className="grid w-full max-w-3xl gap-2 sm:grid-cols-3" aria-label="Produto">
               {products.map((item) => (
-                <button key={item.id} type="button" aria-pressed={product === item.id} onClick={() => { setProduct(item.id); setRecommendedPlan(null); }} className={`flex min-h-14 items-center gap-3 rounded-2xl px-4 text-left text-sm font-bold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-dark ${product === item.id ? "bg-brand-yellow text-brand-dark" : "bg-white text-brand-dark hover:bg-brand-yellow/15"}`}>
+                <button key={item.id} type="button" aria-pressed={product === item.id} onClick={() => { setProduct(item.id); setActiveCard(0); setRecommendedPlan(null); carouselRef.current?.scrollTo({ left: 0 }); }} className={`flex min-h-14 items-center gap-3 rounded-2xl px-4 text-left text-sm font-bold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-dark ${product === item.id ? "bg-brand-yellow text-brand-dark" : "bg-white text-brand-dark hover:bg-brand-yellow/15"}`}>
                   <img src={item.logo} alt="" className="h-7 w-8 shrink-0 object-contain" />{item.label}
                 </button>
               ))}
             </div>
-            <div className={`grid w-full max-w-5xl items-end gap-6 ${product === "pages" ? "max-w-lg" : "lg:grid-cols-2"}`}>
-              {product !== "pages" && (
+            <div className={`grid w-full max-w-5xl items-end gap-6 ${product === "pages" || isLifetime ? "max-w-lg" : "lg:grid-cols-2"}`}>
+              {product !== "pages" && !isLifetime && (
                 <div>
                   <label htmlFor="network-count" className="mb-2 block text-xs font-black uppercase tracking-wide text-brand-dark/65">Quantas redes de tráfego</label>
                   <div className="relative">
@@ -219,27 +226,27 @@ export default function BlackFridayPricing() {
               )}
               <div>
                 <span className="mb-2 block text-xs font-black uppercase tracking-wide text-brand-dark/65">Por quanto tempo</span>
-                <fieldset className="relative grid min-h-14 grid-cols-3 items-center rounded-2xl bg-white p-1">
+                <fieldset className="relative grid min-h-14 grid-cols-4 items-center rounded-2xl bg-white p-1">
                   <legend className="sr-only">Período de contratação</legend>
                   <span className="absolute -top-2 right-2 -translate-y-full rounded-full bg-emerald-500 px-3 py-1 text-[10px] font-black uppercase text-white sm:text-xs">2 meses grátis</span>
-                  {periods.map((item) => (
-                    <button key={item.id} type="button" aria-pressed={period === item.id} onClick={() => setPeriod(item.id)} className={`min-h-11 min-w-0 rounded-xl px-2 text-sm font-bold focus-visible:outline-2 focus-visible:outline-brand-dark sm:px-4 sm:text-base ${period === item.id ? "bg-brand-yellow text-brand-dark" : "text-brand-dark/65 hover:bg-brand-yellow/10"}`}>{item.label}</button>
+                  {periodOptions.map((item) => (
+                    <button key={item.id} type="button" aria-pressed={period === item.id} onClick={() => { setPeriod(item.id); setActiveCard(0); setRecommendedPlan(null); carouselRef.current?.scrollTo({ left: 0 }); }} className={`min-h-11 min-w-0 rounded-xl px-1 text-xs font-bold focus-visible:outline-2 focus-visible:outline-brand-dark sm:px-4 sm:text-base ${period === item.id ? "bg-brand-yellow text-brand-dark" : "text-brand-dark/65 hover:bg-brand-yellow/10"}`}>{item.label}</button>
                   ))}
                 </fieldset>
               </div>
             </div>
           </div>
 
-          <div className="mb-4 flex items-center justify-between md:hidden">
-            <span className="text-sm font-semibold text-brand-dark" aria-live="polite">Plano {activeCard + 1} de {plans.length + 1}</span>
+          {visibleCardCount > 1 && <div className="mb-4 flex items-center justify-between md:hidden">
+            <span className="text-sm font-semibold text-brand-dark" aria-live="polite">Plano {activeCard + 1} de {visibleCardCount}</span>
             <div className="flex gap-2" aria-label="Navegação dos planos">
               <button type="button" aria-label="Ver plano anterior" disabled={activeCard === 0} onClick={() => scrollToCard(activeCard - 1)} className="grid size-11 place-items-center rounded-full bg-white text-brand-dark disabled:opacity-35 focus-visible:outline-2 focus-visible:outline-brand-dark"><ChevronLeft size={20} /></button>
-              <button type="button" aria-label="Ver próximo plano" disabled={activeCard === plans.length} onClick={() => scrollToCard(activeCard + 1)} className="grid size-11 place-items-center rounded-full bg-white text-brand-dark disabled:opacity-35 focus-visible:outline-2 focus-visible:outline-brand-dark"><ChevronRight size={20} /></button>
+              <button type="button" aria-label="Ver próximo plano" disabled={activeCard === visibleCardCount - 1} onClick={() => scrollToCard(activeCard + 1)} className="grid size-11 place-items-center rounded-full bg-white text-brand-dark disabled:opacity-35 focus-visible:outline-2 focus-visible:outline-brand-dark"><ChevronRight size={20} /></button>
             </div>
-          </div>
+          </div>}
 
-          <div id="planos-valores" ref={carouselRef} onScroll={updateActiveCard} className="flex snap-x snap-mandatory items-start gap-4 overflow-x-auto pb-3 pt-4 scroll-mt-24 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:grid md:grid-cols-2 md:overflow-visible md:pb-0 md:pt-0 xl:grid-cols-5">
-            {plans.map((name, index) => {
+          <div id="planos-valores" ref={carouselRef} onScroll={updateActiveCard} className={`flex snap-x snap-mandatory items-start gap-4 overflow-x-auto pb-3 pt-4 scroll-mt-24 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:grid md:grid-cols-2 md:overflow-visible md:pb-0 md:pt-0 ${isLifetime ? product === "pages" ? "mx-auto max-w-xl md:grid-cols-1" : "xl:grid-cols-3" : "xl:grid-cols-4"}`}>
+            {!isLifetime && plans.map((name, index) => {
               const original = prices[product][selectedTier][period][name.toLowerCase()];
               const parcel = discounted(original.parcel, lot.appliedDiscount);
               const cash = original.cash === undefined ? undefined : discounted(original.cash, lot.appliedDiscount);
@@ -274,31 +281,39 @@ export default function BlackFridayPricing() {
                 </article>
               );
             })}
-            <article className="relative flex min-w-full snap-start flex-col rounded-2xl bg-white p-5 shadow-[0_12px_32px_rgba(0,0,0,0.07)] md:min-w-0">
-              <span className="absolute -top-3 left-4 rounded-full bg-brand-dark px-3 py-1 text-xs font-black uppercase text-white">Acesso definitivo</span>
-              <h3 className="mt-3 text-3xl font-black text-brand-dark">Vitalício</h3>
-              <p className="mt-2 min-h-12 text-sm leading-5 text-brand-dark/65">{productInfo.label} sem renovação de assinatura.</p>
-              <div className="mt-5 min-h-32 tabular-nums">
-                {lot.status === "active" ? <>
-                  <span className="text-sm font-black text-brand-dark">Valor do lote</span>
-                  <p><strong className="text-3xl font-black tracking-tight text-brand-dark 2xl:text-4xl">{currency(lifetimePrice.parcel)}</strong></p>
-                  <p className="mt-2 text-sm text-brand-dark/75">ou <strong className="text-brand-dark">{currency(lifetimePrice.cash ?? lifetimePrice.parcel)}</strong> à vista</p>
-                </> : <p className="text-sm text-brand-dark/75">{lot.status === "upcoming" ? "Valores liberados no início do primeiro lote." : "Oferta encerrada."}</p>}
-              </div>
-              <details className="group border-t border-brand-dark/10">
-                <summary className="flex cursor-pointer list-none items-center justify-between py-4 text-sm font-bold text-brand-dark/75 hover:text-brand-dark focus-visible:rounded-md focus-visible:outline-2 focus-visible:outline-brand-dark [&::-webkit-details-marker]:hidden">
-                  <span><span className="group-open:hidden">Veja mais</span><span className="hidden group-open:inline">Veja menos</span></span>
-                  <ChevronDown aria-hidden="true" className="size-5 transition-transform group-open:rotate-180" />
-                </summary>
-                <p className="pt-2 text-sm leading-5 text-brand-dark/75">{product !== "pages" ? "Ratoeira Ads e Hub incluem 3 redes de tráfego no acesso vitalício." : "Acesso vitalício à Ratoeira Pages."}</p>
-                <OfferButton link={checkoutLinks[`${product}/${selectedTier}/vitalicio`]} coupon={null} status={available} isTest={lot.isTest} label="Assinar vitalício" />
-              </details>
-            </article>
+            {isLifetime && (product === "pages" ? [{ tier: "single", label: "Vitalício", networkCount: 1, description: "Ratoeira Pages sem renovação de assinatura." } as const] : lifetimeOptions).map((option) => {
+              const price = lifetime[product][option.tier][lot.index];
+              const optionTier = option.tier === "single" ? "1" : option.tier;
+              return (
+                <article key={option.tier} className={`relative flex min-w-full snap-start flex-col rounded-2xl bg-white p-5 shadow-[0_12px_32px_rgba(0,0,0,0.07)] md:min-w-0 ${option.tier === "2" ? "ring-2 ring-brand-yellow" : ""} ${option.tier === "all" ? "ring-2 ring-emerald-500/70" : ""} ${recommendedPlan === `vitalicio:${option.tier}` ? "outline-2 outline-offset-4 outline-brand-yellow" : ""}`}>
+                  {option.tier === "2" && <span className="absolute -top-3 left-4 rounded-full bg-brand-yellow px-3 py-1 text-xs font-black uppercase text-brand-dark">Meio-termo</span>}
+                  {option.tier === "all" && <span className="absolute -top-3 right-4 rounded-full bg-emerald-500 px-3 py-1 text-xs font-black uppercase text-white">Todas as redes</span>}
+                  {recommendedPlan === `vitalicio:${option.tier}` && <span className="absolute right-5 top-5 rounded-full bg-brand-dark px-3 py-1 text-xs font-black text-white">Indicado para você</span>}
+                  <h3 className="mt-3 text-3xl font-black text-brand-dark">{option.label}</h3>
+                  <p className="mt-2 min-h-12 text-sm leading-5 text-brand-dark/65">{option.description}</p>
+                  <div className="mt-5 min-h-36 tabular-nums">
+                    {lot.status === "active" ? <>
+                      <span className="text-sm font-black text-brand-dark">12x</span>
+                      <p><strong className="text-3xl font-black tracking-tight text-brand-dark 2xl:text-4xl">{currency(price.parcel / 12)}</strong></p>
+                      <p className="mt-2 text-sm text-brand-dark/75">ou <strong className="text-brand-dark">{currency(price.cash ?? price.parcel)}</strong> à vista</p>
+                    </> : <p className="text-sm text-brand-dark/75">{lot.status === "upcoming" ? "Valores liberados no início do primeiro lote." : "Oferta encerrada."}</p>}
+                  </div>
+                  <details className="group border-t border-brand-dark/10">
+                    <summary className="flex cursor-pointer list-none items-center justify-between py-4 text-sm font-bold text-brand-dark/75 hover:text-brand-dark focus-visible:rounded-md focus-visible:outline-2 focus-visible:outline-brand-dark [&::-webkit-details-marker]:hidden">
+                      <span><span className="group-open:hidden">Veja mais</span><span className="hidden group-open:inline">Veja menos</span></span>
+                      <ChevronDown aria-hidden="true" className="size-5 transition-transform group-open:rotate-180" />
+                    </summary>
+                    <PlanDetails product={product} index={2} networkCount={option.networkCount} tier={optionTier} />
+                    <OfferButton link={checkoutLinks[`${product}/${option.tier}/vitalicio`]} coupon={null} status={available} isTest={lot.isTest} label="Assinar vitalício" />
+                    <p className="mt-3 text-center text-xs text-brand-dark/55">Pagamento único, sem renovação</p>
+                  </details>
+                </article>
+              );
+            })}
           </div>
-          <div className="mt-3 flex justify-center gap-2 md:hidden" aria-label="Selecionar plano">
-            {plans.map((name, index) => <button key={name} type="button" aria-label={`Ver plano ${name}`} aria-current={activeCard === index ? "true" : undefined} onClick={() => scrollToCard(index)} className={`h-2.5 rounded-full focus-visible:outline-2 focus-visible:outline-brand-dark ${activeCard === index ? "w-8 bg-brand-yellow" : "w-2.5 bg-brand-dark/25"}`} />)}
-            <button type="button" aria-label="Ver plano vitalício" aria-current={activeCard === plans.length ? "true" : undefined} onClick={() => scrollToCard(plans.length)} className={`h-2.5 rounded-full focus-visible:outline-2 focus-visible:outline-brand-dark ${activeCard === plans.length ? "w-8 bg-brand-yellow" : "w-2.5 bg-brand-dark/25"}`} />
-          </div>
+          {visibleCardCount > 1 && <div className="mt-3 flex justify-center gap-2 md:hidden" aria-label="Selecionar plano">
+            {Array.from({ length: visibleCardCount }, (_, index) => <button key={index} type="button" aria-label={isLifetime ? `Ver vitalício ${index + 1}` : `Ver plano ${plans[index]}`} aria-current={activeCard === index ? "true" : undefined} onClick={() => scrollToCard(index)} className={`h-2.5 rounded-full focus-visible:outline-2 focus-visible:outline-brand-dark ${activeCard === index ? "w-8 bg-brand-yellow" : "w-2.5 bg-brand-dark/25"}`} />)}
+          </div>}
 
           <p className="mx-auto mt-10 max-w-4xl text-center text-sm leading-relaxed text-brand-dark/75">Assinantes ativos dos planos Camundongo, Rato, Ratazana ou Ratazana Plus fazem o upgrade direto na <a href="https://ratoeirahub.com/" className="font-bold underline underline-offset-2">plataforma</a>, onde têm condições exclusivas e melhores que as desta página.</p>
           <p className="mx-auto mt-8 max-w-3xl text-center text-sm leading-relaxed text-brand-dark/70">O evento presencial é oferecido depois da compra aprovada e pode ser adquirido com um único clique, sem digitar novamente os dados de pagamento.</p>
