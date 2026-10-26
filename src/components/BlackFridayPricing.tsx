@@ -29,9 +29,9 @@ const periods: { id: Exclude<Period, "vitalicio">; label: string; installments: 
 ];
 const periodOptions: { id: Period; label: string }[] = [{ id: "vitalicio", label: "Vitalício" }, ...periods];
 const lifetimeOptions = [
-  { tier: "1", label: "1 rede", networkCount: 1, description: "Uma rede de tráfego ao mesmo tempo." },
-  { tier: "2", label: "2 redes", networkCount: 2, description: "Duas redes de tráfego ao mesmo tempo." },
-  { tier: "all", label: "Todas as redes", networkCount: 6, description: "Todas as redes de tráfego disponíveis." },
+  { tier: "1", label: "Scale 1 rede", networkCount: 1, description: "Uma rede de tráfego ao mesmo tempo." },
+  { tier: "2", label: "Scale 2 redes", networkCount: 2, description: "Duas redes de tráfego ao mesmo tempo." },
+  { tier: "all", label: "Scale todas as redes", networkCount: 6, description: "Todas as redes de tráfego disponíveis." },
 ] as const;
 const accountNetworks: { id: AccountNetwork; label: string; logo: string }[] = [
   { id: "google", label: "Google Ads", logo: "/assets/platforms/google-ads.webp" },
@@ -132,7 +132,7 @@ export default function BlackFridayPricing() {
   const [now, setNow] = useState<Date | null>(null);
   const [product, setProduct] = useState<Product>("hub");
   const [networkCount, setNetworkCount] = useState<NetworkCount>(1);
-  const [period, setPeriod] = useState<Period>("anual");
+  const [period, setPeriod] = useState<Period>("vitalicio");
   const [activeCard, setActiveCard] = useState(0);
   const [recommendedPlan, setRecommendedPlan] = useState<string | null>(null);
   const carouselRef = useRef<HTMLDivElement>(null);
@@ -192,7 +192,7 @@ export default function BlackFridayPricing() {
         <div className="mx-auto max-w-[1400px]">
           <div className="mx-auto max-w-3xl text-center lg:max-w-5xl">
             <h2 className="text-4xl font-black tracking-tight text-brand-dark md:text-6xl lg:whitespace-nowrap">Escolha como quer começar</h2>
-            <p className="mx-auto mt-4 max-w-3xl text-base text-brand-dark/70 md:text-lg">Escolha o produto, o número de redes simultâneas e o período para visualizar os valores corretos.</p>
+            <p className="mx-auto mt-4 max-w-3xl text-base text-brand-dark/70 md:text-lg">{isLifetime ? "Compare as opções de acesso vitalício disponíveis para cada produto." : "Escolha o produto, o número de redes simultâneas e o período para visualizar os valores corretos."}</p>
           </div>
 
           <div className="mx-auto mt-8 max-w-2xl rounded-2xl bg-brand-yellow/15 px-5 py-4 text-center text-brand-dark">
@@ -281,7 +281,7 @@ export default function BlackFridayPricing() {
                 </article>
               );
             })}
-            {isLifetime && (product === "pages" ? [{ tier: "single", label: "Vitalício", networkCount: 1, description: "Ratoeira Pages sem renovação de assinatura." } as const] : lifetimeOptions).map((option) => {
+            {isLifetime && (product === "pages" ? [{ tier: "single", label: "Scale", networkCount: 1, description: "Ratoeira Pages sem renovação de assinatura." } as const] : lifetimeOptions).map((option) => {
               const price = lifetime[product][option.tier][lot.index];
               const optionTier = option.tier === "single" ? "1" : option.tier;
               return (

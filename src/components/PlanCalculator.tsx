@@ -102,11 +102,11 @@ export default function PlanCalculator({
   const selectedPrices = prices[product][tier];
   const volumeOptions = product === "pages" ? visitOptions : salesOptions;
   const lifetimeChoices: { tier: LifetimeTier; label: string; description: string }[] = product === "pages"
-    ? [{ tier: "single", label: "Vitalício", description: "Ratoeira Pages sem renovação de assinatura." }]
+    ? [{ tier: "single", label: "Scale", description: "Ratoeira Pages sem renovação de assinatura." }]
     : [
-      { tier: "1", label: "1 rede", description: "Uma rede de tráfego ao mesmo tempo." },
-      { tier: "2", label: "2 redes", description: "Duas redes de tráfego ao mesmo tempo." },
-      { tier: "all", label: "Todas as redes", description: "Todas as redes de tráfego disponíveis." },
+      { tier: "1", label: "Scale 1 rede", description: "Uma rede de tráfego ao mesmo tempo." },
+      { tier: "2", label: "Scale 2 redes", description: "Duas redes de tráfego ao mesmo tempo." },
+      { tier: "all", label: "Scale todas as redes", description: "Todas as redes de tráfego disponíveis." },
     ];
 
   const choiceClass = (active: boolean) => `min-h-16 w-full rounded-2xl px-5 py-3 text-left transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-yellow ${active ? "bg-brand-yellow text-brand-dark" : "bg-white text-brand-dark hover:bg-brand-yellow/15"}`;
@@ -225,7 +225,7 @@ export default function PlanCalculator({
           {step === "result" && payment === "lifetime" && (
             <div aria-live="polite">
               <h3 className="text-2xl font-black md:text-3xl">Escolha seu <span className="underline decoration-brand-yellow decoration-4 underline-offset-4">{productLabels[product]} Vitalício</span></h3>
-              <p className="mt-3 max-w-3xl text-sm leading-relaxed text-brand-dark/75">Pagamento único, sem renovação. {product === "pages" ? "Confira o acesso vitalício à Ratoeira Pages." : "Escolha quantas redes de tráfego você precisa usar ao mesmo tempo."}</p>
+              <p className="mt-3 max-w-3xl text-sm leading-relaxed text-brand-dark/75">Pagamento único, sem renovação. {product === "pages" ? "Confira o acesso vitalício à Ratoeira Pages." : "Compare as opções Scale com 1, 2 ou todas as redes de tráfego."}</p>
               <div className={`mt-6 grid gap-4 ${product === "pages" ? "max-w-lg" : "md:grid-cols-3"}`}>
                 {lifetimeChoices.map((choice) => {
                   const price = lifetimePrices[product][choice.tier]![lot.index];
