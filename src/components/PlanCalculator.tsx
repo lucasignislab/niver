@@ -240,7 +240,7 @@ export default function PlanCalculator({
                           {price.cash !== undefined && <p className="mt-2 text-sm">ou <strong>{money.format(price.cash)} à vista</strong></p>}
                         </div>
                       ) : <p className="mt-4 text-sm text-brand-dark/70">Oferta encerrada.</p>}
-                      <button type="button" onClick={() => onSelect(product, choice.tier === "single" ? "1" : choice.tier, "vitalicio", "Vitalício")} className="mt-6 min-h-11 rounded-full bg-brand-yellow px-4 text-sm font-black uppercase text-brand-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-yellow">Ver vitalício <ArrowRight className="ml-1 inline size-4" /></button>
+                      <div className="mt-auto pt-6"><button type="button" onClick={() => onSelect(product, choice.tier === "single" ? "1" : choice.tier, "vitalicio", "Vitalício")} className="min-h-11 w-full rounded-full bg-brand-yellow px-4 text-sm font-black uppercase text-brand-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-yellow">Ver vitalício <ArrowRight className="ml-1 inline size-4" /></button></div>
                     </article>
                   );
                 })}
@@ -263,7 +263,7 @@ export default function PlanCalculator({
                       <h4 className="text-sm font-black uppercase tracking-wide">{period.label}</h4>
                       <p className="mt-4 text-2xl font-black tabular-nums">{period.installments > 1 ? `${period.installments}x ` : ""}{money.format(parcel)}{period.installments === 1 ? "/mês" : ""}</p>
                       {cash !== undefined && <p className="mt-2 text-sm">ou <strong>{money.format(cash)} à vista</strong></p>}
-                      <button type="button" onClick={() => onSelect(product, tier === "single" ? "1" : tier, period.id, plan)} className={`mt-6 min-h-11 rounded-full px-4 text-sm font-black uppercase focus-visible:outline-2 focus-visible:outline-offset-2 ${period.id === "anual" ? "bg-brand-dark text-white focus-visible:outline-brand-dark" : "bg-brand-yellow text-brand-dark focus-visible:outline-brand-yellow"}`}>Ver plano <ArrowRight className="ml-1 inline size-4" /></button>
+                      <div className="mt-auto pt-6"><button type="button" onClick={() => onSelect(product, tier === "single" ? "1" : tier, period.id, plan)} className={`min-h-11 w-full rounded-full px-4 text-sm font-black uppercase focus-visible:outline-2 focus-visible:outline-offset-2 ${period.id === "anual" ? "bg-brand-dark text-white focus-visible:outline-brand-dark" : "bg-brand-yellow text-brand-dark focus-visible:outline-brand-yellow"}`}>Ver plano <ArrowRight className="ml-1 inline size-4" /></button></div>
                     </article>
                   );
                 })}
