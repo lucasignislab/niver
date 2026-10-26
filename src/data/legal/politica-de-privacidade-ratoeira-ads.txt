@@ -1,0 +1,111 @@
+Política de Privacidade
+Ratoeira Ads
+
+Sua segurança e privacidade são nossa prioridade.
+
+Esta Política de Privacidade (“Política”) se aplica a todos os serviços prestados pela RATOEIRA ADS DIGITAL MARKETING LTDA., pessoa jurídica de direito privado, inscrita no CNPJ sob o nº 55.824.986/0001-06, sediada na Alameda Rio Negro, 503, sala 2020, Alphaville, Barueri/SP, CEP: 06.454-000, doravante denominada (“RATOEIRA ADS”).
+
+1
+Do Objeto
+Visando proteger a sua privacidade, além de garantir a liberdade e o exercício de direitos ao titular de dados, a RATOEIRA ADS apresenta a presente Política de Privacidade.
+
+Este documento tem o objetivo de informar, de forma clara e objetiva, sobre como é realizada a coleta, tratamento e armazenamento de dados pessoais essenciais para a prestação de seus serviços.
+
+O titular dos dados pessoais declara-se ciente com esta Política e dá expresso consentimento para o Tratamento de suas Informações Pessoais pela RATOEIRA ADS.
+
+Caso não concorde com o Tratamento de suas Informações Pessoais, na forma prevista nesta Política, deverá se abster de utilizar os serviços da RATOEIRA ADS.
+
+2
+Conceitos Importantes
+LGPD
+Lei Geral de Proteção de Dados (13.709/2018), que regula o tratamento, proteção e privacidade de Dados Pessoais no Brasil.
+
+Dados Pessoais
+Informações que podem ser associadas a uma pessoa física identificada ou identificável (nome, CPF, e-mail, etc).
+
+Tratamento
+Toda operação realizada com dados pessoais, desde a coleta até a eliminação.
+
+Titular de Dados
+Toda pessoa natural a quem se referem os dados que são objeto de tratamento.
+
+3
+Dados Tratados e Finalidade
+A RATOEIRA ADS coleta e trata dados pessoais para garantir a execução dos serviços, segurança, prevenção de fraudes e melhoria da experiência:
+
+Cadastrais: Nome completo, CPF/CNPJ, e-mail, telefone, endereço e dados de pagamento.
+Navegação e Uso: Dados de navegação, logs de acesso, padrões de uso da plataforma, endereço IP, cookies e informações técnicas do dispositivo.
+Financeiros: Dados bancários e de cartão para processamento de pagamentos e repasse de comissões.
+Campanhas: Dados de campanhas publicitárias, estratégias, relatórios e configurações de rastreamento inseridas pelo Usuário.
+Suporte: Informações relacionadas à dúvida, demanda ou comunicação com nosso time de atendimento.
+4
+Bases Legais (LGPD)
+O tratamento de dados pessoais realizado pela RATOEIRA ADS observa integralmente a Lei nº 13.709/2018 (LGPD). As bases legais aplicadas são:
+
+Execução de contrato (art. 7º, V)
+Para dados necessários à prestação do serviço, rastreamento de campanhas, proteção contra fraudes e processamento de pagamentos.
+Legítimo interesse (art. 7º, IX)
+Para segurança, monitoramento de uso, prevenção de fraudes, bloqueio de cliques inválidos e proteção da plataforma.
+Cumprimento de obrigação legal (art. 7º, II)
+Quando exigido por legislação aplicável, incluindo o Marco Civil da Internet (Lei nº 12.965/2014).
+Consentimento (art. 7º, I)
+Quando aplicável, para envio de comunicações de marketing, newsletters e novidades sobre a plataforma.
+5
+Compartilhamento de Dados
+A RATOEIRA ADS não comercializa dados pessoais. Os dados podem ser compartilhados nas seguintes hipóteses:
+
+Parceiros e Fornecedores: Para garantir a prestação dos serviços contratados (processamento de pagamentos, hospedagem, serviços de e-mail, infraestrutura de servidores), sempre exigindo as mesmas diretrizes de segurança.
+Autoridades Competentes: Quando requisitado por ordem judicial ou determinação de autoridade competente.
+Operações Societárias: Em caso de transferência de controle, aquisição ou fusão, garantida a continuidade das obrigações de privacidade.
+Dados Anonimizados: A RATOEIRA ADS poderá utilizar dados anonimizados e agregados para fins de pesquisa, desenvolvimento de produto e estatísticas de mercado. Tais dados não se sujeitam às restrições da LGPD, nos termos do art. 12 da referida Lei.
+6
+Armazenamento, Segurança e Prazos
+As informações são armazenadas em servidores seguros com criptografia, firewalls e medidas técnicas de proteção. A RATOEIRA ADS adota medidas rigorosas contra perda, roubo ou acesso não autorizado.
+
+Contudo, não se responsabiliza por vazamentos de informações decorrentes de ataques cibernéticos sofisticados, falhas de terceiros ou negligência do próprio usuário na proteção de seus acessos.
+
+Os registros de log de sistema, incluindo ações dos usuários e padrões de comportamento na plataforma, serão mantidos por prazo mínimo de 5 (cinco) anos, contados a partir do registro, em conformidade com o Marco Civil da Internet (Lei nº 12.965/2014) e a LGPD, podendo ser utilizados como meio de prova em qualquer procedimento judicial, administrativo ou arbitral.
+
+Os dados de cadastro são mantidos enquanto o usuário estiver ativo na plataforma, podendo ser guardados por período adicional para cumprimento de obrigações legais.
+
+7
+Cookies e Tecnologias de Rastreamento
+A RATOEIRA ADS utiliza cookies e tecnologias similares para melhorar a experiência do usuário, analisar tráfego, lembrar preferências e personalizar conteúdo. Os tipos de cookies utilizados incluem:
+
+Essenciais: Necessários para o funcionamento básico da plataforma e autenticação.
+Analíticos: Utilizados para entender como os usuários interagem com a plataforma e melhorar nossos serviços.
+Funcionais: Permitem lembrar preferências e configurações do usuário.
+O usuário pode gerenciar as preferências de cookies diretamente nas configurações do navegador.
+
+8
+Seus Direitos (Art. 18 LGPD)
+VOCÊ, na qualidade de titular de dados, tem o direito de solicitar a qualquer momento:
+
+Confirmação de tratamento
+Acesso aos dados
+Correção de dados incompletos ou desatualizados
+Anonimização ou bloqueio de dados desnecessários
+Eliminação de dados (quando aplicável)
+Portabilidade dos dados
+Revogação do consentimento
+Informação sobre compartilhamento
+Para exercer seus direitos, contate nosso DPO/Encarregado:
+
+suporte@ratoeiraads.com
+O prazo de resposta será de até 15 (quinze) dias úteis.
+
+9
+Portabilidade de Dados
+Em caso de solicitação de portabilidade ou exportação de dados, nos termos do art. 18, V da LGPD, a RATOEIRA ADS disponibilizará os dados em formato estruturado no prazo de até 30 (trinta) dias úteis. O custo administrativo da exportação poderá ser cobrado do usuário, limitado ao valor equivalente a 1 (um) mês do plano vigente à época da solicitação, exceto nas hipóteses em que a gratuidade seja expressamente exigida pela legislação aplicável.
+
+10
+Alterações nesta Política
+A RATOEIRA ADS poderá alterar esta Política a qualquer tempo, sendo que a versão mais recente estará sempre disponível nesta página. Recomendamos que o usuário a consulte periodicamente. Alterações substanciais serão comunicadas por e-mail ou por meio de aviso na plataforma.
+
+11
+Contato
+Em caso de dúvidas sobre esta Política de Privacidade, entre em contato:
+
+E-mail: suporte@ratoeiraads.com
+
+Telefone: +55 (19) 99727-8153

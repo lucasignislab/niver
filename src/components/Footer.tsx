@@ -48,10 +48,10 @@ function Footer() {
             <div className="space-y-3 pt-2">
                <h4 className="text-white text-sm font-black uppercase tracking-widest">Links Úteis</h4>
                <ul className="space-y-2 text-sm font-bold">
-                 <li><a href="/termos-de-uso-ratoeira-ads" className="hover:text-orange-500 transition-colors">Termos de Uso ADS</a></li>
+                 <li><a href="/termos-de-uso" className="hover:text-orange-500 transition-colors">Termos de Uso ADS</a></li>
                  <li><a href="/termos-de-uso-ratoeira-pages" className="hover:text-orange-500 transition-colors">Termos de Uso PAGES</a></li>
                  <li><a href="/termos-de-uso-ratoeira-combo-ads-pages" className="hover:text-orange-500 transition-colors">Termos de Uso COMBO</a></li>
-                 <li><a href="#" className="hover:text-orange-500 transition-colors">Política de Privacidade</a></li>
+                 <li><a href="/politica-de-privacidade" className="hover:text-orange-500 transition-colors">Política de Privacidade</a></li>
                </ul>
             </div>
           </div>

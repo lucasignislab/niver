@@ -254,7 +254,7 @@ export default function BlackFridayPricing() {
                   </div>
                   <div className="border-t border-brand-dark/10 pt-4">
                     <PlanDetails product={product} index={index} networkCount={networkCount} tier={tier} />
-                    <OfferButton link={checkoutLinks[`${product}/${selectedTier}/${period}/${name.toLowerCase()}`]} coupon={lot.coupon} status={available} label={`Assinar ${name}`} />
+                    <OfferButton link={checkoutLinks[`${product}/${selectedTier}/${period}/${name.toLowerCase()}`]} coupon={lot.coupon} status={available} product={product} label={`Assinar ${name}`} />
                     <p className="mt-3 text-center text-xs text-brand-dark/55">{count === 1 ? "Cobrança mensal" : `${count}x sem juros ou à vista com desconto`}</p>
                   </div>
                 </article>
@@ -282,7 +282,7 @@ export default function BlackFridayPricing() {
                   <div className="border-t border-brand-dark/10 pt-4">
                     <PlanDetails product={product} index={2} networkCount={option.networkCount} tier={optionTier} />
                     <DetailRow label="Renovação" value="Nunca" />
-                    <OfferButton link={checkoutLinks[`${product}/${option.tier}/vitalicio`]} coupon={null} status={available} label="Assinar vitalício" />
+                    <OfferButton link={checkoutLinks[`${product}/${option.tier}/vitalicio`]} coupon={null} status={available} product={product} label="Assinar vitalício" />
                     <p className="mt-3 text-center text-xs text-brand-dark/55">Pagamento único, sem renovação</p>
                   </div>
                 </article>
