@@ -18,9 +18,11 @@ import {
   type Product,
 } from "../lib/planCalculator";
 
-type Step = "product" | "networks" | "volume" | "accounts" | "emails" | "result";
+type Step = "payment" | "product" | "networks" | "volume" | "accounts" | "emails" | "result";
+type Payment = "lifetime" | "discount";
 type Period = "mensal" | "semestral" | "anual";
 type Price = { parcel: number; cash?: number };
+type LifetimeTier = "1" | "2" | "all" | "single";
 
 const productLabels: Record<Product, string> = {
   ads: "Ratoeira Ads",
@@ -42,6 +44,7 @@ const networks: { id: Network; label: string; logo: string }[] = [
   { id: "revcontent", label: "RevContent", logo: "/assets/platforms/revcontent.svg" },
 ];
 const prices = priceData.prices as Record<string, Record<string, Record<string, Record<string, Price>>>>;
+const lifetimePrices = priceData.vitalicio as Record<Product, Partial<Record<LifetimeTier, Price[]>>>;
 const periods: { id: Period; label: string; installments: number }[] = [
   { id: "mensal", label: "Mensal", installments: 1 },
   { id: "semestral", label: "Semestral", installments: 6 },
@@ -49,9 +52,11 @@ const periods: { id: Period; label: string; installments: number }[] = [
 ];
 const money = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL", maximumFractionDigits: 2 });
 
-function stepsFor(product: Product, selected: Network[]): Step[] {
-  if (product === "pages") return ["product", "volume", "result"];
-  const steps: Step[] = ["product", "networks", "volume"];
+function stepsFor(payment: Payment | null, product: Product, selected: Network[]): Step[] {
+  if (!payment) return ["payment"];
+  if (payment === "lifetime") return ["payment", "product", "result"];
+  if (product === "pages") return ["payment", "product", "volume", "result"];
+  const steps: Step[] = ["payment", "product", "networks", "volume"];
   if (selected.some(supportsAdAccounts)) steps.push("accounts");
   if (selected.includes("google")) steps.push("emails");
   return [...steps, "result"];
@@ -76,30 +81,42 @@ export default function PlanCalculator({
   onSelect,
 }: {
   lot: ReturnType<typeof currentLot>;
-  onSelect: (product: Product, network: "1" | "2" | "all", period: Period, plan: string) => void;
+  onSelect: (product: Product, network: "1" | "2" | "all", period: Period | "vitalicio", plan: string) => void;
 }) {
+  const [payment, setPayment] = useState<Payment | null>(null);
   const [product, setProduct] = useState<Product>("hub");
+  const [productChosen, setProductChosen] = useState(false);
   const [selectedNetworks, setSelectedNetworks] = useState<Network[]>([]);
   const [volume, setVolume] = useState<number | null>(null);
   const [accounts, setAccounts] = useState<Record<AccountNetwork, number>>({ google: 1, meta: 1, taboola: 1, newsbreak: 1 });
   const [googleEmails, setGoogleEmails] = useState(1);
   const [stepIndex, setStepIndex] = useState(0);
-  const steps = stepsFor(product, selectedNetworks);
-  const currentIndex = Math.min(stepIndex, volume === null ? steps.indexOf("volume") : steps.length - 1);
+  const steps = stepsFor(payment, product, selectedNetworks);
+  const currentIndex = Math.min(stepIndex, payment === "discount" && volume === null ? steps.indexOf("volume") : steps.length - 1);
   const step = steps[currentIndex];
+  const questionCount = payment ? steps.length - 1 : 1;
+  const progress = step === "result" ? 100 : payment ? Math.round(((currentIndex + 1) / questionCount) * 100) : 0;
   const recommended = recommendPlan(product, selectedNetworks, volume ?? 0, accounts, googleEmails);
   const tier = product === "pages" ? "single" : networkTier(selectedNetworks.length);
   const plan = plans[recommended];
   const selectedPrices = prices[product][tier];
   const volumeOptions = product === "pages" ? visitOptions : salesOptions;
+  const lifetimeChoices: { tier: LifetimeTier; label: string; description: string }[] = product === "pages"
+    ? [{ tier: "single", label: "Vitalício", description: "Ratoeira Pages sem renovação de assinatura." }]
+    : [
+      { tier: "1", label: "1 rede", description: "Uma rede de tráfego ao mesmo tempo." },
+      { tier: "2", label: "2 redes", description: "Duas redes de tráfego ao mesmo tempo." },
+      { tier: "all", label: "Todas as redes", description: "Todas as redes de tráfego disponíveis." },
+    ];
 
   const choiceClass = (active: boolean) => `min-h-16 w-full rounded-2xl px-5 py-3 text-left transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-yellow ${active ? "bg-brand-yellow text-brand-dark" : "bg-white text-brand-dark hover:bg-brand-yellow/15"}`;
   const summary: { step: Step; label: string }[] = [
-    { step: "product", label: productLabels[product] },
-    ...(product === "pages" ? [] : [{ step: "networks" as Step, label: selectedNetworks.map((id) => networks.find((item) => item.id === id)?.label).join(", ") }]),
-    ...(volume === null ? [] : [{ step: "volume" as Step, label: volumeOptions[volume] }]),
-    ...(product === "pages" || !selectedNetworks.some(supportsAdAccounts) ? [] : [{ step: "accounts" as Step, label: "Contas de anúncio" }]),
-    ...(selectedNetworks.includes("google") ? [{ step: "emails" as Step, label: `${googleEmails} ${googleEmails === 1 ? "e-mail" : "e-mails"} do Google` }] : []),
+    ...(payment ? [{ step: "payment" as Step, label: payment === "lifetime" ? "Vitalício" : "Plano com desconto" }] : []),
+    ...(productChosen ? [{ step: "product" as Step, label: productLabels[product] }] : []),
+    ...(payment !== "discount" || product === "pages" ? [] : [{ step: "networks" as Step, label: selectedNetworks.map((id) => networks.find((item) => item.id === id)?.label).join(", ") }]),
+    ...(payment !== "discount" || volume === null ? [] : [{ step: "volume" as Step, label: volumeOptions[volume] }]),
+    ...(payment !== "discount" || product === "pages" || !selectedNetworks.some(supportsAdAccounts) ? [] : [{ step: "accounts" as Step, label: "Contas de anúncio" }]),
+    ...(payment === "discount" && selectedNetworks.includes("google") ? [{ step: "emails" as Step, label: `${googleEmails} ${googleEmails === 1 ? "e-mail" : "e-mails"} do Google` }] : []),
   ].filter((item) => item.label && steps.includes(item.step) && steps.indexOf(item.step) < currentIndex);
 
   return (
@@ -111,11 +128,11 @@ export default function PlanCalculator({
         </div>
         <div className="rounded-3xl bg-brand-lighter p-5 shadow-[0_18px_48px_rgba(0,0,0,0.08)] sm:p-8">
           <div className="mb-7 flex items-center justify-between gap-4 text-sm font-semibold">
-            <span>Etapa {currentIndex + 1} de {steps.length}</span>
-            <span className="text-brand-dark">{Math.round(((currentIndex + 1) / steps.length) * 100)}%</span>
+            <span>{step === "result" ? "Resultado" : `Etapa ${currentIndex + 1}${payment && currentIndex > 1 ? ` de ${questionCount}` : ""}`}</span>
+            <span className="text-brand-dark">{progress}%</span>
           </div>
           <div className="mb-8 h-1.5 overflow-hidden rounded-full bg-brand-dark/10" aria-hidden="true">
-            <div className="h-full rounded-full bg-brand-yellow transition-[width]" style={{ width: `${((currentIndex + 1) / steps.length) * 100}%` }} />
+            <div className="h-full rounded-full bg-brand-yellow transition-[width]" style={{ width: `${progress}%` }} />
           </div>
 
           {summary.length > 0 && (
@@ -128,13 +145,28 @@ export default function PlanCalculator({
             </div>
           )}
 
+          {step === "payment" && (
+            <fieldset>
+              <legend className="mb-2 text-2xl font-black">Como você prefere pagar?</legend>
+              <p className="mb-6 text-sm text-brand-dark/70">Escolha entre acesso vitalício ou desconto nos planos vigentes.</p>
+              <div className="grid gap-3 sm:grid-cols-2">
+                <button type="button" aria-pressed={payment === "lifetime"} onClick={() => { setPayment("lifetime"); setStepIndex(1); }} className={choiceClass(payment === "lifetime")}>
+                  <strong className="block">Vitalício</strong><span className="mt-1 block text-sm opacity-80">Pague uma vez, sem renovação de assinatura.</span>
+                </button>
+                <button type="button" aria-pressed={payment === "discount"} onClick={() => { setPayment("discount"); setStepIndex(1); }} className={choiceClass(payment === "discount")}>
+                  <strong className="block">Plano com desconto da Black Friday</strong><span className="mt-1 block text-sm opacity-80">Mensal, semestral ou anual com desconto por lote.</span>
+                </button>
+              </div>
+            </fieldset>
+          )}
+
           {step === "product" && (
             <fieldset>
-              <legend className="mb-2 text-2xl font-black">O que você precisa?</legend>
-              <p className="mb-6 text-sm text-brand-dark/70">Escolha o produto que melhor representa sua operação.</p>
+              <legend className="mb-2 text-2xl font-black">{payment === "lifetime" ? "Vitalício de qual produto?" : "O que você precisa?"}</legend>
+              <p className="mb-6 text-sm text-brand-dark/70">{payment === "lifetime" ? "Escolha o produto para ver as opções de acesso vitalício." : "Escolha o produto que melhor representa sua operação."}</p>
               <div className="grid gap-3 sm:grid-cols-3">
                 {(["ads", "pages", "hub"] as Product[]).map((item) => (
-                  <button key={item} type="button" aria-pressed={product === item} onClick={() => setProduct(item)} className={choiceClass(product === item)}>
+                  <button key={item} type="button" aria-pressed={productChosen && product === item} onClick={() => { setProduct(item); setProductChosen(true); setSelectedNetworks([]); setVolume(null); setStepIndex(2); }} className={choiceClass(productChosen && product === item)}>
                     <strong className="block">{productLabels[item]}</strong><span className="mt-1 block text-sm opacity-80">{productDescriptions[item]}</span>
                   </button>
                 ))}
@@ -190,7 +222,32 @@ export default function PlanCalculator({
             </fieldset>
           )}
 
-          {step === "result" && volume !== null && (
+          {step === "result" && payment === "lifetime" && (
+            <div aria-live="polite">
+              <h3 className="text-2xl font-black md:text-3xl">Escolha seu <span className="underline decoration-brand-yellow decoration-4 underline-offset-4">{productLabels[product]} Vitalício</span></h3>
+              <p className="mt-3 max-w-3xl text-sm leading-relaxed text-brand-dark/75">Pagamento único, sem renovação. {product === "pages" ? "Confira o acesso vitalício à Ratoeira Pages." : "Escolha quantas redes de tráfego você precisa usar ao mesmo tempo."}</p>
+              <div className={`mt-6 grid gap-4 ${product === "pages" ? "max-w-lg" : "md:grid-cols-3"}`}>
+                {lifetimeChoices.map((choice) => {
+                  const price = lifetimePrices[product][choice.tier]![lot.index];
+                  return (
+                    <article key={choice.tier} className="flex flex-col rounded-2xl bg-white p-5 text-brand-dark">
+                      <h4 className="text-lg font-black">{choice.label}</h4>
+                      <p className="mt-2 text-sm text-brand-dark/70">{choice.description}</p>
+                      {lot.status === "active" ? (
+                        <div className="mt-4 tabular-nums">
+                          <p className="text-2xl font-black">12x {money.format(price.parcel / 12)}</p>
+                          <p className="mt-2 text-sm">ou <strong>{money.format(price.cash ?? price.parcel)} à vista</strong></p>
+                        </div>
+                      ) : <p className="mt-4 text-sm text-brand-dark/70">{lot.status === "upcoming" ? "Valores liberados no início do primeiro lote." : "Oferta encerrada."}</p>}
+                      <button type="button" onClick={() => onSelect(product, choice.tier === "single" ? "1" : choice.tier, "vitalicio", "Vitalício")} className="mt-6 min-h-11 rounded-full bg-brand-yellow px-4 text-sm font-black uppercase text-brand-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-yellow">Ver vitalício <ArrowRight className="ml-1 inline size-4" /></button>
+                    </article>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
+          {step === "result" && payment === "discount" && volume !== null && (
             <div aria-live="polite">
               <h3 className="text-2xl font-black md:text-3xl">Plano indicado: <span className="underline decoration-brand-yellow decoration-4 underline-offset-4">{productLabels[product]} {plan}</span></h3>
               <p className="mt-3 max-w-3xl text-sm leading-relaxed text-brand-dark/75">A indicação considera {product === "pages" ? "os acessos mensais" : "as vendas mensais, as redes e os limites de contas informados"}. {lot.appliedDiscount > 0 ? `Os valores abaixo incluem ${lot.appliedDiscount}% de desconto do lote atual.` : "Os valores abaixo estão sem desconto."}</p>
@@ -221,7 +278,7 @@ export default function PlanCalculator({
           {step !== "result" && (
             <div className="mt-8 flex gap-3 border-t border-brand-dark/10 pt-6">
               <button type="button" disabled={currentIndex === 0} onClick={() => setStepIndex(currentIndex - 1)} className="inline-flex min-h-12 flex-1 items-center justify-center gap-2 rounded-full bg-white px-5 font-bold text-brand-dark disabled:cursor-not-allowed disabled:opacity-40 hover:bg-brand-yellow/15 focus-visible:outline-2 focus-visible:outline-brand-yellow"><ArrowLeft size={17} /> Voltar</button>
-              <button type="button" disabled={(step === "networks" && selectedNetworks.length === 0) || (step === "volume" && volume === null)} onClick={() => setStepIndex(currentIndex + 1)} className="inline-flex min-h-12 flex-1 items-center justify-center gap-2 rounded-full bg-brand-yellow px-5 font-black text-brand-dark disabled:cursor-not-allowed disabled:opacity-40 hover:bg-brand-yellow-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-yellow">Continuar <ArrowRight size={17} /></button>
+              <button type="button" disabled={(step === "payment" && payment === null) || (step === "product" && !productChosen) || (step === "networks" && selectedNetworks.length === 0) || (step === "volume" && volume === null)} onClick={() => setStepIndex(currentIndex + 1)} className="inline-flex min-h-12 flex-1 items-center justify-center gap-2 rounded-full bg-brand-yellow px-5 font-black text-brand-dark disabled:cursor-not-allowed disabled:opacity-40 hover:bg-brand-yellow-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-yellow">Continuar <ArrowRight size={17} /></button>
             </div>
           )}
         </div>

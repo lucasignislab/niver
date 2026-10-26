@@ -165,11 +165,11 @@ export default function BlackFridayPricing() {
     setActiveCard(index);
   };
 
-  const selectRecommendedPlan = (nextProduct: Product, nextNetwork: "1" | "2" | "all", nextPeriod: Period, plan: string) => {
-    const index = plans.indexOf(plan as (typeof plans)[number]);
+  const selectRecommendedPlan = (nextProduct: Product, nextNetwork: "1" | "2" | "all", nextPeriod: Period | "vitalicio", plan: string) => {
+    const index = nextPeriod === "vitalicio" ? plans.length : plans.indexOf(plan as (typeof plans)[number]);
     setProduct(nextProduct);
     setNetworkCount(nextNetwork === "all" ? 6 : Number(nextNetwork) as NetworkCount);
-    setPeriod(nextPeriod);
+    if (nextPeriod !== "vitalicio") setPeriod(nextPeriod);
     setRecommendedPlan(plan);
     setActiveCard(index);
     requestAnimationFrame(() => {
