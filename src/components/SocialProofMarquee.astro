@@ -12,7 +12,7 @@ const rows = [
       { name: "Robson Abreu", instagram: "@robsonabreu.ads", image: "/assets/robson-abreu.webp", imageOffset: null },
       { name: "André Xavier", instagram: "@andrexavier.ads", image: "/assets/andre-xavier.webp", imageOffset: null },
       { name: "Edvaldo Anjos", instagram: null, image: null, imageOffset: null, initials: "EA" },
-      { name: "Dairo Junior", instagram: null, image: "/assets/dairo-junior.webp", imageOffset: null },
+      { name: "Dairo Junior", instagram: null, image: "/assets/dairo-junior.webp", imageOffset: null, avatarScale: 1.25 },
     ],
   },
   {
@@ -25,7 +25,7 @@ const rows = [
       { name: "Ronaldo Ibrahim", instagram: "@ronaldoibrahim.ads", image: "/assets/mentores-02.webp", imageOffset: -680 / 64 },
       { name: "Amanda Gomes", instagram: "@amandagomes.ads", image: "/assets/amanda-gomes.webp", imageOffset: null },
       { name: "Maurício Brollo", instagram: "@dombrollo", image: "/assets/mauricio-brollo.webp", imageOffset: null },
-      { name: "Davy Marcelo", instagram: "@eudavymarcelo", image: "/assets/davy-marcelo.webp", imageOffset: null },
+      { name: "Davy Marcelo", instagram: "@eudavymarcelo", image: "/assets/davy-marcelo.webp", imageOffset: null, avatarScale: 0.82 },
       { name: "Lígia de Souza", instagram: null, image: null, imageOffset: null, initials: "LS" },
       { name: "Clarissa Águiar", instagram: null, image: null, imageOffset: null, initials: "CA" },
     ],
@@ -58,7 +58,7 @@ const rows = [
                         src={profile.image}
                         alt=""
                         class={profile.imageOffset === null ? "h-full w-full object-cover object-top" : "absolute top-0 h-full w-auto max-w-none"}
-                        style={profile.imageOffset === null ? undefined : `left: calc(var(--avatar-size) * ${profile.imageOffset});`}
+                        style={profile.imageOffset === null ? "avatarScale" in profile ? `transform: scale(${profile.avatarScale});` : undefined : `left: calc(var(--avatar-size) * ${profile.imageOffset});`}
                       />
                     ) : "initials" in profile ? profile.initials : null}
                   </div>
@@ -78,7 +78,7 @@ const rows = [
 
 <style>
   .marquee-container {
-    mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+    mask-image: linear-gradient(to right, transparent, black 3%, black 97%, transparent);
     overflow: hidden;
     width: 100%;
   }
