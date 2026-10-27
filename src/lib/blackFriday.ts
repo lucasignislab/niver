@@ -9,13 +9,13 @@ const productionLots = [
 ] as const;
 
 const testLots = [
-  { start: "2026-10-26T17:00:00-03:00", end: "17:10", discount: 35, coupon: "BLACK35" },
-  { start: "2026-10-26T17:10:00-03:00", end: "17:20", discount: 30, coupon: "BLACK30" },
-  { start: "2026-10-26T17:20:00-03:00", end: "17:30", discount: 27, coupon: "BLACK27" },
-  { start: "2026-10-26T17:30:00-03:00", end: "17:40", discount: 25, coupon: "BLACK25" },
-  { start: "2026-10-26T17:40:00-03:00", end: "17:50", discount: 22, coupon: "BLACK22" },
+  { start: "2026-10-27T15:40:00-03:00", end: "15:50", discount: 35, coupon: "BLACK35" },
+  { start: "2026-10-27T15:50:00-03:00", end: "16:00", discount: 30, coupon: "BLACK30" },
+  { start: "2026-10-27T16:00:00-03:00", end: "16:10", discount: 27, coupon: "BLACK27" },
+  { start: "2026-10-27T16:10:00-03:00", end: "16:20", discount: 25, coupon: "BLACK25" },
+  { start: "2026-10-27T16:20:00-03:00", end: "16:30", discount: 22, coupon: "BLACK22" },
 ] as const;
-const testEnd = "2026-10-26T17:50:00-03:00";
+const testEnd = "2026-10-27T16:30:00-03:00";
 
 export function currentLot(date: Date) {
   const time = date.getTime();

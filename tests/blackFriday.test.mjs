@@ -5,16 +5,16 @@ import { cashSavingPercent, currentLot, discounted } from "../src/lib/blackFrida
 
 const priceData = JSON.parse(readFileSync(new URL("../src/data/black-friday-prices.json", import.meta.url), "utf8"));
 
-test("troca os cinco lotes de teste a cada 10 minutos a partir das 17:00", () => {
+test("troca os cinco lotes de teste a cada 10 minutos a partir das 15:40", () => {
   const cases = [
-    ["2026-10-26T16:59:59-03:00", "upcoming", "BLACK35", 35, "2026-10-26T17:00:00-03:00"],
-    ["2026-10-26T17:00:00-03:00", "active", "BLACK35", 35, "2026-10-26T17:10:00-03:00"],
-    ["2026-10-26T17:10:00-03:00", "active", "BLACK30", 30, "2026-10-26T17:20:00-03:00"],
-    ["2026-10-26T17:20:00-03:00", "active", "BLACK27", 27, "2026-10-26T17:30:00-03:00"],
-    ["2026-10-26T17:30:00-03:00", "active", "BLACK25", 25, "2026-10-26T17:40:00-03:00"],
-    ["2026-10-26T17:40:00-03:00", "active", "BLACK22", 22, "2026-10-26T17:50:00-03:00"],
-    ["2026-10-26T17:49:59-03:00", "active", "BLACK22", 22, "2026-10-26T17:50:00-03:00"],
-    ["2026-10-26T17:50:00-03:00", "upcoming", "BLACK35", 35, "2026-10-29T20:00:00-03:00"],
+    ["2026-10-27T15:39:59-03:00", "upcoming", "BLACK35", 35, "2026-10-27T15:40:00-03:00"],
+    ["2026-10-27T15:40:00-03:00", "active", "BLACK35", 35, "2026-10-27T15:50:00-03:00"],
+    ["2026-10-27T15:50:00-03:00", "active", "BLACK30", 30, "2026-10-27T16:00:00-03:00"],
+    ["2026-10-27T16:00:00-03:00", "active", "BLACK27", 27, "2026-10-27T16:10:00-03:00"],
+    ["2026-10-27T16:10:00-03:00", "active", "BLACK25", 25, "2026-10-27T16:20:00-03:00"],
+    ["2026-10-27T16:20:00-03:00", "active", "BLACK22", 22, "2026-10-27T16:30:00-03:00"],
+    ["2026-10-27T16:29:59-03:00", "active", "BLACK22", 22, "2026-10-27T16:30:00-03:00"],
+    ["2026-10-27T16:30:00-03:00", "upcoming", "BLACK35", 35, "2026-10-29T20:00:00-03:00"],
   ];
   for (const [time, status, coupon, discount, nextChange] of cases) {
     const lot = currentLot(new Date(time));
@@ -23,7 +23,7 @@ test("troca os cinco lotes de teste a cada 10 minutos a partir das 17:00", () =>
     assert.equal(lot.discount, discount, time);
     assert.equal(lot.appliedDiscount, status === "active" ? discount : 0, time);
     assert.equal(lot.nextChange, nextChange, time);
-    assert.equal(lot.isTest, new Date(time) < new Date("2026-10-26T17:50:00-03:00"), time);
+    assert.equal(lot.isTest, new Date(time) < new Date("2026-10-27T16:30:00-03:00"), time);
     assert.equal(discounted(197, lot.appliedDiscount), Math.round(197 * (100 - lot.appliedDiscount)) / 100, time);
   }
 });
@@ -57,13 +57,13 @@ test("aplica cada desconto uma vez aos preços de referência", () => {
 });
 
 test("atualiza assinatura e vitalício junto com cada lote", () => {
-  const before = currentLot(new Date("2026-10-26T16:59:59-03:00"));
+  const before = currentLot(new Date("2026-10-27T15:39:59-03:00"));
   assert.equal(discounted(priceData.prices.hub["1"].anual.basic.parcel, before.appliedDiscount), 223);
   const expectedParcels = [144.95, 156.1, 162.79, 167.25, 173.94];
   const expectedLifetime = [6650, 7000, 7300, 7450, 7600];
-  const lotStarts = ["17:00", "17:10", "17:20", "17:30", "17:40"];
+  const lotStarts = ["15:40", "15:50", "16:00", "16:10", "16:20"];
   for (let index = 0; index < lotStarts.length; index += 1) {
-    const lot = currentLot(new Date(`2026-10-26T${lotStarts[index]}:00-03:00`));
+    const lot = currentLot(new Date(`2026-10-27T${lotStarts[index]}:00-03:00`));
     assert.equal(discounted(priceData.prices.hub["1"].anual.basic.parcel, lot.discount), expectedParcels[index]);
     assert.equal(priceData.vitalicio.hub["1"][lot.index].parcel, expectedLifetime[index]);
   }
