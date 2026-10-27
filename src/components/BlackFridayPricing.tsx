@@ -172,7 +172,7 @@ export default function BlackFridayPricing() {
             <p className="mx-auto mt-4 max-w-3xl text-base text-brand-dark/70 md:text-lg">Produtos, períodos, lotes e preços — tudo a um clique.</p>
           </div>
 
-          <div className="mx-auto mt-8 max-w-2xl rounded-2xl bg-brand-yellow/15 px-5 py-4 text-center text-brand-dark">
+          <div className="mx-auto mt-8 max-w-2xl rounded-2xl bg-brand-yellow px-5 py-4 text-center text-brand-dark">
             {lot.isTest && <p className="mb-2 text-xs font-black uppercase tracking-wide text-brand-dark/60">Teste dos lotes · 26/10 · viradas a cada 10 minutos</p>}
             {lot.status !== "ended" && <p className="mb-2 text-xs font-black uppercase tracking-wide text-brand-dark/60">{isLifetime ? `Lote ${lot.index + 1} · Vitalício` : `Lote ${lot.index + 1} · ${lot.discount}% de desconto`}</p>}
             <p className="font-black" aria-live="polite">{lot.status === "upcoming" ? lot.isTest ? "Teste começa hoje às 17:00" : "A Black começa em 29/10 às 20:00" : lot.status === "ended" ? "Campanha encerrada" : isLifetime ? `Preço do lote até ${lot.end}` : `${lot.discount}% de desconto até ${lot.end}`}</p>
