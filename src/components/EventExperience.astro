@@ -29,8 +29,8 @@ const speakers = [
     <h3 class="mt-16 text-center text-sm font-bold tracking-widest text-brand-yellow">PALESTRANTES CONFIRMADOS</h3>
     <div class="mt-7 flex flex-wrap justify-center gap-4">
       {speakers.map((speaker) => (
-        <article class="speaker-card min-h-52 rounded-3xl border border-white/15 bg-white/5 p-6 text-center">
-          <div class="mx-auto mb-4 flex size-[72px] items-center justify-center overflow-hidden rounded-full bg-brand-yellow text-[22px] font-black text-brand-dark">
+        <article class="speaker-card min-h-[280px] rounded-3xl border border-white/15 bg-white/5 p-6 text-center">
+          <div class="mx-auto mb-5 flex size-28 items-center justify-center overflow-hidden rounded-full bg-brand-yellow text-3xl font-black text-brand-dark">
             {speaker.image ? <img src={speaker.image} alt="" class="h-full w-full object-cover object-top" loading="lazy" decoding="async" /> : speaker.initials}
           </div>
           <h4 class="font-black">{speaker.name}</h4>

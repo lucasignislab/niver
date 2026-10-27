@@ -2,7 +2,7 @@
 const rows = [
   {
     direction: "marquee-right-to-left",
-    avatarSize: "clamp(40px, 7.292vw, 64px)",
+    avatarSize: "clamp(64px, 7.292vw, 72px)",
     cardWidth: "clamp(220px, 39.0625vw, 340px)",
     profiles: [
       { name: "Tarcísio Bianchi", instagram: "@tarcisiobianchii", image: "/assets/mentores-01.webp", imageOffset: 0 },
@@ -17,7 +17,7 @@ const rows = [
   },
   {
     direction: "marquee-left-to-right",
-    avatarSize: "clamp(30px, 6.25vw, 56px)",
+    avatarSize: "clamp(64px, 7.292vw, 72px)",
     cardWidth: "clamp(170px, 33.854vw, 300px)",
     profiles: [
       { name: "Leo Rodrigues", instagram: "@leorodrigues.dollar", image: "/assets/mentores-02.webp", imageOffset: 0 },
@@ -51,8 +51,8 @@ const rows = [
           {[0, 1, 2, 3].map((repetition) => (
             <div class="flex shrink-0" aria-hidden={repetition > 0}>
               {profiles.map((profile) => (
-                <div class="mentor-card flex shrink-0 items-center gap-2" style="width:var(--card-width);height:var(--avatar-size);">
-                  <div class="mentor-avatar relative flex shrink-0 items-center justify-center overflow-hidden rounded-full bg-brand-yellow text-sm font-black text-brand-dark" style="width:var(--avatar-size);height:var(--avatar-size);">
+                <div class="mentor-card flex shrink-0 items-center gap-3" style="width:var(--card-width);height:var(--avatar-size);">
+                  <div class="mentor-avatar relative flex shrink-0 items-center justify-center overflow-hidden rounded-full bg-brand-yellow text-lg font-black text-brand-dark" style="width:var(--avatar-size);height:var(--avatar-size);">
                     {profile.image ? (
                       <img
                         src={profile.image}
