@@ -232,7 +232,8 @@ export default function PlanCalculator({
                 {lifetimeChoices.map((choice) => {
                   const price = lifetimePrices[product][choice.tier]![lot.index];
                   return (
-                    <article key={choice.tier} className="flex flex-col rounded-2xl bg-white p-5 text-brand-dark">
+                    <article key={choice.tier} className={`relative flex flex-col rounded-2xl bg-white p-5 text-brand-dark ${choice.tier === "all" ? "ring-2 ring-emerald-500/70" : ""}`}>
+                      {choice.tier === "all" && <span className="absolute -top-3 right-4 rounded-full bg-emerald-500 px-3 py-1 text-xs font-black uppercase text-white">GANHA INGRESSO DO EVENTO</span>}
                       <h4 className="text-lg font-black">{choice.label}</h4>
                       <p className="mt-2 text-sm text-brand-dark/70">{choice.description}</p>
                       {lot.status !== "ended" ? (
