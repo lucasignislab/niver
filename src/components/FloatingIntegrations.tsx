@@ -101,7 +101,7 @@ export default function FloatingIntegrations({ items }: FloatingIntegrationsProp
                     CONECTA COM <span className="text-brand-yellow italic">TUDO</span> QUE VOCÊ JÁ USA
                 </h2>
                 <div className="space-y-2">
-                    <p className="text-sm font-black uppercase tracking-tight text-brand-dark lg:text-lg">120+ plataformas.</p>
+                    <p className="text-sm font-black uppercase tracking-tight text-brand-dark lg:text-lg">120 plataformas.</p>
                     <p className="text-sm font-semibold leading-relaxed text-gray-600">
                         <span className="block">Conexão em minutos. Zero retrabalho.</span>
                         <span className="block">Seus checkouts, plataformas de afiliados e redes conectados de uma vez.</span>
