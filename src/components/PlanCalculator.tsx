@@ -128,7 +128,7 @@ export default function PlanCalculator({
           <h2 className="text-3xl font-black tracking-tight md:text-5xl">Descubra o plano certo para você</h2>
           <p className="mx-auto mt-3 max-w-2xl text-base text-brand-dark/70">Responda algumas perguntas e veja a recomendação com os preços da Black Friday.</p>
         </div>
-        <div className="rounded-3xl bg-brand-lighter p-5 shadow-[0_22px_60px_rgba(23,23,23,0.16)] sm:p-8">
+        <div className="rounded-3xl bg-brand-lighter p-5 ring-[3px] ring-brand-yellow shadow-[0_30px_70px_rgba(23,23,23,0.22)] sm:p-8">
           <div className="mb-7 flex items-center justify-between gap-4 text-sm font-semibold">
             <span>{step === "result" ? "Resultado" : `Etapa ${currentIndex + 1}${payment && currentIndex > 1 ? ` de ${questionCount}` : ""}`}</span>
             <span className="text-brand-dark">{progress}%</span>
