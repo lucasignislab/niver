@@ -2,7 +2,6 @@ import { useState } from "react";
 import { ArrowLeft, ArrowRight, Minus, Plus } from "lucide-react";
 import priceData from "../data/black-friday-prices.json";
 import { currentLot, discounted } from "../lib/blackFriday";
-import { checkoutLinks } from "../lib/checkoutLinks";
 import {
   accountLimits,
   googleEmailLimits,
@@ -245,7 +244,7 @@ export default function PlanCalculator({
                       ) : <p className="mt-4 text-sm text-brand-dark/70">Oferta encerrada.</p>}
                       <div className="mt-auto pt-6">
                         <button type="button" onClick={() => onSelect(product, choice.tier === "single" ? "1" : choice.tier, "vitalicio", "Vitalício")} className="mb-4 flex min-h-10 items-center gap-2 text-left text-sm font-bold text-brand-dark underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-brand-yellow"><Plus aria-hidden="true" className="size-4 shrink-0" /> Ver todos os limites desse plano</button>
-                        <OfferButton link={checkoutLinks[`${product}/${choice.tier}/vitalicio`]} coupon={null} status={lot.status} product={product} allowPreview label={<>Ver vitalício <ArrowRight aria-hidden="true" className="ml-1 inline size-4" /></>} buttonClassName="inline-flex min-h-11 w-full items-center justify-center rounded-full bg-brand-yellow px-4 text-sm font-black uppercase text-brand-dark hover:bg-brand-yellow-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-yellow" />
+                        <OfferButton />
                       </div>
                     </article>
                   );
@@ -272,7 +271,7 @@ export default function PlanCalculator({
                       {cash !== undefined && <p className="mt-2 text-sm">ou <strong>{money.format(cash)} à vista</strong></p>}
                       <div className="mt-auto pt-6">
                         <button type="button" onClick={() => onSelect(product, tier === "single" ? "1" : tier, period.id, plan)} className="mb-4 flex min-h-10 items-center gap-2 text-left text-sm font-bold text-brand-dark underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-brand-dark"><Plus aria-hidden="true" className="size-4 shrink-0" /> Ver todos os limites desse plano</button>
-                        <OfferButton link={checkoutLinks[`${product}/${tier}/${period.id}/${plan.toLowerCase()}`]} coupon={lot.coupon} status={lot.status} product={product} allowPreview label={<>Ir para o checkout <ArrowRight aria-hidden="true" className="ml-1 inline size-4" /></>} buttonClassName={`inline-flex min-h-11 w-full items-center justify-center rounded-full px-4 text-sm font-black uppercase focus-visible:outline-2 focus-visible:outline-offset-2 ${period.id === "anual" ? "bg-brand-dark text-white hover:bg-brand-dark/85 focus-visible:outline-brand-dark" : "bg-brand-yellow text-brand-dark hover:bg-brand-yellow-hover focus-visible:outline-brand-yellow"}`} />
+                        <OfferButton />
                       </div>
                     </article>
                   );

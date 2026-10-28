@@ -2,7 +2,6 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
 import { Check, ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
 import priceData from "../data/black-friday-prices.json";
 import { cashSavingPercent, currentLot, discounted } from "../lib/blackFriday";
-import { checkoutLinks } from "../lib/checkoutLinks";
 import {
   accountLimits,
   googleEmailLimits,
@@ -121,7 +120,6 @@ export default function BlackFridayPricing() {
 
   const lot = currentLot(now ?? new Date(0));
   const secondsLeft = lot.nextChange && now ? Math.max(0, Math.ceil((Date.parse(lot.nextChange) - now.getTime()) / 1_000)) : 0;
-  const available = now !== null ? lot.status : "upcoming";
   const tier = networkCount === 1 ? "1" : networkCount === 2 ? "2" : "all";
   const selectedTier = product === "pages" ? "single" : tier;
   const productInfo = products.find((item) => item.id === product)!;
@@ -254,7 +252,7 @@ export default function BlackFridayPricing() {
                   </div>
                   <div className="border-t border-brand-dark/10 pt-4">
                     <PlanDetails product={product} index={index} networkCount={networkCount} tier={tier} />
-                    <OfferButton link={checkoutLinks[`${product}/${selectedTier}/${period}/${name.toLowerCase()}`]} coupon={lot.coupon} status={available} product={product} label={`Assinar ${name}`} />
+                    <OfferButton className="mt-6" />
                     <p className="mt-3 text-center text-xs text-brand-dark/55">{count === 1 ? "Cobrança mensal" : `${count}x sem juros ou à vista com desconto`}</p>
                   </div>
                 </article>
@@ -282,7 +280,7 @@ export default function BlackFridayPricing() {
                   <div className="border-t border-brand-dark/10 pt-4">
                     <PlanDetails product={product} index={2} networkCount={option.networkCount} tier={optionTier} />
                     <DetailRow label="Renovação" value="Nunca" />
-                    <OfferButton link={checkoutLinks[`${product}/${option.tier}/vitalicio`]} coupon={null} status={available} product={product} label="Assinar vitalício" />
+                    <OfferButton className="mt-6" />
                     <p className="mt-3 text-center text-xs text-brand-dark/55">Pagamento único, sem renovação</p>
                   </div>
                 </article>
