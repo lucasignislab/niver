@@ -67,7 +67,7 @@ function stepsFor(payment: Payment | null, product: Product, selected: Network[]
 function Quantity({ label, value, onChange }: { label: string; value: number; onChange: (value: number) => void }) {
   const update = (next: number) => onChange(Math.min(999, Math.max(1, next)));
   return (
-    <div className="flex min-h-16 items-center justify-between gap-3 rounded-2xl bg-white px-4 py-2">
+    <div className="flex min-h-16 items-center justify-between gap-3 rounded-2xl border border-brand-dark/20 bg-white px-4 py-2">
       <span className="text-sm font-semibold text-brand-dark">{label}</span>
       <div className="flex shrink-0 items-center gap-1">
         <button type="button" aria-label={`Diminuir ${label}`} onClick={() => update(value - 1)} className="grid size-10 place-items-center rounded-full text-brand-dark hover:bg-brand-yellow/15 focus-visible:outline-2 focus-visible:outline-brand-yellow"><Minus size={16} /></button>
@@ -111,7 +111,7 @@ export default function PlanCalculator({
       { tier: "all", label: "Scale todas as redes", description: "Todas as redes de tráfego disponíveis." },
     ];
 
-  const choiceClass = (active: boolean) => `min-h-16 w-full rounded-2xl px-5 py-3 text-left transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-yellow ${active ? "bg-brand-yellow text-brand-dark" : "bg-white text-brand-dark hover:bg-brand-yellow/15"}`;
+  const choiceClass = (active: boolean) => `min-h-16 w-full rounded-2xl border px-5 py-3 text-left text-brand-dark transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-yellow ${active ? "border-brand-dark bg-brand-yellow" : "border-brand-dark/20 bg-white hover:border-brand-dark/50"}`;
   const summary: { step: Step; label: string }[] = [
     ...(payment ? [{ step: "payment" as Step, label: payment === "lifetime" ? "Vitalício" : "Plano com desconto" }] : []),
     ...(productChosen ? [{ step: "product" as Step, label: productLabels[product] }] : []),
@@ -128,19 +128,19 @@ export default function PlanCalculator({
           <h2 className="text-3xl font-black tracking-tight md:text-5xl">Descubra o plano certo para você</h2>
           <p className="mx-auto mt-3 max-w-2xl text-base text-brand-dark/70">Responda algumas perguntas e veja a recomendação com os preços da Black Friday.</p>
         </div>
-        <div className="rounded-3xl bg-brand-lighter p-5 shadow-[0_18px_48px_rgba(0,0,0,0.08)] sm:p-8">
+        <div className="rounded-3xl bg-[#F0F0EE] p-5 shadow-[0_18px_48px_rgba(0,0,0,0.08)] sm:p-8">
           <div className="mb-7 flex items-center justify-between gap-4 text-sm font-semibold">
             <span>{step === "result" ? "Resultado" : `Etapa ${currentIndex + 1}${payment && currentIndex > 1 ? ` de ${questionCount}` : ""}`}</span>
             <span className="text-brand-dark">{progress}%</span>
           </div>
-          <div className="mb-8 h-1.5 overflow-hidden rounded-full bg-brand-dark/10" aria-hidden="true">
+          <div className="mb-8 h-1.5 overflow-hidden rounded-full bg-brand-dark/20" aria-hidden="true">
             <div className="h-full rounded-full bg-brand-yellow transition-[width]" style={{ width: `${progress}%` }} />
           </div>
 
           {summary.length > 0 && (
             <div className="mb-7 flex flex-wrap gap-2" aria-label="Respostas anteriores">
               {summary.map((item) => (
-                <button key={item.step} type="button" onClick={() => setStepIndex(steps.indexOf(item.step))} className="rounded-full bg-white px-3 py-2 text-left text-xs font-semibold text-brand-dark hover:bg-brand-yellow/15 focus-visible:outline-2 focus-visible:outline-brand-yellow">
+                <button key={item.step} type="button" onClick={() => setStepIndex(steps.indexOf(item.step))} className="rounded-full border border-brand-dark/20 bg-white px-3 py-2 text-left text-xs font-semibold text-brand-dark hover:border-brand-dark/50 focus-visible:outline-2 focus-visible:outline-brand-yellow">
                   {item.label} <span className="ml-1 text-brand-dark/60">editar</span>
                 </button>
               ))}
@@ -232,7 +232,7 @@ export default function PlanCalculator({
                 {lifetimeChoices.map((choice) => {
                   const price = lifetimePrices[product][choice.tier]![lot.index];
                   return (
-                    <article key={choice.tier} className={`relative flex flex-col rounded-2xl bg-white p-5 text-brand-dark ${choice.tier === "all" ? "ring-2 ring-emerald-500/70" : ""}`}>
+                    <article key={choice.tier} className={`relative flex flex-col rounded-2xl border border-brand-dark/20 bg-white p-5 text-brand-dark ${choice.tier === "all" ? "ring-2 ring-emerald-500/70" : ""}`}>
                       {choice.tier === "all" && <span className="absolute -top-3 right-4 rounded-full bg-emerald-500 px-3 py-1 text-xs font-black uppercase text-white">GANHA INGRESSO DO EVENTO</span>}
                       <h4 className="text-lg font-black">{choice.label}</h4>
                       <p className="mt-2 text-sm text-brand-dark/70">{choice.description}</p>
@@ -265,7 +265,7 @@ export default function PlanCalculator({
                   const parcel = discounted(price.parcel, lot.appliedDiscount);
                   const cash = price.cash === undefined ? undefined : discounted(price.cash, lot.appliedDiscount);
                   return (
-                    <article key={period.id} className={`flex flex-col rounded-2xl p-5 ${period.id === "anual" ? "bg-brand-yellow text-brand-dark" : "bg-white text-brand-dark"}`}>
+                    <article key={period.id} className={`flex flex-col rounded-2xl border p-5 ${period.id === "anual" ? "border-brand-yellow bg-brand-yellow text-brand-dark" : "border-brand-dark/20 bg-white text-brand-dark"}`}>
                       <h4 className="text-sm font-black uppercase tracking-wide">{period.label}</h4>
                       {lot.appliedDiscount > 0 && <p className="mt-4 flex flex-wrap items-center gap-2 text-xs font-semibold text-brand-dark/60"><span>De <s>{period.installments > 1 ? `${period.installments}x ` : ""}{money.format(price.parcel)}{period.installments === 1 ? "/mês" : ""}</s></span><span className="rounded-full bg-emerald-100 px-2 py-0.5 font-black text-emerald-700">{lot.appliedDiscount}% OFF</span></p>}
                       <p className={`${lot.appliedDiscount > 0 ? "mt-2" : "mt-4"} text-2xl font-black tabular-nums`}>{period.installments > 1 ? `${period.installments}x ` : ""}{money.format(parcel)}{period.installments === 1 ? "/mês" : ""}</p>
@@ -288,8 +288,8 @@ export default function PlanCalculator({
 
           {step !== "result" && (
             <div className="mt-8 flex gap-3 border-t border-brand-dark/10 pt-6">
-              <button type="button" disabled={currentIndex === 0} onClick={() => setStepIndex(currentIndex - 1)} className="inline-flex min-h-12 flex-1 items-center justify-center gap-2 rounded-full bg-white px-5 font-bold text-brand-dark disabled:cursor-not-allowed disabled:opacity-40 hover:bg-brand-yellow/15 focus-visible:outline-2 focus-visible:outline-brand-yellow"><ArrowLeft size={17} /> Voltar</button>
-              <button type="button" disabled={(step === "payment" && payment === null) || (step === "product" && !productChosen) || (step === "networks" && selectedNetworks.length === 0) || (step === "volume" && volume === null)} onClick={() => setStepIndex(currentIndex + 1)} className="inline-flex min-h-12 flex-1 items-center justify-center gap-2 rounded-full bg-brand-yellow px-5 font-black text-brand-dark disabled:cursor-not-allowed disabled:opacity-40 hover:bg-brand-yellow-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-yellow">Continuar <ArrowRight size={17} /></button>
+              <button type="button" disabled={currentIndex === 0} onClick={() => setStepIndex(currentIndex - 1)} className="inline-flex min-h-12 flex-1 items-center justify-center gap-2 rounded-full border border-brand-dark/20 bg-white px-5 font-bold text-brand-dark hover:border-brand-dark/50 disabled:cursor-not-allowed disabled:text-brand-dark/50 focus-visible:outline-2 focus-visible:outline-brand-yellow"><ArrowLeft size={17} /> Voltar</button>
+              <button type="button" disabled={(step === "payment" && payment === null) || (step === "product" && !productChosen) || (step === "networks" && selectedNetworks.length === 0) || (step === "volume" && volume === null)} onClick={() => setStepIndex(currentIndex + 1)} className="inline-flex min-h-12 flex-1 items-center justify-center gap-2 rounded-full bg-brand-yellow px-5 font-black text-brand-dark hover:bg-brand-yellow-hover disabled:cursor-not-allowed disabled:bg-brand-dark/10 disabled:text-brand-dark/50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-yellow">Continuar <ArrowRight size={17} /></button>
             </div>
           )}
         </div>
