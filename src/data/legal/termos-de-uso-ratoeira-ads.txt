@@ -1,6 +1,8 @@
 Termos de Uso
 Ratoeira Ads
 
+Última atualização: 28/10/2026.
+
 RATOEIRA ADS DIGITAL MARKETING LTDA., pessoa jurídica de direito privado, inscrita no CNPJ sob o nº 55.824.986/0001-06, sediada na Alameda Rio Negro, 503, sala 2020, Alphaville, Barueri/SP, CEP: 06.454-000, doravante denominada “RATOEIRA ADS”, e, de outro lado, “VOCÊ”, pessoa jurídica ou pessoa física, qualificados no Cadastro, doravante denominado apenas “VOCÊ”, declara que leu, entendeu, está de acordo e deu o aceite eletrônico, firmam o presente Contrato de Licença de Uso não exclusiva da PLATAFORMA RATOEIRA ADS (“Termos de Uso/Instrumento”), do qual é parte integrante a política de privacidade.
 
 1. DA ACEITAÇÃO DO CONTRATO E DOCUMENTOS INTEGRANTES
@@ -43,7 +45,7 @@ Extensões de navegador maliciosas, concebidas para inserir a identidade ou dado
 Comissões
 Percentual pago sobre as vendas realizadas pelos afiliados. Os valores serão repassados diretamente pela empresa responsável pelo processamento dos pagamentos.
 Gateway de pagamentos
-Empresa responsável pelo processamento dos pagamentos das mensalidades dos planos devidos à RATOEIRA ADS. A RATOEIRA ADS utiliza a Digital Manager Guru como estrutura de gateway, conectada ao Asaas, plataforma onde as transações financeiras são de fato realizadas.
+Empresa responsável pelo processamento dos pagamentos dos planos devidos à RATOEIRA ADS. A contratação desta página é encaminhada ao checkout da Digital Manager Guru.
 E-BOOK
 Livro digital com informações e atualizações a respeito dos serviços da RATOEIRA ADS, disponível a cada renovação ou nova compra, podendo ser acessado diretamente pelo painel central da RATOEIRA ADS a qualquer momento.
 IP do Computador
@@ -58,8 +60,8 @@ Presell
 Página intermediária utilizada para preparar e direcionar o usuário antes da conversão final, com o objetivo de aumentar a taxa de conversão de anúncios e campanhas de marketing.
 VOCÊ
 São todas as pessoas físicas e/ou jurídicas que utilizam a plataforma RATOEIRA ADS.
-Mensalidade
-É o valor cobrado pela RATOEIRA ADS como remuneração pelo serviço pelo uso da plataforma.
+Preço do plano
+É o valor apresentado na oferta e confirmado no checkout para o plano e a periodicidade escolhidos.
 Tributos
 São todas as espécies tributárias devidas – impostos, taxas, encargos, contribuições, decorrentes das operações realizadas pelo Usuário.
 4. DO CADASTRO DO USUÁRIO
@@ -75,78 +77,40 @@ São todas as espécies tributárias devidas – impostos, taxas, encargos, cont
 
 4.6. VOCÊ declara, sob as penas das leis civis e penais brasileiras, que as informações, dados e documentos por ele informados são verdadeiros.
 
-4.7. O presente instrumento produz efeitos, a partir da data de 13/04/2026, para todos os negócios e operações efetivados entre as partes, de forma que declaram as partes que os termos de instrumento refletem precisamente a natureza da relação jurídica havida entre estas a partir da aludida data, assim como os respectivos direitos e obrigações que a compõe.
+4.7. Esta versão dos Termos se aplica às contratações aceitas após sua disponibilização, sem alterar automaticamente as condições de contratos anteriores.
 
 4.8. O acesso à plataforma é pessoal e intransferível, sendo permitido o uso simultâneo em até 2 (dois) dispositivos por categoria: (i) computador ou notebook; (ii) tablet; e (iii) smartphone. Acessos simultâneos a partir de mais de 2 dispositivos diferentes em localizações geográficas distintas, em curto espaço de tempo, serão interpretados como indício de compartilhamento indevido de credenciais e poderão resultar em suspensão preventiva imediata da conta, sem prejuízo das demais sanções previstas neste Termo. A RATOEIRA ADS reserva-se o direito de implementar controles técnicos de sessão para monitorar e limitar acessos simultâneos.
 
 4.9. A licença de uso concedida por este Termo é individual e intransferível, vinculada a um único CPF ou CNPJ cadastrado. Não é permitida a utilização de uma única conta para operações de diferentes empresas, grupos econômicos ou terceiros, ainda que relacionados ao titular da conta. Cada pessoa física ou jurídica deve contratar um plano individual. O descumprimento desta cláusula será tratado como compartilhamento indevido de acesso, sujeitando VOCÊ às sanções previstas na cláusula 9.2.
 
-5. DOS PLANOS E VALORES
-5.1. Para se tornar afiliado da RATOEIRA ADS, VOCÊ deverá optar por um dos planos abaixo:
+5. DOS PLANOS, LIMITES E VALORES
+5.1. A RATOEIRA ADS oferece os planos Basic, Starter, Scale e Max. O usuário escolhe 1 rede, 2 redes ou todas as redes de tráfego disponíveis. A quantidade de redes simultâneas e os demais limites do plano são apresentados nos cards de contratação antes do checkout.
 
-Plano Camundongo
-Criação de Ratoeiras: 3
-Links de Checkouts: 3
-Plataformas Conectadas: 2
-Ratoeiras Automáticas: 0
-Perfis do Google: 0
-E-Book de Estratégia: SIM
-R$77,00 por mês, com renovação automática
+Basic: até 1.000 vendas aprovadas por mês; 15 Tags Ratoeira Automática; 7 integrações/webhooks; até 3 e-mails do Google Ads; até 10 contas Google Ads, 3 Meta Ads, 2 Taboola e 2 NewsBreak por rede contratada.
 
-Plano Rato
-Criação de Ratoeiras: 50
-Links de Checkouts: 50
-Plataformas Conectadas: Ilimitada
-Ratoeiras Automáticas: 5
-Perfis do Google: 3
-E-Book de Estratégia: SIM
-Mensal: R$167,00/mês (renovação automática)
+Starter: até 2.500 vendas aprovadas por mês; 80 Tags Ratoeira Automática; 15 integrações/webhooks; até 10 e-mails do Google Ads; até 20 contas Google Ads, 7 Meta Ads, 5 Taboola e 5 NewsBreak por rede contratada.
 
-Semestral: R$797,00 à vista (ou 6x de R$149,52)
+Scale: até 5.000 vendas aprovadas por mês; Tags e integrações/webhooks ilimitados; até 30 e-mails do Google Ads; contas de anúncio ilimitadas nas redes exibidas no card.
 
-Anual: R$1.347,00 à vista (ou 12x de R$139,31)
+Max: até 15.000 vendas aprovadas por mês; Tags, integrações/webhooks, e-mails do Google Ads e contas de anúncio ilimitados nas redes exibidas no card.
 
-Plano Ratazana
-Criação de Ratoeiras: 100
-Links de Checkouts: 100
-Plataformas Conectadas: Ilimitada
-Ratoeiras Automáticas: 50
-Perfis do Google: 10
-E-Book de Estratégia: SIM
-Mensal: R$247,00/mês (renovação automática)
+5.1.1. Vendas aprovadas acima do limite mensal estão sujeitas ao valor por venda extra indicado no card da oferta selecionada. Os limites e recursos efetivamente contratados são os exibidos para o produto, número de redes e plano escolhidos na página de oferta e confirmados no checkout.
 
-Semestral: R$1.097,00 à vista (ou 6x de R$205,80)
+5.1.2. O vitalício da Ratoeira Ads utiliza os recursos e limites do Scale e é oferecido nas opções Scale 1 rede, Scale 2 redes e Scale todas as redes. Trata-se de pagamento único, sem renovação automática e sem aplicação de cupom promocional.
 
-Anual: R$1.797,00 à vista (ou 12x de R$185,85)
+5.2. Os planos não vitalícios podem ser contratados nas periodicidades mensal, semestral e anual. Preços, condições de parcelamento e descontos da Black Friday variam conforme o lote vigente. O valor final, a periodicidade, o eventual cupom e as condições de pagamento devem ser conferidos no checkout antes da conclusão da compra. O preço exibido para um lote não garante a contratação em lote posterior.
 
-Plano Ratazana Plus
-Projetos/Ratoeiras Automáticas: 150
-Integrações/Plataformas Conectadas: Ilimitadas
-Perfis do Google Ads Conectados: 30
-Contas de Anúncio: Ilimitadas
-Links de Produtor Automáticos: 50
-E-Book de Estratégia: SIM
-Mensal: R$397,00/mês (renovação automática)
+5.3. Nos planos mensal, semestral e anual, a renovação é automática na periodicidade contratada, conforme o aceite específico dado no modal de checkout. VOCÊ pode cancelar a renovação para impedir a cobrança do período seguinte, sem alterar o período já contratado.
 
-Semestral: R$2.097,00 à vista (ou 6x de R$393,41)
-
-Anual: R$3.997,00 à vista (ou 12x de R$413,37)
-
-5.2. O pagamento será realizado observando a(s) forma(s) escolhida(s) no momento da contratação.
-
-5.3. A renovação do plano será automática. Caso VOCÊ não deseje continuar utilizando os serviços deverá cancelar a renovação automática a qualquer momento, sem qualquer ônus.
-
-5.3.1. O cancelamento da renovação automática apenas garante o direito a não renovação do plano contratado. Exemplo: se VOCÊ efetuou a contratação de um plano semestral, pode cancelar a renovação para que esse plano não seja renovado ao final dos seis meses, mas não pode cancelar o plano antes do encerramento do período.
-
-5.4. Não haverá reembolso de valores pagos em caso de cancelamento antecipado do plano, salvo se o cancelamento ocorrer no prazo de 7 (sete) dias da data da compra, ou da renovação automática, nos termos do art. 49 do CDC.
+5.4. Permanecem assegurados os direitos de arrependimento e de reembolso previstos na legislação aplicável, inclusive o art. 49 do Código de Defesa do Consumidor quando cabível.
 
 5.4.1. O registro de chargeback indevido, assim entendido aquele realizado por VOCÊ sem justa causa comprovada, configura inadimplência contratual e sujeita VOCÊ ao pagamento do valor integral contestado, acrescido de multa de 20% (vinte por cento) sobre o montante objeto do chargeback, além de suspensão imediata do acesso à plataforma até a regularização. A RATOEIRA ADS reserva-se o direito de adotar as medidas judiciais e extrajudiciais cabíveis para recuperação dos valores e reparação de danos.
 
-5.5. Os planos semestrais e anuais possuem prazo determinado, não sendo passíveis de cancelamento ou reembolso após o período de 7 (sete) dias da data da compra. Os valores desses planos poderão ser pagos à vista ou parcelados em até 6 (seis) ou 12 (doze) vezes, respectivamente, sendo essa sua opção exclusivamente. O parcelamento não altera a natureza do contrato, que permanecerá vigente até o final do período contratado. Assim, ainda que ocorra o cancelamento da renovação automática, as parcelas remanescentes continuarão devidas, sem possibilidade de reembolso ou isenção de pagamento.
+5.5. O parcelamento de uma contratação semestral ou anual não altera a duração do período contratado. As parcelas e encargos efetivamente apresentados no checkout devem ser conferidos antes da compra.
 
-5.6. Após a contratação, não será permitida a redução do plano escolhido. Caso VOCÊ tenha optado por um plano anual, não será possível convertê-lo para um plano semestral ou mensal, mantendo-se a obrigação de pagamento integral pelo período contratado. No entanto, será facultado o upgrade para um plano superior, mediante ajuste proporcional dos valores.
+5.6. Mudanças de plano ou de quantidade de redes podem ser solicitadas ao suporte. A disponibilidade, os limites e eventual diferença de valor serão informados antes da alteração.
 
-5.7. A RATOEIRA ADS se reserva o direito de ajustar os valores dos planos, mediante comunicação prévia de, no mínimo, 30 (trinta) dias, sendo facultado a VOCÊ a continuidade ou cancelamento do serviço antes da efetivação da nova cobrança.
+5.7. Alterações do preço de renovação serão comunicadas previamente, observada a legislação aplicável e a possibilidade de cancelar a renovação antes da nova cobrança.
 
 6. DAS OBRIGAÇÕES DA RATOEIRA ADS
 6.1. Sem prejuízo das demais obrigações decorrentes deste Termo, a RATOEIRA ADS obriga-se a: a) Prestar os Serviços por meio de conexões seguras; b) Seguir a legislação e regulamentos pertinentes à prestação dos serviços;
@@ -248,12 +212,10 @@ Utilizar qualquer tecnologia, software ou prática que possa interferir, danific
 
 10.5.3. Em caso de comprovado uso da plataforma para finalidade concorrencial, o usuário infrator estará sujeito, cumulativamente, a: (i) rescisão imediata do contrato, nos termos da cláusula 9.2; (ii) pagamento de multa de R$3.000.000,00 (três milhões de reais), valor este fixado com base na receita anual da RATOEIRA ADS e representativo do dano mínimo estimado decorrente do uso indevido; (iii) indenização por perdas e danos adicionais que a RATOEIRA ADS possa apurar, incluindo lucros cessantes, danos emergentes e danos à imagem; e (iv) adoção de todas as medidas judiciais e extrajudiciais cabíveis, incluindo ações indenizatórias, cautelares e criminais, conforme previsto na legislação brasileira vigente, em especial a Lei nº 9.279/1996 (Propriedade Industrial) e o Código Civil Brasileiro.
 
-10.6. PLANOS VITALÍCIOS E TRANSFERÊNCIA DE CONTROLE
-10.6.1. O acesso a planos vitalícios adquiridos em períodos promocionais é regido por Termo de Adesão específico, firmado entre as partes no ato da contratação, o qual prevalece sobre os presentes Termos de Uso no que lhe for específico, nos termos da cláusula 1.12 deste instrumento.
+10.6. PLANOS VITALÍCIOS
+10.6.1. A contratação vitalícia é uma licença de uso do plano Scale na opção de redes escolhida, por pagamento único e sem renovação automática. Não representa compra da propriedade intelectual da plataforma.
 
-10.6.2. A continuidade do acesso ao plano vitalício está condicionada, cumulativamente, a: (i) permanência do CNPJ 55.824.986/0001-06 ativo e regular perante a Receita Federal; (ii) manutenção da RATOEIRA ADS sob propriedade do referido CNPJ, sendo que qualquer transferência de titularidade, aquisição, fusão ou incorporação da plataforma ou de seu controle societário torna o plano vitalício automaticamente insubsistente, sem gerar direito a reembolso ou indenização; e (iii) situação econômico-financeira regular da empresa.
-
-10.6.3. Em caso de transferência de controle, aquisição ou qualquer operação societária que implique mudança na titularidade da plataforma, os contratos de planos regulares (mensais, semestrais e anuais) serão automaticamente cedidos ao novo controlador, independentemente de notificação ou anuência de VOCÊ, garantida a continuidade do serviço pelo período já contratado e pago. Os planos vitalícios não serão transferidos ao novo controlador, encerrando-se automaticamente na data da transferência.
+10.6.2. O acesso vitalício observa os limites do Scale, as regras de uso deste Termo e a disponibilidade do serviço. Mudanças societárias, descontinuação do serviço ou outras alterações relevantes serão tratadas conforme a oferta contratada e a legislação aplicável; não há encerramento automático do acesso apenas por mudança de controle societário.
 
 11. DAS DISPOSIÇÕES GERAIS
 11.1. VOCÊ não poderá ceder, transferir ou sublicenciar, total ou parcialmente, os direitos e obrigações decorrentes deste Termo a terceiros, salvo mediante autorização expressa e por escrito da RATOEIRA ADS.

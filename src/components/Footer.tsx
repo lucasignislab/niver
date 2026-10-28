@@ -50,7 +50,7 @@ function Footer() {
                <ul className="space-y-2 text-sm font-bold">
                  <li><a href="/termos-de-uso" className="hover:text-orange-500 transition-colors">Termos de Uso ADS</a></li>
                  <li><a href="/termos-de-uso-ratoeira-pages" className="hover:text-orange-500 transition-colors">Termos de Uso PAGES</a></li>
-                 <li><a href="/termos-de-uso-ratoeira-combo-ads-pages" className="hover:text-orange-500 transition-colors">Termos de Uso COMBO</a></li>
+                 <li><a href="/termos-de-uso-ratoeira-combo-ads-pages" className="hover:text-orange-500 transition-colors">Termos de Uso HUB</a></li>
                  <li><a href="/politica-de-privacidade" className="hover:text-orange-500 transition-colors">Política de Privacidade</a></li>
                </ul>
             </div>
