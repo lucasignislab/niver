@@ -48,6 +48,10 @@ const speakers = [
 
 <style>
   .speaker-card { flex: 0 0 230px; }
+  @media (min-width: 1024px) {
+    .speaker-card { flex-basis: calc((100% - 3rem) / 4); }
+    .speaker-card:nth-child(n + 5) { flex-basis: calc((100% - 4rem) / 5); }
+  }
   @media (max-width: 420px) {
     .speaker-card { flex-basis: 100%; }
   }
