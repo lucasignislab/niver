@@ -1,7 +1,7 @@
 export type CampaignStatus = "upcoming" | "active" | "ended";
 
 const productionLots = [
-  { start: "2026-10-29T20:00:00-03:00", end: "31/10", discount: 35, coupon: "BLACK35" },
+  { start: "2026-10-29T21:00:00-03:00", end: "31/10", discount: 35, coupon: "BLACK35" },
   { start: "2026-11-01T00:00:00-03:00", end: "08/11", discount: 30, coupon: "BLACK30" },
   { start: "2026-11-09T00:00:00-03:00", end: "15/11", discount: 27, coupon: "BLACK27" },
   { start: "2026-11-16T00:00:00-03:00", end: "22/11", discount: 25, coupon: "BLACK25" },
